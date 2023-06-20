@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "581104884832",
+    "project_id": "tracking-system-c87dd",
+    "storage_bucket": "tracking-system-c87dd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:581104884832:android:6f94e88d7f01d38e413705",
+        "android_client_info": {
+          "package_name": "com.app.shared.expense"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "581104884832-68giqiig01m51hv9qki90ch4a8h5aode.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDUJZNJKZPWn6foH7Idcg4mXYvbdP6Ft6E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "581104884832-68giqiig01m51hv9qki90ch4a8h5aode.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
