@@ -1,5 +1,5 @@
+import 'package:expense_manager/core/layouts.dart';
 import 'package:flutter/material.dart';
-import 'core/router.dart';
 import 'core/theme.dart';
 
 void main() {
@@ -12,7 +12,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: Theming.theme,
-      onGenerateRoute: Navigation.generateRoute,
+      home: Layout(),
     );
   }
 }
