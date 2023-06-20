@@ -1,4 +1,7 @@
+import 'package:expense_manager/screens/add.dart';
 import 'package:expense_manager/screens/home.dart';
+import 'package:expense_manager/screens/insights.dart';
+import 'package:expense_manager/screens/settings.dart';
 import 'package:flutter/material.dart';
 
 class Navigation {
@@ -8,6 +11,12 @@ class Navigation {
     switch (settings.name) {
       case Routes.home:
         return PageRouteBuilder(pageBuilder: (_, __, ___) => Home());
+      case Routes.settings:
+        return PageRouteBuilder(pageBuilder: (_, __, ___) => Settings());
+      case Routes.insights:
+        return PageRouteBuilder(pageBuilder: (_, __, ___) => Insights());
+      case Routes.add:
+        return PageRouteBuilder(pageBuilder: (_, __, ___) => AddExpense());
       default:
         return PageRouteBuilder(pageBuilder: (_, __, ___) => Placeholder());
     }
@@ -22,4 +31,7 @@ class Navigation {
 
 class Routes {
   static const String home = Home.id;
+  static const String insights = Insights.id;
+  static const String settings = Settings.id;
+  static const String add = AddExpense.id;
 }
