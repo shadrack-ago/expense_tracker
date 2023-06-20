@@ -30,10 +30,7 @@ class Layout extends StatelessWidget {
         ),
         body: LayoutBuilder(builder: (context, constraints) {
           if (Breakpoints.of(context).isMobile()) {
-            return Navigator(
-              key: Navigation.router,
-              onGenerateRoute: Navigation.generateRoute,
-            );
+            return Navigation.navigator;
           }
           return Row(
             children: [
@@ -45,12 +42,7 @@ class Layout extends StatelessWidget {
                 NavigationRailDestination(
                     icon: Icon(Icons.settings), label: Text('Settings')),
               ], selectedIndex: 0),
-              Expanded(
-                child: Navigator(
-                  key: Navigation.router,
-                  onGenerateRoute: Navigation.generateRoute,
-                ),
-              )
+              Expanded(child: Navigation.navigator)
             ],
           );
         }),

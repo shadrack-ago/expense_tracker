@@ -12,6 +12,12 @@ class Navigation {
         return PageRouteBuilder(pageBuilder: (_, __, ___) => Placeholder());
     }
   }
+
+  static Navigator navigator = Navigator(
+    key: Navigation.router,
+    initialRoute: Routes.home,
+    onGenerateRoute: Navigation.generateRoute,
+  );
 }
 
 class Routes {
