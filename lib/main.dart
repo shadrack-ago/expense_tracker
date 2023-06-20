@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:scoped_model/scoped_model.dart';
+import 'core/router.dart';
+import 'core/theme.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -9,6 +10,9 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Placeholder();
+    return MaterialApp(
+      theme: Theming.theme,
+      onGenerateRoute: Navigation.generateRoute,
+    );
   }
 }
