@@ -10,15 +10,19 @@ class Navigation {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
       case Routes.home:
-        return PageRouteBuilder(pageBuilder: (_, __, ___) => Home());
+        return PageRouteBuilder(
+            settings: settings, pageBuilder: (_, __, ___) => Home());
       case Routes.settings:
         return PageRouteBuilder(pageBuilder: (_, __, ___) => Settings());
       case Routes.insights:
-        return PageRouteBuilder(pageBuilder: (_, __, ___) => Insights());
+        return PageRouteBuilder(
+            settings: settings, pageBuilder: (_, __, ___) => Insights());
       case Routes.add:
-        return PageRouteBuilder(pageBuilder: (_, __, ___) => AddExpense());
+        return PageRouteBuilder(
+            settings: settings, pageBuilder: (_, __, ___) => AddExpense());
       default:
-        return PageRouteBuilder(pageBuilder: (_, __, ___) => Placeholder());
+        return PageRouteBuilder(
+            settings: settings, pageBuilder: (_, __, ___) => Placeholder());
     }
   }
 
