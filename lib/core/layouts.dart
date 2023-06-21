@@ -14,7 +14,18 @@ class Breakpoints {
   bool isMobile() => MediaQuery.of(_context).size.shortestSide <= handset;
 }
 
-class FormFactor {}
+class MenuItem {
+  String name;
+  IconData icon;
+  String route;
+  MenuItem({required this.name, required this.icon, required this.route});
+
+  static List<MenuItem> items = [
+    MenuItem(name: 'Home', icon: Icons.home_max_rounded, route: Routes.home),
+    MenuItem(name: 'Insights', icon: Icons.insights, route: Routes.insights),
+    MenuItem(name: 'Settings', icon: Icons.settings, route: Routes.settings),
+  ];
+}
 
 class Layout extends StatelessWidget {
   const Layout({super.key});
@@ -34,27 +45,29 @@ class Layout extends StatelessWidget {
           }
           return Row(
             children: [
-              NavigationRail(destinations: [
-                NavigationRailDestination(
-                    icon: Icon(Icons.home_max_rounded), label: Text('Home')),
-                NavigationRailDestination(
-                    icon: Icon(Icons.insights), label: Text('Insights')),
-                NavigationRailDestination(
-                    icon: Icon(Icons.settings), label: Text('Settings')),
-              ], selectedIndex: 0),
+              NavigationRail(
+                selectedIndex: 0,
+                onDestinationSelected: (index) => Navigation.router.currentState
+                    ?.pushNamed(MenuItem.items[index].route),
+                destinations: MenuItem.items
+                    .map((item) => NavigationRailDestination(
+                        icon: Icon(item.icon), label: Text(item.name)))
+                    .toList(),
+              ),
               Expanded(child: Navigation.navigator)
             ],
           );
         }),
         bottomNavigationBar: Breakpoints.of(context).isMobile()
-            ? BottomNavigationBar(items: [
-                BottomNavigationBarItem(
-                    icon: Icon(Icons.home_max_rounded), label: 'Home'),
-                BottomNavigationBarItem(
-                    icon: Icon(Icons.insights), label: 'Insights'),
-                BottomNavigationBarItem(
-                    icon: Icon(Icons.settings), label: 'Settings'),
-              ])
+            ? BottomNavigationBar(
+                currentIndex: 0,
+                onTap: (index) => Navigation.router.currentState
+                    ?.pushNamed(MenuItem.items[index].route),
+                items: MenuItem.items
+                    .map((item) => BottomNavigationBarItem(
+                        icon: Icon(item.icon), label: item.name))
+                    .toList(),
+              )
             : null,
       ),
     );
