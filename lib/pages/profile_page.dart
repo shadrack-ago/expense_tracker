@@ -3,7 +3,6 @@ import 'package:shared_expenses/theme/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
 import 'package:shared_expenses/scoped_model/expenseScope.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:file_picker/file_picker.dart';
 import 'dart:io';
 import 'package:path_provider/path_provider.dart';
@@ -227,38 +226,9 @@ class _ProfilePageState extends State<ProfilePage> {
             ],
           ),
         ),
-        Expanded(child: Container()),
-        Column(
-          children: [
-            RichText(
-              text: TextSpan(
-                style: DefaultTextStyle.of(context).style,
-                children: <TextSpan>[
-                  TextSpan(
-                    text: 'Copyright \u00a9',
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                  ),
-                  TextSpan(text: " 2021, "),
-                  TextSpan(
-                    text: 'Koushik Naskar',
-                    style: TextStyle(color: Colors.blueAccent.shade700),
-                    recognizer: TapGestureRecognizer()..onTap = _launchURL,
-                  ),
-                ],
-              ),
-            ),
-            SizedBox(
-              height: 13,
-            )
-          ],
-        ),
+        Expanded(child: Container())
       ],
     );
-  }
-
-  var _url = 'https://github.com/Koushikphy/Shared-Expense-Manager';
-  void _launchURL() async {
-    if (!await launch(_url)) throw 'Could not launch $_url';
   }
 
   bool notContains(List<String> source, List<String> dest) {
