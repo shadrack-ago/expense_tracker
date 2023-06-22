@@ -11,6 +11,7 @@ class Navigation {
   static GlobalKey<NavigatorState> key = GlobalKey();
   final GoRouter router = GoRouter(
     navigatorKey: key,
+    initialLocation: Routes.home.path,
     routes: [
       ShellRoute(
         builder: (context, state, child) => Layout(child: child),
@@ -57,7 +58,7 @@ class Navigation {
 }
 
 class Routes {
-  static _Route home = _Route(name: Home.id, path: '/', page: Home());
+  static _Route home = _Route(name: Home.id, path: '/${Home.id}', page: Home());
   static _Route insights =
       _Route(name: Insights.id, path: '/${Insights.id}', page: Insights());
   static _Route settings =

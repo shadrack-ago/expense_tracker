@@ -1,4 +1,5 @@
-import 'package:expense_manager/router/index.dart';
+import '../router/index.dart';
+import '../utils/extensions/index.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -41,7 +42,8 @@ class Layout extends StatelessWidget {
       maintainBottomViewPadding: true,
       child: Scaffold(
         appBar: AppBar(
-          title: Text('${GoRouter.of(context).location}'),
+          title: Text(
+              '${GoRouter.of(context).location.substring(1).toCapitalized()}'),
           actions: [CircleAvatar()],
         ),
         body: LayoutBuilder(builder: (context, constraints) {
