@@ -1,6 +1,6 @@
-import 'package:expense_manager/core/layouts.dart';
+import 'package:expense_manager/layouts/index.dart';
 import 'package:flutter/material.dart';
-import 'core/theme.dart';
+import 'theme/index.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();

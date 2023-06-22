@@ -1,4 +1,4 @@
-import 'package:expense_manager/core/router.dart';
+import 'package:expense_manager/router/index.dart';
 import 'package:flutter/material.dart';
 
 class Breakpoints {
