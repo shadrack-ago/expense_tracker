@@ -1,10 +1,11 @@
-import 'package:expense_manager/layouts/index.dart';
-import 'package:expense_manager/router/index.dart';
+import 'router/index.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_web_plugins/url_strategy.dart';
 import 'theme/index.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
+  usePathUrlStrategy();
   runApp(MyApp());
 }
 
