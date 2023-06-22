@@ -7,8 +7,30 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Center(
-      child: Text(id),
+    return SingleChildScrollView(
+      child: Column(
+        mainAxisSize: MainAxisSize.max,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [ExpenseHero(), ExpenseList()],
+      ),
     );
+  }
+}
+
+class ExpenseHero extends StatelessWidget {
+  const ExpenseHero({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Placeholder();
+  }
+}
+
+class ExpenseList extends StatelessWidget {
+  const ExpenseList({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Placeholder();
   }
 }
