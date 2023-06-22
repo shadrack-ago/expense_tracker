@@ -1,4 +1,5 @@
 import 'package:expense_manager/layouts/index.dart';
+import 'package:expense_manager/router/index.dart';
 import 'package:flutter/material.dart';
 import 'theme/index.dart';
 
@@ -10,9 +11,9 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
       theme: Theming.theme,
-      home: Layout(),
+      routerConfig: Navigation().router,
     );
   }
 }
