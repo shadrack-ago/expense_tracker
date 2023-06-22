@@ -36,7 +36,8 @@ class Layout extends StatelessWidget {
       maintainBottomViewPadding: true,
       child: Scaffold(
         appBar: AppBar(
-          title: Text('${ModalRoute.of(context)?.settings.name}'),
+          // TODO: Implement dynamic page title
+          title: Text('Expense Manager'),
           actions: [CircleAvatar()],
         ),
         body: LayoutBuilder(builder: (context, constraints) {
