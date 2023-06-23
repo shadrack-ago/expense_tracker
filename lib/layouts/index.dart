@@ -53,7 +53,8 @@ class Layout extends StatelessWidget {
           return Row(
             children: [
               NavigationRail(
-                selectedIndex: 0,
+                selectedIndex: MenuItem.items.indexWhere((element) =>
+                    element.route == GoRouter.of(context).location),
                 onDestinationSelected: (index) =>
                     context.go(MenuItem.items[index].route),
                 destinations: MenuItem.items
@@ -67,7 +68,8 @@ class Layout extends StatelessWidget {
         }),
         bottomNavigationBar: Breakpoints.of(context).isMobile()
             ? BottomNavigationBar(
-                currentIndex: 0,
+                currentIndex: MenuItem.items.indexWhere((element) =>
+                    element.route == GoRouter.of(context).location),
                 onTap: (index) => context.go(MenuItem.items[index].route),
                 items: MenuItem.items
                     .map((item) => BottomNavigationBarItem(
