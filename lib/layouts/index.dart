@@ -40,10 +40,9 @@ class Layout extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       maintainBottomViewPadding: true,
+      minimum: EdgeInsets.symmetric(horizontal: 12),
       child: Scaffold(
         appBar: AppBar(
-          title: Text(
-              '${GoRouter.of(context).location.substring(1).toCapitalized()}'),
           actions: [CircleAvatar()],
         ),
         body: LayoutBuilder(builder: (context, constraints) {
@@ -57,7 +56,6 @@ class Layout extends StatelessWidget {
                     element.route == GoRouter.of(context).location),
                 onDestinationSelected: (index) =>
                     context.go(MenuItem.items[index].route),
-                labelType: NavigationRailLabelType.selected,
                 destinations: MenuItem.items
                     .map(
                       (item) => NavigationRailDestination(
@@ -83,7 +81,6 @@ class Layout extends StatelessWidget {
                 currentIndex: MenuItem.items.indexWhere((element) =>
                     element.route == GoRouter.of(context).location),
                 onTap: (index) => context.go(MenuItem.items[index].route),
-                showUnselectedLabels: false,
                 items: MenuItem.items
                     .map(
                       (item) => BottomNavigationBarItem(
