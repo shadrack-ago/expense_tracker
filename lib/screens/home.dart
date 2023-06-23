@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../layouts/index.dart';
+
 class Home extends StatelessWidget {
   const Home({super.key});
 
@@ -377,11 +379,53 @@ class Home extends StatelessWidget {
 }
 
 class ExpenseHero extends StatelessWidget {
-  const ExpenseHero({super.key});
+  ExpenseHero({super.key});
+
+  Widget textHero(BuildContext context) => Text(
+        'Track and plan your expenditure',
+        style: Theme.of(context).textTheme.displaySmall,
+        textAlign: TextAlign.center,
+      );
+  final Widget tracker = Card(
+    child: Column(
+      children: [
+        DefaultTabController(
+          length: 3,
+          child: TabBar(
+            tabs: [
+              Tab(
+                text: 'Weekly',
+              ),
+              Tab(
+                text: 'Monthly',
+              ),
+              Tab(
+                text: 'Yearly',
+              ),
+            ],
+          ),
+        ),
+      ],
+    ),
+  );
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        if (Breakpoints.of(context).isMobile()) {
+          return Column(
+            children: [textHero(context), tracker],
+          );
+        }
+        return Row(
+          children: [
+            Expanded(child: textHero(context)),
+            Expanded(child: tracker)
+          ],
+        );
+      },
+    );
   }
 }
 
