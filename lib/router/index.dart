@@ -5,8 +5,6 @@ import '../screens/settings.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import '../screens/add.dart';
-
 class Navigation {
   static GlobalKey<NavigatorState> key = GlobalKey();
   final GoRouter router = GoRouter(
@@ -35,7 +33,6 @@ class Navigation {
   );
 
   static List<_Route> routes = [
-    Routes.add,
     Routes.home,
     Routes.insights,
     Routes.settings
@@ -63,8 +60,6 @@ class Routes {
       _Route(name: Insights.id, path: '/${Insights.id}', page: Insights());
   static _Route settings =
       _Route(name: Settings.id, path: '/${Settings.id}', page: Settings());
-  static _Route add =
-      _Route(name: AddExpense.id, path: '/${AddExpense.id}', page: Insights());
 }
 
 class _Route {
