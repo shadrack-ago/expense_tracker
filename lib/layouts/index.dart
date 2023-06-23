@@ -57,9 +57,21 @@ class Layout extends StatelessWidget {
                     element.route == GoRouter.of(context).location),
                 onDestinationSelected: (index) =>
                     context.go(MenuItem.items[index].route),
+                labelType: NavigationRailLabelType.selected,
                 destinations: MenuItem.items
-                    .map((item) => NavigationRailDestination(
-                        icon: Icon(item.icon), label: Text(item.name)))
+                    .map(
+                      (item) => NavigationRailDestination(
+                        icon: Tooltip(
+                          verticalOffset: -13,
+                          margin: EdgeInsets.only(left: 60),
+                          triggerMode: TooltipTriggerMode.longPress,
+                          waitDuration: Duration(seconds: 1),
+                          child: Icon(item.icon),
+                          message: item.name,
+                        ),
+                        label: Text(item.name),
+                      ),
+                    )
                     .toList(),
               ),
               Expanded(child: child)
@@ -71,9 +83,15 @@ class Layout extends StatelessWidget {
                 currentIndex: MenuItem.items.indexWhere((element) =>
                     element.route == GoRouter.of(context).location),
                 onTap: (index) => context.go(MenuItem.items[index].route),
+                showUnselectedLabels: false,
                 items: MenuItem.items
-                    .map((item) => BottomNavigationBarItem(
-                        icon: Icon(item.icon), label: item.name))
+                    .map(
+                      (item) => BottomNavigationBarItem(
+                        icon: Icon(item.icon),
+                        label: item.name,
+                        tooltip: item.name,
+                      ),
+                    )
                     .toList(),
               )
             : null,
