@@ -1,3 +1,4 @@
+import 'package:expense_manager/layouts/index.dart';
 import 'package:flutter/material.dart';
 
 class Insights extends StatelessWidget {
@@ -5,12 +6,12 @@ class Insights extends StatelessWidget {
 
   static const String id = 'insights';
 
-  PieChart buildChart(PieChartData data) {
-    return PieChart(
-      swapAnimationDuration: Duration(milliseconds: 150), // Optional
-      swapAnimationCurve: Curves.linear, // Optiona
-      data,
-    );
+  List<Widget> get graphs {
+    return [
+      Expanded(
+          child: Card(child: Column(children: [Text('Expenditure habits')]))),
+      Expanded(child: Card(child: Column(children: [Text('Saving habits')])))
+    ];
   }
 
   @override
@@ -20,9 +21,12 @@ class Insights extends StatelessWidget {
       children: [
         Expanded(
             flex: 1,
-            child: Container(
-              color: Colors.amber,
-            )),
+          child: Breakpoints.of(context).isMobile()
+              ? Column(
+                  children: graphs,
+                )
+              : Row(children: graphs),
+        ),
         SizedBox(height: 10),
         Expanded(
           flex: 2,
