@@ -4,7 +4,7 @@ import 'package:flutter/services.dart';
 class Theming {
   static ThemeData theme = ThemeData(
     useMaterial3: true,
-    colorSchemeSeed: Colors.green,
+    colorSchemeSeed: Colors.amber,
     bottomNavigationBarTheme: BottomNavigationBarThemeData(
       showUnselectedLabels: false,
       elevation: 0,
