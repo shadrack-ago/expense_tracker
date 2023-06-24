@@ -44,6 +44,15 @@ class Layout extends StatelessWidget {
         appBar: AppBar(
           actions: [CircleAvatar()],
         ),
+        floatingActionButton: GoRouter.of(context).location == Routes.home.path
+            ? FloatingActionButton.extended(
+                label: Text(
+                  'Add Expense',
+                ),
+                icon: Icon(Icons.add_rounded),
+                onPressed: () {},
+              )
+            : null,
         body: LayoutBuilder(builder: (context, constraints) {
           if (Breakpoints.of(context).isMobile()) {
             return child;

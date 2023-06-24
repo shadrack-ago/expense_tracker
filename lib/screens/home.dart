@@ -5,8 +5,7 @@ class Home extends StatelessWidget {
 
   static const String id = 'home';
 
-  List<String> items = List<String>.generate(100, (i) => 'Item $i');
-  // List<String> items = [];
+  final List<String> items = List<String>.generate(100, (i) => 'Item $i');
 
   @override
   Widget build(BuildContext context) {
