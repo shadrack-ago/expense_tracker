@@ -12,9 +12,11 @@ class Home extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        Expanded(flex: 1, child: Placeholder()),
+        SizedBox(height: 20),
         Text(
           'Expenses',
-          style: Theme.of(context).textTheme.headlineMedium,
+          style: Theme.of(context).textTheme.headlineSmall,
           textAlign: TextAlign.center,
         ),
         SizedBox(height: 20),
