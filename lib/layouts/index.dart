@@ -39,9 +39,7 @@ class Layout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        actions: [CircleAvatar()],
-      ),
+      appBar: AppBar(),
       floatingActionButton: GoRouter.of(context).location == Routes.home.path
           ? FloatingActionButton.extended(
               label: Text(
