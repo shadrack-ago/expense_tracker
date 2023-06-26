@@ -21,7 +21,7 @@ class Navigation {
                 name: r.name,
                 pageBuilder: (context, state) => CustomTransitionPage(
                   key: state.pageKey,
-                  child: r.page,
+                  child: Scaffold(body: r.page),
                   transitionsBuilder: transition,
                   transitionDuration: transitionDuration,
                 ),
