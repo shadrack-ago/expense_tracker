@@ -65,14 +65,11 @@ class Home extends StatelessWidget {
               ? Column(
                   mainAxisSize: MainAxisSize.max,
                   children: [
-                    Expanded(
-                        flex: 1,
-                        child: Text(
-                          'Daily Expenses Tracker',
-                          style: Theme.of(context).textTheme.headlineMedium,
-                        )),
-                    Expanded(
-                        child: DefaultTabController(
+                    Text(
+                      'Daily Expenses Tracker',
+                      style: Theme.of(context).textTheme.headlineMedium,
+                    ),
+                    DefaultTabController(
                       length: 2,
                       child: Card(
                         child: Padding(
@@ -96,7 +93,8 @@ class Home extends StatelessWidget {
                                 ),
                               ]),
                               SizedBox(height: 12),
-                              Expanded(
+                              AspectRatio(
+                                aspectRatio: 16 / 5,
                                 child: TabBarView(
                                   children: [
                                     Heatmap(heatmapData: _initExampleData),
@@ -108,7 +106,7 @@ class Home extends StatelessWidget {
                           ),
                         ),
                       ),
-                    ))
+                    )
                   ],
                 )
               : Row(
@@ -168,7 +166,7 @@ class Home extends StatelessWidget {
           ),
           SizedBox(height: 20),
           SizedBox(
-            height: 600,
+            height: 800,
             child: items.length > 0
                 ? ListView.separated(
                     physics: BouncingScrollPhysics(),
