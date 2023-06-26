@@ -24,41 +24,98 @@ class Insights extends StatelessWidget {
             style: Theme.of(context).textTheme.titleLarge,
             textAlign: TextAlign.center,
           ),
-          Breakpoints.of(context).isMobile()
-              ? Column(
-                  children: [
-                    Card(
-                      child: AspectRatio(
-                        aspectRatio: 16 / 10,
-                        child: Column(children: [Text('Expenditure habits')]),
-                      ),
-                    ),
-                    Card(
-                      child: AspectRatio(
-                        aspectRatio: 16 / 10,
-                        child: Column(children: [Text('Saving habits')]),
-                      ),
-                    ),
-                  ],
-                )
-              : Row(children: [
-                  Expanded(
-                    child: Card(
-                      child: AspectRatio(
-                        aspectRatio: 16 / 10,
-                        child: Column(children: [Text('Expenditure habits')]),
+          if (Breakpoints.of(context).isMobile())
+            Column(
+              children: [
+                Card(
+                  child: AspectRatio(
+                    aspectRatio: 16 / 10,
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Expenditure habits',
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleSmall!
+                                .copyWith(fontWeight: FontWeight.w600),
+                          )
+                        ],
                       ),
                     ),
                   ),
-                  Expanded(
-                    child: Card(
-                      child: AspectRatio(
-                        aspectRatio: 16 / 10,
-                        child: Column(children: [Text('Saving habits')]),
+                ),
+                Card(
+                  child: AspectRatio(
+                    aspectRatio: 16 / 10,
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Saving habits',
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleSmall!
+                                .copyWith(fontWeight: FontWeight.w600),
+                          )
+                        ],
                       ),
                     ),
                   ),
-                ]),
+                ),
+              ],
+            )
+          else
+            Row(children: [
+              Expanded(
+                child: Card(
+                  child: AspectRatio(
+                    aspectRatio: 16 / 10,
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Expenditure habits',
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleSmall!
+                                .copyWith(fontWeight: FontWeight.w600),
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              Expanded(
+                child: Card(
+                  child: AspectRatio(
+                    aspectRatio: 16 / 10,
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Saving habits',
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleSmall!
+                                .copyWith(fontWeight: FontWeight.w600),
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ]),
           SizedBox(height: 10),
           Text(
             'Spreadsheet',
