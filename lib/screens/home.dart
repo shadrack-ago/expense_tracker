@@ -57,12 +57,11 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Expanded(
-          flex: 1,
-          child: Breakpoints.of(context).isMobile()
+    return SingleChildScrollView(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Breakpoints.of(context).isMobile()
               ? Column(
                   mainAxisSize: MainAxisSize.max,
                   children: [
@@ -161,17 +160,14 @@ class Home extends StatelessWidget {
                     ))
                   ],
                 ),
-        ),
-        SizedBox(height: 20),
-        Text(
-          'Expenses',
-          style: Theme.of(context).textTheme.titleLarge,
-          textAlign: TextAlign.center,
-        ),
-        SizedBox(height: 20),
-        Expanded(
-          flex: 2,
-          child: items.length > 0
+          SizedBox(height: 20),
+          Text(
+            'Expenses',
+            style: Theme.of(context).textTheme.titleLarge,
+            textAlign: TextAlign.center,
+          ),
+          SizedBox(height: 20),
+          items.length > 0
               ? ListView.separated(
                   physics: BouncingScrollPhysics(),
                   itemCount: items.length,
@@ -187,8 +183,8 @@ class Home extends StatelessWidget {
                   },
                 )
               : Center(child: noExpenseDefault(context)),
-        ),
-      ],
+        ],
+      ),
     );
   }
 
