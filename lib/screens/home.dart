@@ -167,22 +167,25 @@ class Home extends StatelessWidget {
             textAlign: TextAlign.center,
           ),
           SizedBox(height: 20),
-          items.length > 0
-              ? ListView.separated(
-                  physics: BouncingScrollPhysics(),
-                  itemCount: items.length,
-                  separatorBuilder: (context, index) => SizedBox(
-                    height: 10,
-                  ),
-                  itemBuilder: (context, index) {
-                    return Card(
-                      child: ListTile(
-                        title: Text(items[index]),
-                      ),
-                    );
-                  },
-                )
-              : Center(child: noExpenseDefault(context)),
+          SizedBox(
+            height: 600,
+            child: items.length > 0
+                ? ListView.separated(
+                    physics: BouncingScrollPhysics(),
+                    itemCount: items.length,
+                    separatorBuilder: (context, index) => SizedBox(
+                      height: 10,
+                    ),
+                    itemBuilder: (context, index) {
+                      return Card(
+                        child: ListTile(
+                          title: Text(items[index]),
+                        ),
+                      );
+                    },
+                  )
+                : Center(child: noExpenseDefault(context)),
+          ),
         ],
       ),
     );
