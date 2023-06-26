@@ -10,6 +10,7 @@ environment:
   sdk: "^3.0.0"
 
 dependencies:
+  easy_web_view: ^1.6.0
   firebase_core: ^2.14.0
   fl_heatmap: ^0.3.0
   flutter:
