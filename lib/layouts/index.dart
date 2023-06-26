@@ -1,6 +1,7 @@
-import '../router/index.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+
+import '../router/index.dart';
 
 class Breakpoints {
   double tablet = 800;
@@ -37,70 +38,66 @@ class Layout extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      maintainBottomViewPadding: true,
-      minimum: EdgeInsets.symmetric(horizontal: 12),
-      child: Scaffold(
-        appBar: AppBar(
-          actions: [CircleAvatar()],
-        ),
-        floatingActionButton: GoRouter.of(context).location == Routes.home.path
-            ? FloatingActionButton.extended(
-                label: Text(
-                  'Add Expense',
-                ),
-                icon: Icon(Icons.add_rounded),
-                onPressed: () {},
-              )
-            : null,
-        body: LayoutBuilder(builder: (context, constraints) {
-          if (Breakpoints.of(context).isMobile()) {
-            return child;
-          }
-          return Row(
-            children: [
-              NavigationRail(
-                selectedIndex: MenuItem.items.indexWhere((element) =>
-                    element.route == GoRouter.of(context).location),
-                onDestinationSelected: (index) =>
-                    context.go(MenuItem.items[index].route),
-                destinations: MenuItem.items
-                    .map(
-                      (item) => NavigationRailDestination(
-                        icon: Tooltip(
-                          verticalOffset: -13,
-                          margin: EdgeInsets.only(left: 60),
-                          triggerMode: TooltipTriggerMode.longPress,
-                          waitDuration: Duration(seconds: 1),
-                          child: Icon(item.icon),
-                          message: item.name,
-                        ),
-                        label: Text(item.name),
-                      ),
-                    )
-                    .toList(),
-              ),
-              Expanded(child: child)
-            ],
-          );
-        }),
-        bottomNavigationBar: Breakpoints.of(context).isMobile()
-            ? BottomNavigationBar(
-                currentIndex: MenuItem.items.indexWhere((element) =>
-                    element.route == GoRouter.of(context).location),
-                onTap: (index) => context.go(MenuItem.items[index].route),
-                items: MenuItem.items
-                    .map(
-                      (item) => BottomNavigationBarItem(
-                        icon: Icon(item.icon),
-                        label: item.name,
-                        tooltip: item.name,
-                      ),
-                    )
-                    .toList(),
-              )
-            : null,
+    return Scaffold(
+      appBar: AppBar(
+        actions: [CircleAvatar()],
       ),
+      floatingActionButton: GoRouter.of(context).location == Routes.home.path
+          ? FloatingActionButton.extended(
+              label: Text(
+                'Add Expense',
+              ),
+              icon: Icon(Icons.add_rounded),
+              onPressed: () {},
+            )
+          : null,
+      body: LayoutBuilder(builder: (context, constraints) {
+        if (Breakpoints.of(context).isMobile()) {
+          return child;
+        }
+        return Row(
+          children: [
+            NavigationRail(
+              selectedIndex: MenuItem.items.indexWhere(
+                  (element) => element.route == GoRouter.of(context).location),
+              onDestinationSelected: (index) =>
+                  context.go(MenuItem.items[index].route),
+              destinations: MenuItem.items
+                  .map(
+                    (item) => NavigationRailDestination(
+                      icon: Tooltip(
+                        verticalOffset: -13,
+                        margin: EdgeInsets.only(left: 60),
+                        triggerMode: TooltipTriggerMode.longPress,
+                        waitDuration: Duration(seconds: 1),
+                        child: Icon(item.icon),
+                        message: item.name,
+                      ),
+                      label: Text(item.name),
+                    ),
+                  )
+                  .toList(),
+            ),
+            Expanded(child: child)
+          ],
+        );
+      }),
+      bottomNavigationBar: Breakpoints.of(context).isMobile()
+          ? BottomNavigationBar(
+              currentIndex: MenuItem.items.indexWhere(
+                  (element) => element.route == GoRouter.of(context).location),
+              onTap: (index) => context.go(MenuItem.items[index].route),
+              items: MenuItem.items
+                  .map(
+                    (item) => BottomNavigationBarItem(
+                      icon: Icon(item.icon),
+                      label: item.name,
+                      tooltip: item.name,
+                    ),
+                  )
+                  .toList(),
+            )
+          : null,
     );
   }
 }
