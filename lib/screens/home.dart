@@ -143,7 +143,8 @@ class Home extends StatelessWidget {
                                 ),
                               ]),
                               SizedBox(height: 12),
-                              Expanded(
+                              AspectRatio(
+                                aspectRatio: 16 / 4,
                                 child: TabBarView(
                                   children: [
                                     Heatmap(heatmapData: _initExampleData),
