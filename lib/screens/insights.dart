@@ -1,3 +1,4 @@
+import 'package:easy_web_view/easy_web_view.dart';
 import 'package:expense_manager/layouts/index.dart';
 import 'package:flutter/material.dart';
 
@@ -14,13 +15,25 @@ class Insights extends StatelessWidget {
     ];
   }
 
+
+  static ValueKey webViewKey = const ValueKey('key_0');
+
+  final String src =
+      'https://docs.google.com/spreadsheets/d/e/2PACX-1vSGbFtRPwKfGW2rxaWOo8d6zONVIaSTYDbrTRboCNIffzq6bm4bFNof5Rax5Z3QQWepAwZ4tbslEQLY/pubhtml';
+
   @override
   Widget build(BuildContext context) {
     return Column(
       mainAxisSize: MainAxisSize.max,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        Text(
+          'Breakdown',
+          style: Theme.of(context).textTheme.titleLarge,
+          textAlign: TextAlign.center,
+        ),
         Expanded(
-            flex: 1,
+          flex: 1,
           child: Breakpoints.of(context).isMobile()
               ? Column(
                   children: graphs,
@@ -28,9 +41,22 @@ class Insights extends StatelessWidget {
               : Row(children: graphs),
         ),
         SizedBox(height: 10),
+        Text(
+          'Spreadsheet',
+          style: Theme.of(context).textTheme.titleLarge,
+          textAlign: TextAlign.center,
+        ),
         Expanded(
           flex: 2,
-          child: Placeholder(),
+          child: Card(
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: EasyWebView(
+                key: webViewKey,
+                src: src,
+              ),
+            ),
+          ),
         ),
       ],
     );
