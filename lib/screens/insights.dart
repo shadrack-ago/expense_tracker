@@ -7,15 +7,6 @@ class Insights extends StatelessWidget {
 
   static const String id = 'insights';
 
-  List<Widget> get graphs {
-    return [
-      Expanded(
-          child: Card(child: Column(children: [Text('Expenditure habits')]))),
-      Expanded(child: Card(child: Column(children: [Text('Saving habits')])))
-    ];
-  }
-
-
   static ValueKey webViewKey = const ValueKey('key_0');
 
   final String src =
@@ -23,42 +14,71 @@ class Insights extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.max,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          'Breakdown',
-          style: Theme.of(context).textTheme.titleLarge,
-          textAlign: TextAlign.center,
-        ),
-        Expanded(
-          flex: 1,
-          child: Breakpoints.of(context).isMobile()
+    return SingleChildScrollView(
+      child: Column(
+        mainAxisSize: MainAxisSize.max,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'Breakdown',
+            style: Theme.of(context).textTheme.titleLarge,
+            textAlign: TextAlign.center,
+          ),
+          Breakpoints.of(context).isMobile()
               ? Column(
-                  children: graphs,
+                  children: [
+                    Card(
+                      child: AspectRatio(
+                        aspectRatio: 16 / 10,
+                        child: Column(children: [Text('Expenditure habits')]),
+                      ),
+                    ),
+                    Card(
+                      child: AspectRatio(
+                        aspectRatio: 16 / 10,
+                        child: Column(children: [Text('Saving habits')]),
+                      ),
+                    ),
+                  ],
                 )
-              : Row(children: graphs),
-        ),
-        SizedBox(height: 10),
-        Text(
-          'Spreadsheet',
-          style: Theme.of(context).textTheme.titleLarge,
-          textAlign: TextAlign.center,
-        ),
-        Expanded(
-          flex: 2,
-          child: Card(
+              : Row(children: [
+                  Expanded(
+                    child: Card(
+                      child: AspectRatio(
+                        aspectRatio: 16 / 10,
+                        child: Column(children: [Text('Expenditure habits')]),
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    child: Card(
+                      child: AspectRatio(
+                        aspectRatio: 16 / 10,
+                        child: Column(children: [Text('Saving habits')]),
+                      ),
+                    ),
+                  ),
+                ]),
+          SizedBox(height: 10),
+          Text(
+            'Spreadsheet',
+            style: Theme.of(context).textTheme.titleLarge,
+            textAlign: TextAlign.center,
+          ),
+          Card(
             child: Padding(
               padding: const EdgeInsets.all(8.0),
-              child: EasyWebView(
-                key: webViewKey,
-                src: src,
+              child: AspectRatio(
+                aspectRatio: 16 / 20,
+                child: EasyWebView(
+                  key: webViewKey,
+                  src: src,
+                ),
               ),
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }
