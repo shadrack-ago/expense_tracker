@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [ChangeNotifierProvider(create: (_) => DataManager())],
       child: MaterialApp.router(
-        theme: Theming.theme,
+        theme: Theming.theme(context),
         routerConfig: Navigation().router,
       ),
     );
