@@ -181,6 +181,8 @@ class Home extends StatelessWidget {
                           return Card(
                             child: ListTile(
                               title: Text(data.expense[index].name),
+                              subtitle: Text(data.expense[index].categoryId),
+                              trailing: Text('Ksh ${data.expense[index].cost}'),
                             ),
                           );
                         },
