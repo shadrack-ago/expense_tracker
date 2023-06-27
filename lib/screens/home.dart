@@ -1,15 +1,15 @@
 import 'dart:math';
 
+import 'package:expense_manager/core/provider/manager.dart';
 import 'package:expense_manager/layouts/index.dart';
 import 'package:fl_heatmap/fl_heatmap.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class Home extends StatelessWidget {
   Home({super.key});
 
   static const String id = 'home';
-
-  final List<String> items = List<String>.generate(100, (i) => 'Item $i');
 
   HeatmapData get _initExampleData {
     const rows = [
@@ -168,22 +168,26 @@ class Home extends StatelessWidget {
           SizedBox(height: 20),
           SizedBox(
             height: 800,
-            child: items.length > 0
-                ? ListView.separated(
-                    physics: BouncingScrollPhysics(),
-                    itemCount: items.length,
-                    separatorBuilder: (context, index) => SizedBox(
-                      height: 10,
-                    ),
-                    itemBuilder: (context, index) {
-                      return Card(
-                        child: ListTile(
-                          title: Text(items[index]),
+            child: Consumer<DataManager>(
+              builder: (context, data, child) {
+                return data.expense.length > 0
+                    ? ListView.separated(
+                        physics: BouncingScrollPhysics(),
+                        itemCount: data.expense.length,
+                        separatorBuilder: (context, index) => SizedBox(
+                          height: 10,
                         ),
-                      );
-                    },
-                  )
-                : Center(child: noExpenseDefault(context)),
+                        itemBuilder: (context, index) {
+                          return Card(
+                            child: ListTile(
+                              title: Text(data.expense[index].name),
+                            ),
+                          );
+                        },
+                      )
+                    : Center(child: noExpenseDefault(context));
+              },
+            ),
           ),
         ],
       ),
