@@ -1,4 +1,4 @@
-import 'package:expense_manager/screens/add.dart';
+import 'package:expense_manager/screens/add/expense.dart';
 import 'package:expense_manager/utils/extensions/index.dart';
 
 import '../layouts/index.dart';
