@@ -53,18 +53,51 @@ class Navigation {
   static Duration transitionDuration = Duration(milliseconds: 250);
 
   static addExpense(BuildContext context) {
-    // if (Breakpoints.of(context).isMobile()) {
-    Navigator.of(context).push(PageRouteBuilder(
-      pageBuilder: (_, __, ___) {
-        return Scaffold(
-          appBar: AppBar(title: Text(AddExpense.id.nomalized())),
-          body: AddExpense(),
-        );
-      },
-      transitionsBuilder: transition,
-      transitionDuration: transitionDuration,
-    ));
-    // }
+    if (Breakpoints.of(context).isMobile()) {
+      Navigator.of(context).push(PageRouteBuilder(
+        pageBuilder: (_, __, ___) {
+          return Scaffold(
+            appBar: AppBar(title: Text(AddExpense.id.nomalized())),
+            body: AddExpense(),
+          );
+        },
+        transitionsBuilder: transition,
+        transitionDuration: transitionDuration,
+      ));
+    } else {
+      showDialog(
+          context: context,
+          builder: (context) {
+            return Center(
+              child: Dialog(
+                child: Padding(
+                  padding: const EdgeInsets.all(8),
+                  child: Column(
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text(
+                              AddExpense.id.nomalized(),
+                              style: Theme.of(context).textTheme.headlineMedium,
+                            ),
+                          ),
+                          IconButton(
+                            onPressed: () => Navigator.of(context).pop(),
+                            icon: const Icon(Icons.close),
+                          )
+                        ],
+                      ),
+                      Expanded(child: AddExpense()),
+                    ],
+                  ),
+                ),
+              ),
+            );
+          });
+    }
   }
 }
 
