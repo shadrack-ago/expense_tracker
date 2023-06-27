@@ -1,9 +1,22 @@
-import 'category.dart';
-
 class Expense {
-  int usage;
-  int budget;
-  ExpenseCategory category;
+  int cost;
+  String name;
+  MetaData meta;
 
-  Expense({required this.budget, required this.category, required this.usage});
+  /// This correlates to the category id.
+  String categoryId;
+
+  Expense({
+    required this.meta,
+    required this.name,
+    required this.categoryId,
+    required this.cost,
+  });
+}
+
+class MetaData {
+  DateTime timeRecorded;
+  String id;
+
+  MetaData({required this.id, required this.timeRecorded});
 }
