@@ -26,7 +26,7 @@ class Navigation {
                   key: state.pageKey,
                   child: Scaffold(
                     body: Padding(
-                      padding: const EdgeInsets.all(10),
+                      padding: const EdgeInsets.all(15),
                       child: r.page,
                     ),
                   ),

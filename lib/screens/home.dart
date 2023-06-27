@@ -70,6 +70,7 @@ class Home extends StatelessWidget {
                       'Daily Expenses Tracker',
                       style: Theme.of(context).textTheme.headlineMedium,
                     ),
+                    SizedBox(height: 10),
                     DefaultTabController(
                       length: 2,
                       child: Card(

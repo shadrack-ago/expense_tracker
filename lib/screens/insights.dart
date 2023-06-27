@@ -73,9 +73,10 @@ class Insights extends StatelessWidget {
         children: [
           Text(
             'Breakdown',
-            style: Theme.of(context).textTheme.titleLarge,
+            style: Theme.of(context).textTheme.titleMedium,
             textAlign: TextAlign.center,
           ),
+          SizedBox(height: 10),
           if (Breakpoints.of(context).isMobile())
             Column(
               children: [
@@ -91,7 +92,7 @@ class Insights extends StatelessWidget {
                             'Expenditure habits',
                             style: Theme.of(context)
                                 .textTheme
-                                .titleSmall!
+                                .labelLarge!
                                 .copyWith(fontWeight: FontWeight.w600),
                           ),
                           Expanded(child: buildChart(_sample)),
@@ -112,7 +113,7 @@ class Insights extends StatelessWidget {
                             'Saving habits',
                             style: Theme.of(context)
                                 .textTheme
-                                .titleSmall!
+                                .labelLarge!
                                 .copyWith(fontWeight: FontWeight.w600),
                           ),
                           Expanded(child: buildChart(_sample)),
@@ -172,12 +173,13 @@ class Insights extends StatelessWidget {
                 ),
               ),
             ]),
-          SizedBox(height: 10),
+          SizedBox(height: 12),
           Text(
             'Spreadsheet',
-            style: Theme.of(context).textTheme.titleLarge,
+            style: Theme.of(context).textTheme.titleMedium,
             textAlign: TextAlign.center,
           ),
+          SizedBox(height: 10),
           Card(
             child: Padding(
               padding: const EdgeInsets.all(8.0),
