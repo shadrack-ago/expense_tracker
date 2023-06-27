@@ -46,7 +46,7 @@ class Layout extends StatelessWidget {
                 'Add Expense',
               ),
               icon: Icon(Icons.add_rounded),
-              onPressed: () {},
+              onPressed: () => Navigation.addExpense(context),
             )
           : null,
       body: LayoutBuilder(builder: (context, constraints) {

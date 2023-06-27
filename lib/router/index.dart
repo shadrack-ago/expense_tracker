@@ -1,3 +1,5 @@
+import 'package:expense_manager/screens/add.dart';
+
 import '../layouts/index.dart';
 import '../screens/home.dart';
 import '../screens/insights.dart';
@@ -32,11 +34,7 @@ class Navigation {
     ],
   );
 
-  static List<_Route> routes = [
-    Routes.home,
-    Routes.insights,
-    Routes.settings
-  ];
+  static List<_Route> routes = [Routes.home, Routes.insights, Routes.settings];
 
   static RouteTransitionsBuilder transition = (_, animation, __, child) {
     const begin = Offset(1.0, 0.0);
@@ -52,6 +50,21 @@ class Navigation {
   };
 
   static Duration transitionDuration = Duration(milliseconds: 250);
+
+  static addExpense(BuildContext context) {
+    // if (Breakpoints.of(context).isMobile()) {
+    Navigator.of(context).push(PageRouteBuilder(
+      pageBuilder: (_, __, ___) {
+        return Scaffold(
+          appBar: AppBar(title: Text(AddExpense.id)),
+          body: AddExpense(),
+        );
+      },
+      transitionsBuilder: transition,
+      transitionDuration: transitionDuration,
+    ));
+    // }
+  }
 }
 
 class Routes {
