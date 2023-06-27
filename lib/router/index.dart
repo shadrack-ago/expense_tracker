@@ -24,7 +24,12 @@ class Navigation {
                 name: r.name,
                 pageBuilder: (context, state) => CustomTransitionPage(
                   key: state.pageKey,
-                  child: Scaffold(body: r.page),
+                  child: Scaffold(
+                    body: Padding(
+                      padding: const EdgeInsets.all(10),
+                      child: r.page,
+                    ),
+                  ),
                   transitionsBuilder: transition,
                   transitionDuration: transitionDuration,
                 ),

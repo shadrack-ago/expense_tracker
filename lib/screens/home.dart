@@ -64,6 +64,7 @@ class Home extends StatelessWidget {
           Breakpoints.of(context).isMobile()
               ? Column(
                   mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Text(
                       'Daily Expenses Tracker',
