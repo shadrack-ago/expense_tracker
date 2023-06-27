@@ -1,4 +1,5 @@
 import 'package:expense_manager/core/provider/manager.dart';
+import 'package:expense_manager/core/provider/sync.dart';
 import 'package:provider/provider.dart';
 
 import 'router/index.dart';
@@ -16,7 +17,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
-      providers: [ChangeNotifierProvider(create: (_) => DataManager())],
+      providers: [
+        ChangeNotifierProvider(create: (_) => DataManager()),
+        ChangeNotifierProvider(create: (_) => SyncManager()),
+      ],
       child: MaterialApp.router(
         theme: Theming.theme(context),
         routerConfig: Navigation().router,
