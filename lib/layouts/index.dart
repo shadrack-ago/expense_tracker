@@ -1,3 +1,4 @@
+import 'package:expense_manager/utils/extensions/index.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -36,10 +37,20 @@ class Layout extends StatelessWidget {
   final Widget child;
   const Layout({super.key, required this.child});
 
+  Widget? buildPageTitle(BuildContext context) {
+    String location = GoRouter.of(context).location;
+    if (location == Routes.insights.path) {
+      return Text(Routes.insights.name.toCapitalized());
+    } else if (location == Routes.settings.path) {
+      return Text(Routes.settings.name.toCapitalized());
+    }
+    return null;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(title: buildPageTitle(context)),
       floatingActionButton: GoRouter.of(context).location == Routes.home.path
           ? FloatingActionButton.extended(
               label: Text(
