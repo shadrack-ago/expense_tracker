@@ -5,4 +5,6 @@ extension StringCasingExtension on String {
       .split(' ')
       .map((str) => str.toCapitalized())
       .join(' ');
+
+  String nomalized() => split('_').map((str) => str.toCapitalized()).join(' ');
 }

@@ -1,4 +1,5 @@
 import 'package:expense_manager/screens/add.dart';
+import 'package:expense_manager/utils/extensions/index.dart';
 
 import '../layouts/index.dart';
 import '../screens/home.dart';
@@ -56,7 +57,7 @@ class Navigation {
     Navigator.of(context).push(PageRouteBuilder(
       pageBuilder: (_, __, ___) {
         return Scaffold(
-          appBar: AppBar(title: Text(AddExpense.id)),
+          appBar: AppBar(title: Text(AddExpense.id.nomalized())),
           body: AddExpense(),
         );
       },
