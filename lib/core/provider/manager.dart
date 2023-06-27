@@ -1,10 +1,15 @@
-import '../models/category.dart';
+import 'package:flutter/widgets.dart' hide MetaData;
+
 import '../models/expense.dart';
-import 'package:flutter/material.dart';
 
 class DataManager extends ChangeNotifier {
   List<Expense> _expenses = [
-    Expense(budget: 200, category: ExpenseCategory(name: 'Food'), usage: 100)
+    Expense(
+      meta: MetaData(id: 'dsjfjksdf', timeRecorded: DateTime.timestamp()),
+      name: 'Tomato Shopping',
+      categoryId: 'Food',
+      cost: 100,
+    )
   ];
 
   List<Expense> get expense => _expenses;
