@@ -12,6 +12,9 @@ class Settings extends StatelessWidget {
   Widget build(BuildContext context) {
     SyncManager syncManager = Provider.of<SyncManager>(context);
 
+    final _sheetUrl = TextEditingController(text: syncManager.sheet);
+    final _docsUrl = TextEditingController(text: syncManager.docs);
+
     return Form(
       key: _configFormKey,
       child: Column(
@@ -23,7 +26,7 @@ class Settings extends StatelessWidget {
           ),
           SizedBox(height: 20),
           TextFormField(
-            initialValue: syncManager.sheet,
+            controller: _sheetUrl,
             validator: (value) {
               if (value == null || value.isEmpty) {
                 return 'Url is required';
@@ -38,7 +41,7 @@ class Settings extends StatelessWidget {
           ),
           SizedBox(height: 10),
           TextFormField(
-            initialValue: syncManager.docs,
+            controller: _docsUrl,
             validator: (value) {
               if (value == null || value.isEmpty) {
                 return 'Url is required';
@@ -56,7 +59,7 @@ class Settings extends StatelessWidget {
             onPressed: () {
               if (_configFormKey.currentState!.validate()) {
                 Provider.of<SyncManager>(context, listen: false)
-                    .updateUrl(sheet: '', docs: '');
+                    .updateUrl(sheet: _sheetUrl.text, docs: _docsUrl.text);
               }
             },
             child: Text('Save Config'),
