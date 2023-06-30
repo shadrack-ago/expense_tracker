@@ -45,10 +45,10 @@ class DataManager extends ChangeNotifier {
       columns: columns,
       radius: 10,
       colorPalette: [
-        Color(0xfffffbff), // 0
-        Color(0xfff8f2f2), // 100
-        Color(0xffffdf9e), // 200
-        Color(0xfff5e0bb), // 300
+        Color(0xfff8f2f2), // 0
+        Color(0xffffdf9e), // 100
+        Color(0xfff5e0bb), // 200
+        Color(0xff785900), // 300
       ],
       items: columns
           .map((day) => HeatmapItem(
@@ -59,22 +59,24 @@ class DataManager extends ChangeNotifier {
 
   /// Monthly tracking heatmap data
   HeatmapData get monthly {
-    const rows = ['Weeks', ''];
-    const columns = ['1', '2', '3', '4'];
+    const rows = ['Weeks'];
+    const columns = ['1', '', '2', '', '3', '', '4'];
     final r = Random();
     return HeatmapData(
       rows: rows,
       columns: columns,
       radius: 10,
       colorPalette: [
-        Color(0xfffffbff), // 0
-        Color(0xfff8f2f2), // 100
-        Color(0xffffdf9e), // 200
-        Color(0xfff5e0bb), // 300
+        Color(0xfff8f2f2), // 0
+        Color(0xffffdf9e), // 100
+        Color(0xfff5e0bb), // 200
+        Color(0xff785900), // 300
       ],
       items: columns
           .map((day) => HeatmapItem(
-              value: r.nextDouble() * 10, xAxisLabel: day, yAxisLabel: rows[0]))
+              value: day.isEmpty ? 0 : r.nextDouble() * 10,
+              xAxisLabel: day,
+              yAxisLabel: rows[0]))
           .toList(),
     );
   }
