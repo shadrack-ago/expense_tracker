@@ -9,18 +9,13 @@ class SyncManager extends ChangeNotifier {
   String _docs = '';
 
   /// Google sheets ouput url
-  String _sheet =
-      '';
+  String _sheet = '';
 
   String get docs => _docs;
   String get sheet => _sheet;
 
-  void setSheet(String sheet) {
+  void updateUrl({required String sheet, required String docs}) {
     _sheet = sheet;
-    notifyListeners();
-  }
-
-  void setDocs(String docs) {
     _docs = docs;
     notifyListeners();
   }
