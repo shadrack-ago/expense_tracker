@@ -1,4 +1,5 @@
 import 'package:easy_web_view/easy_web_view.dart';
+import 'package:expense_manager/core/provider/manager.dart';
 import 'package:expense_manager/layouts/index.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
@@ -13,49 +14,6 @@ class Insights extends StatelessWidget {
 
   static ValueKey webViewKey = const ValueKey('key_0');
 
-  List<PieChartSectionData> get _sections => List.generate(4, (i) {
-        switch (i) {
-          case 0:
-            return PieChartSectionData(
-              color: Colors.amber,
-              value: 40,
-              title: 'Food',
-            );
-          case 1:
-            return PieChartSectionData(
-              color: Colors.blueGrey,
-              value: 30,
-              title: 'Rent',
-            );
-          case 2:
-            return PieChartSectionData(
-              color: Colors.lightGreenAccent.shade100,
-              value: 20,
-              title: 'Entertainment',
-            );
-          case 3:
-            return PieChartSectionData(
-              color: Colors.deepPurpleAccent.shade100,
-              value: 10,
-              title: 'Shopping',
-            );
-          default:
-            throw Error();
-        }
-      });
-
-  PieChartData get _sample => PieChartData(
-        pieTouchData: PieTouchData(
-          touchCallback: (FlTouchEvent event, pieTouchResponse) {},
-        ),
-        borderData: FlBorderData(
-          show: false,
-        ),
-        sectionsSpace: 0,
-        centerSpaceRadius: 40,
-        sections: _sections,
-      );
-
   PieChart buildChart(PieChartData data) {
     return PieChart(
       swapAnimationDuration: Duration(milliseconds: 150), // Optional
@@ -66,6 +24,8 @@ class Insights extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final _manager = Provider.of<DataManager>(context);
+
     return SingleChildScrollView(
       child: Column(
         mainAxisSize: MainAxisSize.max,
@@ -95,7 +55,8 @@ class Insights extends StatelessWidget {
                                 .labelLarge!
                                 .copyWith(fontWeight: FontWeight.w600),
                           ),
-                          Expanded(child: buildChart(_sample)),
+                          Expanded(
+                              child: buildChart(_manager.expenditureCData)),
                         ],
                       ),
                     ),
@@ -116,7 +77,7 @@ class Insights extends StatelessWidget {
                                 .labelLarge!
                                 .copyWith(fontWeight: FontWeight.w600),
                           ),
-                          Expanded(child: buildChart(_sample)),
+                          Expanded(child: buildChart(_manager.savingCData)),
                         ],
                       ),
                     ),
@@ -142,7 +103,8 @@ class Insights extends StatelessWidget {
                                 .titleSmall!
                                 .copyWith(fontWeight: FontWeight.w600),
                           ),
-                          Expanded(child: buildChart(_sample)),
+                          Expanded(
+                              child: buildChart(_manager.expenditureCData)),
                         ],
                       ),
                     ),
@@ -165,7 +127,7 @@ class Insights extends StatelessWidget {
                                 .titleSmall!
                                 .copyWith(fontWeight: FontWeight.w600),
                           ),
-                          Expanded(child: buildChart(_sample)),
+                          Expanded(child: buildChart(_manager.savingCData)),
                         ],
                       ),
                     ),
