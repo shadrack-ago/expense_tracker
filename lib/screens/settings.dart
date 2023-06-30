@@ -14,24 +14,26 @@ class Settings extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Configure google forms and sheets sources',
+            'Configure forms and sheets sources',
             style: Theme.of(context).textTheme.titleLarge,
           ),
           SizedBox(height: 20),
           TextFormField(
             decoration: InputDecoration(
-              border: OutlineInputBorder(),
-              hintText: 'Sheet url',
+              suffixIcon: Icon(Icons.dataset_linked_rounded),
+              filled: true,
+              label: Text('Sheet Url'),
             ),
           ),
           SizedBox(height: 10),
           TextFormField(
             decoration: InputDecoration(
-              border: OutlineInputBorder(),
-              hintText: 'Docs url',
+              suffixIcon: Icon(Icons.document_scanner_rounded),
+              filled: true,
+              label: Text('Docs Url'),
             ),
           ),
-          SizedBox(height: 10),
+          SizedBox(height: 20),
           ElevatedButton(onPressed: () {}, child: Text('Save Config'))
         ],
       ),
