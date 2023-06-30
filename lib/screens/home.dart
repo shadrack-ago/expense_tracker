@@ -11,52 +11,10 @@ class Home extends StatelessWidget {
 
   static const String id = 'home';
 
-  HeatmapData get _initExampleData {
-    const rows = [
-      '2020',
-      '2019',
-    ];
-    const columns = [
-      'Jan',
-      'Feb',
-      'Mär',
-      'Apr',
-      'Mai',
-      'Jun',
-      'Jul',
-      'Aug',
-      'Sep',
-      'Okt',
-      'Nov',
-      'Dez',
-    ];
-    final r = Random();
-    const String unit = 'kWh';
-    return HeatmapData(
-      rows: rows,
-      columns: columns,
-      radius: 10,
-      colorPalette: [
-        Color(0xfffffbff), // 0
-        Color(0xfff8f2f2), // 100
-        Color(0xffffdf9e), // 200
-        Color(0xfff5e0bb), // 300
-      ],
-      items: [
-        for (int row = 0; row < rows.length; row++)
-          for (int col = 0; col < columns.length; col++)
-            HeatmapItem(
-              value: r.nextDouble() * 6,
-              unit: unit,
-              xAxisLabel: columns[col],
-              yAxisLabel: rows[row],
-            ),
-      ],
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
+    final _manager = Provider.of<DataManager>(context);
+
     return SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -99,8 +57,8 @@ class Home extends StatelessWidget {
                                 aspectRatio: 16 / 5,
                                 child: TabBarView(
                                   children: [
-                                    Heatmap(heatmapData: _initExampleData),
-                                    Heatmap(heatmapData: _initExampleData),
+                                    Heatmap(heatmapData: _manager.weekly),
+                                    Heatmap(heatmapData: _manager.monthly),
                                   ],
                                 ),
                               ),
@@ -149,8 +107,8 @@ class Home extends StatelessWidget {
                                 aspectRatio: 16 / 4,
                                 child: TabBarView(
                                   children: [
-                                    Heatmap(heatmapData: _initExampleData),
-                                    Heatmap(heatmapData: _initExampleData),
+                                    Heatmap(heatmapData: _manager.weekly),
+                                    Heatmap(heatmapData: _manager.monthly),
                                   ],
                                 ),
                               ),

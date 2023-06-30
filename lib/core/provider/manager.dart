@@ -1,5 +1,8 @@
+import 'dart:math';
+
 import 'package:expense_manager/core/models/category.dart';
 import 'package:fl_chart/fl_chart.dart';
+import 'package:fl_heatmap/fl_heatmap.dart';
 import 'package:flutter/material.dart' hide MetaData;
 
 import '../models/expense.dart';
@@ -30,6 +33,53 @@ class DataManager extends ChangeNotifier {
     notifyListeners();
   }
 
+  /// Weekly tracking heatmap data
+  HeatmapData get weekly {
+    const rows = ['Days'];
+    const columns = ["Mon", "Tue", "Wed", "Thur", "Fri", "Sat", "Sun"];
+
+    final r = Random();
+
+    return HeatmapData(
+      rows: rows,
+      columns: columns,
+      radius: 10,
+      colorPalette: [
+        Color(0xfffffbff), // 0
+        Color(0xfff8f2f2), // 100
+        Color(0xffffdf9e), // 200
+        Color(0xfff5e0bb), // 300
+      ],
+      items: columns
+          .map((day) => HeatmapItem(
+              value: r.nextDouble() * 10, xAxisLabel: day, yAxisLabel: rows[0]))
+          .toList(),
+    );
+  }
+
+  /// Monthly tracking heatmap data
+  HeatmapData get monthly {
+    const rows = ['Weeks', ''];
+    const columns = ['1', '2', '3', '4'];
+    final r = Random();
+    return HeatmapData(
+      rows: rows,
+      columns: columns,
+      radius: 10,
+      colorPalette: [
+        Color(0xfffffbff), // 0
+        Color(0xfff8f2f2), // 100
+        Color(0xffffdf9e), // 200
+        Color(0xfff5e0bb), // 300
+      ],
+      items: columns
+          .map((day) => HeatmapItem(
+              value: r.nextDouble() * 10, xAxisLabel: day, yAxisLabel: rows[0]))
+          .toList(),
+    );
+  }
+
+  /// Responsible for creating chart section colors
   List<PieChartSectionData> get _sections => List.generate(4, (i) {
         switch (i) {
           case 0:
@@ -61,6 +111,7 @@ class DataManager extends ChangeNotifier {
         }
       });
 
+  /// Expendicture chart data
   PieChartData get expenditureCData => PieChartData(
         pieTouchData: PieTouchData(
           touchCallback: (FlTouchEvent event, pieTouchResponse) {},
@@ -72,6 +123,8 @@ class DataManager extends ChangeNotifier {
         centerSpaceRadius: 40,
         sections: _sections,
       );
+
+  /// Saving chart data
   PieChartData get savingCData => PieChartData(
         pieTouchData: PieTouchData(
           touchCallback: (FlTouchEvent event, pieTouchResponse) {},
