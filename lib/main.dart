@@ -19,7 +19,12 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => DataManager()),
-        ChangeNotifierProvider(create: (_) => SyncManager()),
+        ChangeNotifierProvider(
+            create: (_) => SyncManager(
+                  docs: 'https://forms.gle/znhV2TDzTXY1zk9p6',
+                  sheet:
+                      'https://docs.google.com/spreadsheets/d/e/2PACX-1vSGbFtRPwKfGW2rxaWOo8d6zONVIaSTYDbrTRboCNIffzq6bm4bFNof5Rax5Z3QQWepAwZ4tbslEQLY/pubhtml',
+                )),
       ],
       child: MaterialApp.router(
         theme: Theming.theme(context),
