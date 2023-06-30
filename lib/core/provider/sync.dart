@@ -2,8 +2,7 @@ import 'package:flutter/widgets.dart';
 
 class SyncManager extends ChangeNotifier {
   /// Google forms data url
-  String _docs =
-      'https://docs.google.com/forms/d/e/1FAIpQLSfMUyXcKBHfNEM63qfAxZxq3SQDdRrQb49eKEs_TFpCDsKz7w/viewform?embedded=true';
+  String _docs = 'https://forms.gle/znhV2TDzTXY1zk9p6';
 
   /// Google sheets ouput url
   String _sheet =
@@ -11,4 +10,14 @@ class SyncManager extends ChangeNotifier {
 
   String get docs => _docs;
   String get sheet => _sheet;
+
+  void setSheet(String sheet) {
+    _sheet = sheet;
+    notifyListeners();
+  }
+
+  void setDocs(String docs) {
+    _docs = docs;
+    notifyListeners();
+  }
 }
