@@ -73,13 +73,20 @@ class AddExpense extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 25),
+              TextFormField(
+                controller: _costController,
+                decoration: InputDecoration(
+                  filled: true,
+                  suffixIcon: ElevatedButton.icon(
+                    onPressed: () {},
+                    icon: Icon(Icons.upload),
+                    label: Text('Upload'),
+                  ),
+                  label: Text('Receipt url or upload image'),
+                ),
+              ),
+              const SizedBox(height: 20),
               Container(color: Colors.amberAccent, height: 300, width: 700),
-              const SizedBox(height: 25),
-              ElevatedButton.icon(
-                  onPressed: () {},
-                  icon: Icon(Icons.image_rounded),
-                  label: Text('Select receipt image')),
-              const SizedBox(width: 20),
             ],
           ),
         ),
