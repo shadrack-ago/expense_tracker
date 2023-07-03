@@ -1,3 +1,4 @@
+import 'package:expense_manager/router/index.dart';
 import 'package:flutter/material.dart';
 
 class AddExpense extends StatelessWidget {
@@ -5,7 +6,7 @@ class AddExpense extends StatelessWidget {
 
   static const String id = 'add_expense';
 
-  List<DropdownMenuItem<String>> get dropdownItems {
+  List<DropdownMenuItem<String>> dropdownItems(BuildContext context) {
     List<DropdownMenuItem<String>> menuItems = [
       DropdownMenuItem(child: Text("Food"), value: "USA"),
       DropdownMenuItem(child: Text("Entertainment"), value: "Canada"),
@@ -13,9 +14,8 @@ class AddExpense extends StatelessWidget {
       DropdownMenuItem(child: Text("Shopping"), value: "England"),
       DropdownMenuItem(
         enabled: false,
-        onTap: () {},
         child: OutlinedButton.icon(
-            onPressed: () {},
+            onPressed: () => Navigation.addCategory(context),
             icon: Icon(Icons.add_rounded),
             label: Text('Add Category')),
       )
@@ -46,7 +46,7 @@ class AddExpense extends StatelessWidget {
               ),
               const SizedBox(height: 25),
               DropdownButtonFormField(
-                items: dropdownItems,
+                items: dropdownItems(context),
                 decoration: InputDecoration(
                   filled: true,
                   label: Text('Expense category *'),

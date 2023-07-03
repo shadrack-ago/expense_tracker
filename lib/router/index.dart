@@ -1,3 +1,4 @@
+import 'package:expense_manager/screens/add/category.dart';
 import 'package:expense_manager/screens/add/expense.dart';
 import 'package:expense_manager/utils/extensions/index.dart';
 
@@ -56,6 +57,54 @@ class Navigation {
   };
 
   static Duration transitionDuration = Duration(milliseconds: 250);
+
+  static addCategory(BuildContext context) {
+    if (Breakpoints.of(context).isMobile()) {
+      Navigator.of(context).push(PageRouteBuilder(
+        pageBuilder: (_, __, ___) {
+          return Scaffold(
+            appBar: AppBar(title: Text(AddCategory.id.nomalized())),
+            body: AddCategory(),
+          );
+        },
+        transitionsBuilder: transition,
+        transitionDuration: transitionDuration,
+      ));
+    } else {
+      showDialog(
+          context: context,
+          builder: (context) {
+            return Center(
+              child: Dialog(
+                child: Padding(
+                  padding: const EdgeInsets.all(8),
+                  child: Column(
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text(
+                              AddCategory.id.nomalized(),
+                              style: Theme.of(context).textTheme.headlineMedium,
+                            ),
+                          ),
+                          IconButton(
+                            onPressed: () => Navigator.of(context).pop(),
+                            icon: const Icon(Icons.close),
+                          )
+                        ],
+                      ),
+                      Expanded(child: AddCategory()),
+                    ],
+                  ),
+                ),
+              ),
+            );
+          });
+    }
+  }
 
   static addExpense(BuildContext context) {
     if (Breakpoints.of(context).isMobile()) {
