@@ -33,12 +33,6 @@ class AddExpense extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               TextFormField(
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Url is required';
-                  }
-                  return null;
-                },
                 decoration: InputDecoration(
                   filled: true,
                   label: Text('Expense name *'),
@@ -55,14 +49,9 @@ class AddExpense extends StatelessWidget {
               ),
               const SizedBox(height: 25),
               TextFormField(
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Url is required';
-                  }
-                  return null;
-                },
                 decoration: InputDecoration(
                   filled: true,
+                  suffixIcon: Icon(Icons.monetization_on_rounded),
                   label: Text('Expense cost *'),
                 ),
               ),
@@ -73,7 +62,6 @@ class AddExpense extends StatelessWidget {
                   onPressed: () {},
                   icon: Icon(Icons.image_rounded),
                   label: Text('Select receipt image')),
-              Container(color: Colors.amber),
               const SizedBox(width: 20),
             ],
           ),

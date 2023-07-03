@@ -24,7 +24,7 @@ class AddCategory extends StatelessWidget {
               TextFormField(
                 decoration: InputDecoration(
                   filled: true,
-                  icon: Icon(Icons.monetization_on_rounded),
+                  suffixIcon: Icon(Icons.monetization_on_rounded),
                   label: Text('Budget *'),
                 ),
               ),
