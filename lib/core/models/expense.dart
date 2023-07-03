@@ -1,5 +1,3 @@
-import 'dart:io';
-
 class Expense {
   int cost;
   String name;

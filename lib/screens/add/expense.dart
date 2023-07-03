@@ -12,6 +12,7 @@ class AddExpense extends StatelessWidget {
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _categoryController = TextEditingController();
   final TextEditingController _costController = TextEditingController();
+  final TextEditingController _receiptController = TextEditingController();
 
   /// Creates dropdowns with values of category ID
   List<DropdownMenuItem<String>> dropdownItems(BuildContext context) {
@@ -32,6 +33,9 @@ class AddExpense extends StatelessWidget {
           )
         ];
   }
+
+  selectCamera() {}
+  selectGallery() {}
 
   @override
   Widget build(BuildContext context) {
@@ -72,13 +76,36 @@ class AddExpense extends StatelessWidget {
               ),
               const SizedBox(height: 25),
               TextFormField(
-                controller: _costController,
+                controller: _receiptController,
                 decoration: InputDecoration(
                   filled: true,
-                  suffixIcon: ElevatedButton.icon(
-                    onPressed: () {},
-                    icon: Icon(Icons.upload),
-                    label: Text('Upload'),
+                  suffixIcon: DropdownButton(
+                    items: [
+                      DropdownMenuItem(
+                          value: 1,
+                          onTap: selectCamera(),
+                          child: Row(
+                            children: [
+                              Icon(Icons.camera_rounded),
+                              Text('Camera')
+                            ],
+                          )),
+                      DropdownMenuItem(
+                          value: 2,
+                          onTap: () => selectGallery(),
+                          child: Row(
+                            children: [
+                              Icon(Icons.dashboard_customize_rounded),
+                              Text('Gallery')
+                            ],
+                          ))
+                    ],
+                    hint: ElevatedButton.icon(
+                      onPressed: () {},
+                      icon: Icon(Icons.upload),
+                      label: Text('Upload'),
+                    ),
+                    onChanged: (value) {},
                   ),
                   label: Text('Receipt url or upload image'),
                 ),
