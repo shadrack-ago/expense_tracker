@@ -7,6 +7,24 @@ class AddExpense extends StatelessWidget {
 
   static ValueKey webViewKey = const ValueKey('key_insight');
 
+  List<DropdownMenuItem<String>> get dropdownItems {
+    List<DropdownMenuItem<String>> menuItems = [
+      DropdownMenuItem(child: Text("Food"), value: "USA"),
+      DropdownMenuItem(child: Text("Entertainment"), value: "Canada"),
+      DropdownMenuItem(child: Text("Travel"), value: "Brazil"),
+      DropdownMenuItem(child: Text("Shopping"), value: "England"),
+      DropdownMenuItem(
+        enabled: false,
+        onTap: () {},
+        child: OutlinedButton.icon(
+            onPressed: () {},
+            icon: Icon(Icons.add_rounded),
+            label: Text('Add Category')),
+      )
+    ];
+    return menuItems;
+  }
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -29,17 +47,13 @@ class AddExpense extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 25),
-              TextFormField(
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Url is required';
-                  }
-                  return null;
-                },
+              DropdownButtonFormField(
+                items: dropdownItems,
                 decoration: InputDecoration(
                   filled: true,
                   label: Text('Expense category *'),
                 ),
+                onChanged: (value) {},
               ),
               const SizedBox(height: 25),
               TextFormField(
