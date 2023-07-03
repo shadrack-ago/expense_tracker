@@ -6,6 +6,12 @@ class AddExpense extends StatelessWidget {
 
   static const String id = 'add_expense';
 
+  final GlobalKey<FormState> _addExpense = GlobalKey();
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _categoryController = TextEditingController();
+  final TextEditingController _costController = TextEditingController();
+  final TextEditingController _receiptController = TextEditingController();
+
   List<DropdownMenuItem<String>> dropdownItems(BuildContext context) {
     List<DropdownMenuItem<String>> menuItems = [
       DropdownMenuItem(child: Text("Food"), value: "USA"),
@@ -27,12 +33,14 @@ class AddExpense extends StatelessWidget {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Form(
+        key: _addExpense,
         child: Padding(
           padding: const EdgeInsets.all(15),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               TextFormField(
+                controller: _nameController,
                 decoration: InputDecoration(
                   filled: true,
                   label: Text('Expense name *'),
@@ -45,10 +53,13 @@ class AddExpense extends StatelessWidget {
                   filled: true,
                   label: Text('Expense category *'),
                 ),
-                onChanged: (value) {},
+                onChanged: (value) {
+                  _categoryController.text = value!;
+                },
               ),
               const SizedBox(height: 25),
               TextFormField(
+                controller: _costController,
                 decoration: InputDecoration(
                   filled: true,
                   suffixIcon: Icon(Icons.monetization_on_rounded),
