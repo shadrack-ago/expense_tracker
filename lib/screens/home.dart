@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:expense_manager/core/provider/manager.dart';
 import 'package:expense_manager/layouts/index.dart';
 import 'package:fl_heatmap/fl_heatmap.dart';
