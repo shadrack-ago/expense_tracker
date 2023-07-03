@@ -1,6 +1,5 @@
 import 'package:expense_manager/core/provider/manager.dart';
 import 'package:expense_manager/router/index.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -13,7 +12,6 @@ class AddExpense extends StatelessWidget {
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _categoryController = TextEditingController();
   final TextEditingController _costController = TextEditingController();
-  final TextEditingController _receiptController = TextEditingController();
 
   /// Creates dropdowns with values of category ID
   List<DropdownMenuItem<String>> dropdownItems(BuildContext context) {
@@ -86,7 +84,11 @@ class AddExpense extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 20),
-              Container(color: Colors.amberAccent, height: 300, width: 700),
+              Image.network(
+                  'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl-2.jpg'),
+              const SizedBox(height: 10),
+              Text('Receipt preview'),
+              const SizedBox(height: 20),
             ],
           ),
         ),
