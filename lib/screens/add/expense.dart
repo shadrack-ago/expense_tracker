@@ -1,5 +1,8 @@
+import 'package:expense_manager/core/provider/manager.dart';
 import 'package:expense_manager/router/index.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class AddExpense extends StatelessWidget {
   AddExpense({super.key});
@@ -12,21 +15,24 @@ class AddExpense extends StatelessWidget {
   final TextEditingController _costController = TextEditingController();
   final TextEditingController _receiptController = TextEditingController();
 
+  /// Creates dropdowns with values of category ID
   List<DropdownMenuItem<String>> dropdownItems(BuildContext context) {
-    List<DropdownMenuItem<String>> menuItems = [
-      DropdownMenuItem(child: Text("Food"), value: "USA"),
-      DropdownMenuItem(child: Text("Entertainment"), value: "Canada"),
-      DropdownMenuItem(child: Text("Travel"), value: "Brazil"),
-      DropdownMenuItem(child: Text("Shopping"), value: "England"),
-      DropdownMenuItem(
-        enabled: false,
-        child: OutlinedButton.icon(
-            onPressed: () => Navigation.addCategory(context),
-            icon: Icon(Icons.add_rounded),
-            label: Text('Add Category')),
-      )
-    ];
-    return menuItems;
+    return Provider.of<DataManager>(context)
+            .categories
+            .map((category) => DropdownMenuItem(
+                  child: Text(category.name),
+                  value: category.meta.id,
+                ))
+            .toList() +
+        [
+          DropdownMenuItem(
+            enabled: false,
+            child: OutlinedButton.icon(
+                onPressed: () => Navigation.addCategory(context),
+                icon: Icon(Icons.add_rounded),
+                label: Text('Add Category')),
+          )
+        ];
   }
 
   @override
