@@ -1,7 +1,10 @@
+import 'dart:io';
+
 class Expense {
   int cost;
   String name;
   MetaData meta;
+  ReceiptImage? receiptURL;
 
   /// This correlates to the category id.
   String categoryId;
@@ -11,6 +14,7 @@ class Expense {
     required this.name,
     required this.categoryId,
     required this.cost,
+    this.receiptURL,
   });
 }
 
@@ -19,4 +23,10 @@ class MetaData {
   String id;
 
   MetaData({required this.id, required this.timeRecorded});
+}
+
+class ReceiptImage<T> {
+  String type;
+  T src;
+  ReceiptImage({required this.type, required this.src});
 }
