@@ -5,8 +5,6 @@ class AddExpense extends StatelessWidget {
 
   static const String id = 'add_expense';
 
-  static ValueKey webViewKey = const ValueKey('key_insight');
-
   List<DropdownMenuItem<String>> get dropdownItems {
     List<DropdownMenuItem<String>> menuItems = [
       DropdownMenuItem(child: Text("Food"), value: "USA"),
