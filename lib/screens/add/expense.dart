@@ -1,3 +1,4 @@
+import 'package:expense_manager/core/models/category.dart';
 import 'package:expense_manager/core/models/expense.dart';
 import 'package:expense_manager/core/provider/manager.dart';
 import 'package:expense_manager/router/index.dart';
@@ -98,6 +99,8 @@ class AddExpense extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    List<ExpenseCategory> retrievedCategories =
+        Provider.of<DataManager>(context).categories;
     return SingleChildScrollView(
       child: Form(
         key: _addExpense,
@@ -117,8 +120,10 @@ class AddExpense extends StatelessWidget {
               const SizedBox(height: 25),
               DropdownButtonFormField(
                 items: dropdownItems(context),
-                validator: (value) =>
-                    ExpenseValidator.validateCategory(value, context: context),
+                validator: (value) => ExpenseValidator.validateCategory(
+                  value,
+                  categories: retrievedCategories,
+                ),
                 decoration: InputDecoration(
                   filled: true,
                   label: Text('Expense category *'),
