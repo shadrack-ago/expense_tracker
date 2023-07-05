@@ -1,7 +1,26 @@
+import 'package:expense_manager/core/models/expense.dart';
 import 'package:expense_manager/core/provider/manager.dart';
 import 'package:expense_manager/router/index.dart';
+import 'package:expense_manager/utils/extensions/index.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
+class _FormState extends ChangeNotifier {
+  _FormState();
+
+  ReceiptImage? _image;
+  final TextEditingController _receiptController = TextEditingController();
+
+  ReceiptImage? get receiptImage => _image;
+  TextEditingController get receiptController => _receiptController;
+
+  void setReceiptImage(ReceiptImage<MemoryImage> image,
+      {required String name}) {
+    _image = image;
+    _receiptController.text = name;
+    notifyListeners();
+  }
+}
 
 class AddExpense extends StatelessWidget {
   AddExpense({super.key});
@@ -12,7 +31,8 @@ class AddExpense extends StatelessWidget {
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _categoryController = TextEditingController();
   final TextEditingController _costController = TextEditingController();
-  final TextEditingController _receiptController = TextEditingController();
+
+  final _FormState _state = _FormState();
 
   /// Creates dropdowns with values of category ID
   List<DropdownMenuItem<String>> dropdownItems(BuildContext context) {
@@ -36,6 +56,17 @@ class AddExpense extends StatelessWidget {
 
   selectCamera() {}
   selectGallery() {}
+
+  buildPreview() {
+    return Column(
+      children: [
+        Image.network(
+            'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl-2.jpg'),
+        const SizedBox(height: 10),
+        Text('Receipt preview'),
+      ],
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -76,7 +107,7 @@ class AddExpense extends StatelessWidget {
               ),
               const SizedBox(height: 25),
               TextFormField(
-                controller: _receiptController,
+                controller: _state.receiptController,
                 decoration: InputDecoration(
                   filled: true,
                   suffixIcon: DropdownButton(
@@ -111,10 +142,7 @@ class AddExpense extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 20),
-              Image.network(
-                  'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl-2.jpg'),
-              const SizedBox(height: 10),
-              Text('Receipt preview'),
+              buildPreview(),
               const SizedBox(height: 20),
             ],
           ),
