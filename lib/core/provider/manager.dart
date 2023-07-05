@@ -28,8 +28,20 @@ class DataManager extends ChangeNotifier {
   List<Expense> get expense => _expenses;
   List<ExpenseCategory> get categories => _categories;
 
-  addExpense(Expense expense) {
-    _expenses.add(expense);
+  addExpense(
+      {required String name,
+      required String categoryId,
+      required int cost,
+      ReceiptImage? receiptImage}) {
+    _expenses.add(Expense(
+      meta: MetaData.fromId('sdjfhsdhfj788k'),
+      name: name,
+      categoryId: categoryId,
+      cost: cost,
+      receiptURL: receiptImage,
+    ));
+
+    print(receiptImage?.src.toString());
     notifyListeners();
   }
 
