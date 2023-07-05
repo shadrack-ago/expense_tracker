@@ -1,7 +1,11 @@
 import 'dart:io';
 import 'dart:typed_data';
 
+import 'package:expense_manager/core/models/category.dart';
+import 'package:expense_manager/core/provider/manager.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class Expense {
   int cost;
@@ -19,6 +23,31 @@ class Expense {
     required this.cost,
     this.receiptURL,
   });
+}
+
+class ExpenseValidator {
+  static String? validateName(String? name) {
+    if (name == null) return 'An Expense should have a name';
+    return null;
+  }
+
+  static String? validateCost(String? cost) {
+    if (cost == null)
+      return 'An Expense should have a cost';
+    else if (cost is int == false) return 'Expense cost should be a number';
+    return null;
+  }
+
+  static String? validateCategory(String? id, {required BuildContext context}) {
+    List<ExpenseCategory> categories =
+        Provider.of<DataManager>(context).categories;
+    if (id == null)
+      return 'An Expense should have a category';
+    else if (categories.isNotEmpty &&
+        categories.indexWhere((element) => element.meta.id == id) > 0)
+      return 'Invalid category, please select or create one';
+    return null;
+  }
 }
 
 class MetaData {
