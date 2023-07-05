@@ -27,12 +27,12 @@ class Expense {
 
 class ExpenseValidator {
   static String? validateName(String? name) {
-    if (name == null) return 'An Expense should have a name';
+    if (name == null || name.isEmpty) return 'An Expense should have a name';
     return null;
   }
 
   static String? validateCost(String? cost) {
-    if (cost == null)
+    if (cost == null || cost.isEmpty)
       return 'An Expense should have a cost';
     else if (cost is int == false) return 'Expense cost should be a number';
     return null;
@@ -44,7 +44,7 @@ class ExpenseValidator {
     if (id == null)
       return 'An Expense should have a category';
     else if (categories.isNotEmpty &&
-        categories.indexWhere((element) => element.meta.id == id) > 0)
+        categories.indexWhere((element) => element.meta.id == id) < 0)
       return 'Invalid category, please select or create one';
     return null;
   }

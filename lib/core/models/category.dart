@@ -15,12 +15,12 @@ class ExpenseCategory {
 
 class CategoryValidator {
   static String? validateName(String? name) {
-    if (name == null) return 'An Expense should have a name';
+    if (name == null || name.isEmpty) return 'Category should have a name';
     return null;
   }
 
   static String? validateBudget(String? budget) {
-    if (budget == null)
+    if (budget == null || budget.isEmpty)
       return 'Category should have a budget';
     else if (budget is int == false)
       return 'Category budget should be a number';
