@@ -2,7 +2,7 @@ import 'package:expense_manager/core/models/expense.dart';
 import 'package:expense_manager/core/provider/manager.dart';
 import 'package:expense_manager/router/index.dart';
 import 'package:expense_manager/utils/extensions/index.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide MetaData;
 import 'package:provider/provider.dart';
 
 class _FormState extends ChangeNotifier {
@@ -136,6 +136,8 @@ class AddExpense extends StatelessWidget {
               const SizedBox(height: 25),
               TextFormField(
                 controller: _state.receiptController,
+                onChanged: (url) => _state
+                    .setReceiptImage(ReceiptImage.fromUrl(url), name: url),
                 decoration: InputDecoration(
                   filled: true,
                   suffixIcon: DropdownButton(
