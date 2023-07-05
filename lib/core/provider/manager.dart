@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:expense_manager/core/models/category.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:fl_heatmap/fl_heatmap.dart';
@@ -121,29 +119,21 @@ class DataManager extends ChangeNotifier {
         }
       });
 
+  PieChartData _buildChart({required List<PieChartSectionData> sections}) {
+    return PieChartData(
+      sectionsSpace: 0,
+      centerSpaceRadius: 40,
+      sections: sections,
+    );
+  }
+
   /// Expendicture chart data
-  PieChartData get expenditureCData => PieChartData(
-        pieTouchData: PieTouchData(
-          touchCallback: (FlTouchEvent event, pieTouchResponse) {},
-        ),
-        borderData: FlBorderData(
-          show: false,
-        ),
-        sectionsSpace: 0,
-        centerSpaceRadius: 40,
-        sections: _sections,
-      );
+  PieChartData get expenditureCData {
+    return _buildChart(sections: _sections);
+  }
 
   /// Saving chart data
-  PieChartData get savingCData => PieChartData(
-        pieTouchData: PieTouchData(
-          touchCallback: (FlTouchEvent event, pieTouchResponse) {},
-        ),
-        borderData: FlBorderData(
-          show: false,
-        ),
-        sectionsSpace: 0,
-        centerSpaceRadius: 40,
-        sections: _sections,
-      );
+  PieChartData get savingCData {
+    return _buildChart(sections: _sections);
+  }
 }
