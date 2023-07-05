@@ -8,25 +8,18 @@ import 'package:flutter/material.dart' hide MetaData;
 import '../models/expense.dart';
 
 class DataManager extends ChangeNotifier {
-  List<Expense> _expenses = [
-    Expense(
-      meta: MetaData(id: 'dsjfjksdf', timeRecorded: DateTime.timestamp()),
-      name: 'Tomato Shopping',
-      categoryId: 'Food',
-      cost: 100,
-    )
-  ];
+  List<Expense> _expenses = [];
 
-  List<ExpenseCategory> _categories = [
-    ExpenseCategory(
-      meta: MetaData(id: 'dsjfjksdf', timeRecorded: DateTime.timestamp()),
-      name: 'Food',
-      budget: 400,
-    )
-  ];
+  List<ExpenseCategory> _categories = [];
 
   List<Expense> get expense => _expenses;
   List<ExpenseCategory> get categories => _categories;
+
+  ExpenseCategory? getCategory(String id) {
+    if (categories.isNotEmpty)
+      return categories.firstWhere((element) => element.meta.id == id);
+    return null;
+  }
 
   addCategory({
     required String name,
