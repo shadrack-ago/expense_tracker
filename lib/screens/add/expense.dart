@@ -2,7 +2,6 @@ import 'package:expense_manager/core/models/category.dart';
 import 'package:expense_manager/core/models/expense.dart';
 import 'package:expense_manager/core/provider/manager.dart';
 import 'package:expense_manager/router/index.dart';
-import 'package:expense_manager/utils/extensions/index.dart';
 import 'package:flutter/material.dart' hide MetaData;
 import 'package:provider/provider.dart';
 
