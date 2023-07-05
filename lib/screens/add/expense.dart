@@ -172,6 +172,25 @@ class AddExpense extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 20),
+              ElevatedButton.icon(
+                onPressed: () {
+                  if (_addExpense.currentState!.validate()) {
+                    Provider.of<DataManager>(context, listen: false).addExpense(
+                      Expense(
+                          meta: MetaData(
+                            id: 'sdfjkksdj',
+                            timeRecorded: DateTime.timestamp(),
+                          ),
+                          name: _nameController.text,
+                          categoryId: _categoryController.text,
+                          cost: int.parse(_costController.text)),
+                    );
+                  }
+                },
+                icon: Icon(Icons.add_rounded),
+                label: Text('Add expense'),
+              ),
+              const SizedBox(height: 20),
               buildPreview(),
               const SizedBox(height: 20),
             ],
