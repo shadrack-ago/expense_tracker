@@ -14,8 +14,7 @@ class _FormState extends ChangeNotifier {
   ReceiptImage? get receiptImage => _image;
   TextEditingController get receiptController => _receiptController;
 
-  void setReceiptImage(ReceiptImage<MemoryImage> image,
-      {required String name}) {
+  void setReceiptImage(ReceiptImage image, {required String name}) {
     _image = image;
     _receiptController.text = name;
     notifyListeners();
@@ -58,13 +57,42 @@ class AddExpense extends StatelessWidget {
   selectGallery() {}
 
   buildPreview() {
-    return Column(
-      children: [
-        Image.network(
-            'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl-2.jpg'),
-        const SizedBox(height: 10),
-        Text('Receipt preview'),
-      ],
+    return AnimatedBuilder(
+      animation: _state,
+      builder: (context, child) {
+        return ListenableBuilder(
+            listenable: _state,
+            builder: (context, child) {
+              switch (_state._image?.type) {
+                case RImageType.network:
+                  return Column(
+                    children: [
+                      Text('Receipt preview'),
+                      const SizedBox(height: 10),
+                      Image.network(_state.receiptImage!.src.url),
+                    ],
+                  );
+                case RImageType.file:
+                  return Column(
+                    children: [
+                      const SizedBox(height: 10),
+                      Text('Receipt preview'),
+                      Image.file(_state.receiptImage!.src.file),
+                    ],
+                  );
+                case RImageType.memory:
+                  return Column(
+                    children: [
+                      Text('Receipt preview'),
+                      const SizedBox(height: 10),
+                      Image.memory(_state.receiptImage!.src.bytes),
+                    ],
+                  );
+                default:
+                  return Container();
+              }
+            });
+      },
     );
   }
 
