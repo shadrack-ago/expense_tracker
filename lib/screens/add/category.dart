@@ -1,3 +1,4 @@
+import 'package:expense_manager/core/models/category.dart';
 import 'package:flutter/material.dart';
 
 class AddCategory extends StatelessWidget {
@@ -21,6 +22,7 @@ class AddCategory extends StatelessWidget {
             children: [
               TextFormField(
                 controller: _nameController,
+                validator: CategoryValidator.validateName,
                 decoration: InputDecoration(
                   filled: true,
                   label: Text('Category name *'),
@@ -29,6 +31,7 @@ class AddCategory extends StatelessWidget {
               const SizedBox(height: 25),
               TextFormField(
                 controller: _budgetController,
+                validator: CategoryValidator.validateBudget,
                 decoration: InputDecoration(
                   filled: true,
                   suffixIcon: Icon(Icons.monetization_on_rounded),
