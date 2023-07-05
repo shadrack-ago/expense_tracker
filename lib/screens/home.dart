@@ -1,5 +1,6 @@
 import 'package:expense_manager/core/provider/manager.dart';
 import 'package:expense_manager/layouts/index.dart';
+import 'package:expense_manager/router/index.dart';
 import 'package:fl_heatmap/fl_heatmap.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -166,7 +167,7 @@ class Home extends StatelessWidget {
         ),
         TextButton(
           child: Text("Add new entries"),
-          onPressed: () {},
+          onPressed: () => Navigation.addExpense(context),
         )
       ],
     );
