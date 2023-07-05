@@ -108,6 +108,7 @@ class AddExpense extends StatelessWidget {
             children: [
               TextFormField(
                 controller: _nameController,
+                validator: ExpenseValidator.validateName,
                 decoration: InputDecoration(
                   filled: true,
                   label: Text('Expense name *'),
@@ -116,6 +117,8 @@ class AddExpense extends StatelessWidget {
               const SizedBox(height: 25),
               DropdownButtonFormField(
                 items: dropdownItems(context),
+                validator: (value) =>
+                    ExpenseValidator.validateCategory(value, context: context),
                 decoration: InputDecoration(
                   filled: true,
                   label: Text('Expense category *'),
@@ -127,6 +130,7 @@ class AddExpense extends StatelessWidget {
               const SizedBox(height: 25),
               TextFormField(
                 controller: _costController,
+                validator: ExpenseValidator.validateCost,
                 decoration: InputDecoration(
                   filled: true,
                   suffixIcon: Icon(Icons.monetization_on_rounded),
