@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../core/provider/sync.dart';
+import '../router/index.dart';
 
 class Insights extends StatelessWidget {
   const Insights({super.key});
@@ -37,7 +38,29 @@ class Insights extends StatelessWidget {
             textAlign: TextAlign.center,
           ),
           SizedBox(height: 10),
-          if (Breakpoints.of(context).isMobile())
+          if (_manager.categories.isEmpty)
+            Card(
+              child: AspectRatio(
+                aspectRatio: 16 / 10,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    children: [
+                      SizedBox(height: 30),
+                      Text(
+                        "No expense entries found",
+                        style: TextStyle(fontSize: 21),
+                      ),
+                      TextButton(
+                        child: Text("Add new entries"),
+                        onPressed: () => Navigation.addExpense(context),
+                      )
+                    ],
+                  ),
+                ),
+              ),
+            )
+          else if (Breakpoints.of(context).isMobile())
             Column(
               children: [
                 Card(
