@@ -47,7 +47,6 @@ class DataManager extends ChangeNotifier {
       receiptURL: receiptImage,
     ));
 
-    print(receiptImage?.src.toString());
     notifyListeners();
   }
 

@@ -140,7 +140,11 @@ class Home extends StatelessWidget {
                           return Card(
                             child: ListTile(
                               title: Text(data.expense[index].name),
-                              subtitle: Text(data.expense[index].categoryId),
+                              subtitle: Text(data
+                                      .getCategory(
+                                          data.expense[index].categoryId)
+                                      ?.name ??
+                                  'Unable to fetch category reload'),
                               trailing: Text('Ksh ${data.expense[index].cost}'),
                             ),
                           );
