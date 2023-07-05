@@ -184,14 +184,10 @@ class AddExpense extends StatelessWidget {
                 onPressed: () {
                   if (_addExpense.currentState!.validate()) {
                     Provider.of<DataManager>(context, listen: false).addExpense(
-                      Expense(
-                          meta: MetaData(
-                            id: 'sdfjkksdj',
-                            timeRecorded: DateTime.timestamp(),
-                          ),
-                          name: _nameController.text,
-                          categoryId: _categoryController.text,
-                          cost: int.parse(_costController.text)),
+                      name: _nameController.text,
+                      categoryId: _categoryController.text,
+                      cost: int.parse(_costController.text),
+                      receiptImage: _state.receiptImage,
                     );
                   }
                 },
