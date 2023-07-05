@@ -50,51 +50,42 @@ class DataManager extends ChangeNotifier {
     notifyListeners();
   }
 
+  HeatmapData _buildHeatmapData({
+    required List<String> columns,
+    required List<String> rows,
+    required List<double> data,
+  }) {
+    return HeatmapData(rows: rows, columns: columns, radius: 10, colorPalette: [
+      Color(0xfff8f2f2), // 0
+      Color(0xffffdf9e), // 100
+      Color(0xfff5e0bb), // 200
+      Color(0xff785900), // 300
+    ], items: [
+      for (int col = 0; col < columns.length; col++)
+        HeatmapItem(
+            value: data[col], xAxisLabel: columns[col], yAxisLabel: rows[0])
+    ]);
+  }
+
   /// Weekly tracking heatmap data
   HeatmapData get weekly {
     const rows = ['Days'];
-    const columns = ["Mon", "Tue", "Wed", "Thur", "Fri", "Sat", "Sun"];
-
-    final r = Random();
-
-    return HeatmapData(
+    const cols = ["Mon", "Tue", "Wed", "Thur", "Fri", "Sat", "Sun"];
+    return _buildHeatmapData(
+      columns: cols,
       rows: rows,
-      columns: columns,
-      radius: 10,
-      colorPalette: [
-        Color(0xfff8f2f2), // 0
-        Color(0xffffdf9e), // 100
-        Color(0xfff5e0bb), // 200
-        Color(0xff785900), // 300
-      ],
-      items: columns
-          .map((day) => HeatmapItem(
-              value: r.nextDouble() * 10, xAxisLabel: day, yAxisLabel: rows[0]))
-          .toList(),
+      data: List.filled(cols.length, 0),
     );
   }
 
   /// Monthly tracking heatmap data
   HeatmapData get monthly {
     const rows = ['Weeks'];
-    const columns = ['1', '', '2', '', '3', '', '4'];
-    final r = Random();
-    return HeatmapData(
+    const cols = ['1', '', '2', '', '3', '', '4'];
+    return _buildHeatmapData(
+      columns: cols,
       rows: rows,
-      columns: columns,
-      radius: 10,
-      colorPalette: [
-        Color(0xfff8f2f2), // 0
-        Color(0xffffdf9e), // 100
-        Color(0xfff5e0bb), // 200
-        Color(0xff785900), // 300
-      ],
-      items: columns
-          .map((day) => HeatmapItem(
-              value: day.isEmpty ? 0 : r.nextDouble() * 10,
-              xAxisLabel: day,
-              yAxisLabel: rows[0]))
-          .toList(),
+      data: List.filled(cols.length, 0),
     );
   }
 
