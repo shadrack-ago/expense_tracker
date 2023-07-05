@@ -119,14 +119,6 @@ class DataManager extends ChangeNotifier {
         }
       });
 
-  PieChartData _buildChart({required List<PieChartSectionData> sections}) {
-    return PieChartData(
-      sectionsSpace: 0,
-      centerSpaceRadius: 40,
-      sections: sections,
-    );
-  }
-
   /// Expendicture chart data
   PieChartData get expenditureCData {
     return _buildChart(sections: _sections);
@@ -135,5 +127,12 @@ class DataManager extends ChangeNotifier {
   /// Saving chart data
   PieChartData get savingCData {
     return _buildChart(sections: _sections);
+  }
+  PieChartData _buildChart({required List<PieChartSectionData> sections}) {
+    return PieChartData(
+      sectionsSpace: 0,
+      centerSpaceRadius: 40,
+      sections: sections,
+    );
   }
 }
