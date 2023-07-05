@@ -1,5 +1,8 @@
 import 'package:expense_manager/core/models/category.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../../core/provider/manager.dart';
 
 class AddCategory extends StatelessWidget {
   AddCategory({super.key});
@@ -41,7 +44,14 @@ class AddCategory extends StatelessWidget {
               const SizedBox(height: 25),
               ElevatedButton.icon(
                   onPressed: () {
-                    if (_addCategory.currentState!.validate()) {}
+                    if (_addCategory.currentState!.validate()) {
+                      Provider.of<DataManager>(context, listen: false)
+                          .addCategory(
+                        name: _nameController.text,
+                        budget: int.parse(_budgetController.text),
+                      );
+                      Navigator.pop(context);
+                    }
                   },
                   icon: Icon(Icons.add_rounded),
                   label: Text('Add Category')),

@@ -189,6 +189,7 @@ class AddExpense extends StatelessWidget {
                       cost: int.parse(_costController.text),
                       receiptImage: _state.receiptImage,
                     );
+                    Navigator.pop(context);
                   }
                 },
                 icon: Icon(Icons.add_rounded),
