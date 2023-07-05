@@ -22,8 +22,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(
             create: (_) => SyncManager(
                   docs: 'https://forms.gle/znhV2TDzTXY1zk9p6',
-                  sheet:
-                      'https://bit.ly/44gzd7c',
+                  sheet: 'https://bit.ly/44gzd7c',
                 )),
       ],
       child: MaterialApp.router(

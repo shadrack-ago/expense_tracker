@@ -1,3 +1,8 @@
+import 'dart:io';
+import 'dart:typed_data';
+
+import 'package:flutter/material.dart';
+
 class Expense {
   int cost;
   String name;
@@ -23,8 +28,11 @@ class MetaData {
   MetaData({required this.id, required this.timeRecorded});
 }
 
+/// Receipt image type
+enum RImageType { network, memory, file }
+
 class ReceiptImage<T> {
-  String type;
+  RImageType type;
   T src;
   ReceiptImage({required this.type, required this.src});
 }
