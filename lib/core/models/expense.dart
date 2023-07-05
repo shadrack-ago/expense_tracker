@@ -38,9 +38,8 @@ class ExpenseValidator {
     return null;
   }
 
-  static String? validateCategory(String? id, {required BuildContext context}) {
-    List<ExpenseCategory> categories =
-        Provider.of<DataManager>(context).categories;
+  static String? validateCategory(String? id,
+      {required List<ExpenseCategory> categories}) {
     if (id == null)
       return 'An Expense should have a category';
     else if (categories.isNotEmpty &&
