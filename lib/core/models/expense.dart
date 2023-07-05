@@ -52,6 +52,10 @@ class MetaData {
   String id;
 
   MetaData({required this.id, required this.timeRecorded});
+
+  factory MetaData.fromId(String id) {
+    return MetaData(id: id, timeRecorded: DateTime.timestamp());
+  }
 }
 
 /// Receipt image type
