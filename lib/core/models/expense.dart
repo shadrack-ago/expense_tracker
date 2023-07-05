@@ -2,8 +2,7 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:expense_manager/core/models/category.dart';
-import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide MetaData;
 
 class Expense {
   int cost;
@@ -32,7 +31,8 @@ class ExpenseValidator {
   static String? validateCost(String? cost) {
     if (cost == null || cost.isEmpty)
       return 'An Expense should have a cost';
-    else if (cost is int == false) return 'Expense cost should be a number';
+    else if (int.tryParse(cost) == null)
+      return 'Expense cost should be a number';
     return null;
   }
 
