@@ -38,7 +38,7 @@ class Insights extends StatelessWidget {
             textAlign: TextAlign.center,
           ),
           SizedBox(height: 10),
-          if (_manager.categories.isEmpty)
+          if (_manager.expenses.isEmpty)
             Card(
               child: AspectRatio(
                 aspectRatio: 16 / 10,
