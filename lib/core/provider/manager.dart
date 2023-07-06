@@ -87,57 +87,31 @@ class DataManager extends ChangeNotifier {
     );
   }
 
-  /// Responsible for creating chart section colors
-  List<PieChartSectionData> get _sections => List.generate(4, (i) {
-        switch (i) {
-          case 0:
-            return PieChartSectionData(
-              color: Colors.amber,
-              value: 40,
-              title: 'Food',
-            );
-          case 1:
-            return PieChartSectionData(
-              color: Colors.blueGrey,
-              value: 30,
-              title: 'Rent',
-            );
-          case 2:
-            return PieChartSectionData(
-              color: Colors.lightGreenAccent.shade100,
-              value: 20,
-              title: 'Entertainment',
-            );
-          case 3:
-            return PieChartSectionData(
-              color: Colors.deepPurpleAccent.shade100,
-              value: 10,
-              title: 'Shopping',
-            );
-          default:
-            throw Error();
-        }
-      });
-
   /// Expendicture chart data
   PieChartData get expenditureCData {
-    List<PieChartSectionData> sections = [];
+    Map<String, double> data = {'Food': 200};
 
-    for (var i = 0; i < expenses.length; i++) {}
-
-    return _buildChart(sections: sections);
+    return PieChartData(
+      sections: data.entries
+          .map<PieChartSectionData>((e) => PieChartSectionData(
+                title: e.key,
+                value: e.value,
+              ))
+          .toList(),
+    );
   }
 
   /// Saving chart data
   PieChartData get savingCData {
-    return _buildChart(sections: _sections);
-  }
+    Map<String, double> data = {'Food': 200};
 
-  PieChartData _buildChart({required List<PieChartSectionData> sections}) {
     return PieChartData(
-      sectionsSpace: 0,
-      centerSpaceRadius: 40,
-      sections: sections,
+      sections: data.entries
+          .map<PieChartSectionData>((e) => PieChartSectionData(
+                title: e.key,
+                value: e.value,
+              ))
+          .toList(),
     );
   }
 }
