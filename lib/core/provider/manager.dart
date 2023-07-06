@@ -89,13 +89,45 @@ class DataManager extends ChangeNotifier {
 
   /// Expendicture chart data
   PieChartData get expenditureCData {
-    Map<String, double> data = {'Food': 200};
+    Map<String, Map<String, double>> data = {};
+
+    if (data.isEmpty && _expenses.isNotEmpty) {
+      data.addAll({
+        getCategory(_expenses[0].categoryId)!.name: {
+          _expenses[0].meta.id: _expenses[0].cost
+        }
+      });
+    }
+
+    for (var eIndex = 0; eIndex < _expenses.length; eIndex++) {
+      for (var dIndex = 0; dIndex < data.length; dIndex++) {
+        /// Current category in the loop
+        ExpenseCategory _cCurr = getCategory(_expenses[eIndex].categoryId)!;
+
+        /// Current expense
+        Expense _cExp = _expenses[eIndex];
+
+        /// Current key in data map
+        String dKey = data.keys.toList()[dIndex];
+        Map<String, double> dValue = data[dKey]!;
+
+        if (_cCurr.name == dKey && _cExp.meta.id != dValue.keys.first) {
+          print(
+              'Current: $dKey:${_cExp.cost} Res: $dKey:${dValue.values.first + _cExp.cost}');
+          data[dKey]![dValue.keys.first] = dValue.values.first + _cExp.cost;
+        } else if (_cCurr.name != dKey && _cExp.meta.id != dValue.keys.first) {
+          data.addAll({
+            _cCurr.name: {_cExp.meta.id: _cExp.cost}
+          });
+        }
+      }
+    }
 
     return PieChartData(
       sections: data.entries
           .map<PieChartSectionData>((e) => PieChartSectionData(
                 title: e.key,
-                value: e.value,
+                value: e.value.entries.first.value,
               ))
           .toList(),
     );
@@ -103,7 +135,7 @@ class DataManager extends ChangeNotifier {
 
   /// Saving chart data
   PieChartData get savingCData {
-    Map<String, double> data = {'Food': 200};
+    Map<String, double> data = {};
 
     return PieChartData(
       sections: data.entries
