@@ -21,7 +21,7 @@ class DataManager extends ChangeNotifier {
 
   addCategory({
     required String name,
-    required int budget,
+    required double budget,
   }) {
     _categories.add(ExpenseCategory(
       meta: MetaData.fromId('sdjfhsd878123mnsdfj'),
@@ -34,7 +34,7 @@ class DataManager extends ChangeNotifier {
   addExpense({
     required String name,
     required String categoryId,
-    required int cost,
+    required double cost,
     ReceiptImage? receiptImage,
   }) {
     _expenses.add(Expense(
