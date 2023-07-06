@@ -129,23 +129,24 @@ class Home extends StatelessWidget {
             height: 800,
             child: Consumer<DataManager>(
               builder: (context, data, child) {
-                return data.expense.length > 0
+                return data.expenses.length > 0
                     ? ListView.separated(
                         physics: BouncingScrollPhysics(),
-                        itemCount: data.expense.length,
+                        itemCount: data.expenses.length,
                         separatorBuilder: (context, index) => SizedBox(
                           height: 10,
                         ),
                         itemBuilder: (context, index) {
                           return Card(
                             child: ListTile(
-                              title: Text(data.expense[index].name),
+                              title: Text(data.expenses[index].name),
                               subtitle: Text(data
                                       .getCategory(
-                                          data.expense[index].categoryId)
+                                          data.expenses[index].categoryId)
                                       ?.name ??
                                   'Unable to fetch category reload'),
-                              trailing: Text('Ksh ${data.expense[index].cost}'),
+                              trailing:
+                                  Text('Ksh ${data.expenses[index].cost}'),
                             ),
                           );
                         },

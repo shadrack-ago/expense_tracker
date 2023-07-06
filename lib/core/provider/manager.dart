@@ -10,7 +10,7 @@ class DataManager extends ChangeNotifier {
 
   List<ExpenseCategory> _categories = [];
 
-  List<Expense> get expense => _expenses;
+  List<Expense> get expenses => _expenses;
   List<ExpenseCategory> get categories => _categories;
 
   ExpenseCategory? getCategory(String id) {
@@ -121,13 +121,18 @@ class DataManager extends ChangeNotifier {
 
   /// Expendicture chart data
   PieChartData get expenditureCData {
-    return _buildChart(sections: _sections);
+    List<PieChartSectionData> sections = [];
+
+    for (var i = 0; i < expenses.length; i++) {}
+
+    return _buildChart(sections: sections);
   }
 
   /// Saving chart data
   PieChartData get savingCData {
     return _buildChart(sections: _sections);
   }
+
   PieChartData _buildChart({required List<PieChartSectionData> sections}) {
     return PieChartData(
       sectionsSpace: 0,
