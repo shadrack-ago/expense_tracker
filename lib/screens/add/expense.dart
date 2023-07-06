@@ -186,7 +186,7 @@ class AddExpense extends StatelessWidget {
                     Provider.of<DataManager>(context, listen: false).addExpense(
                       name: _nameController.text,
                       categoryId: _categoryController.text,
-                      cost: int.parse(_costController.text),
+                      cost: double.parse(_costController.text),
                       receiptImage: _state.receiptImage,
                     );
                     Navigator.pop(context);

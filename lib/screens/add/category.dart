@@ -48,7 +48,7 @@ class AddCategory extends StatelessWidget {
                       Provider.of<DataManager>(context, listen: false)
                           .addCategory(
                         name: _nameController.text,
-                        budget: int.parse(_budgetController.text),
+                        budget: double.parse(_budgetController.text),
                       );
                       Navigator.pop(context);
                     }
