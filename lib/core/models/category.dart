@@ -3,7 +3,7 @@ import 'expense.dart';
 class ExpenseCategory {
   String name;
   MetaData meta;
-  int budget;
+  double budget;
 
   ExpenseCategory({
     required this.meta,

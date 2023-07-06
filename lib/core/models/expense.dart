@@ -5,7 +5,7 @@ import 'package:expense_manager/core/models/category.dart';
 import 'package:flutter/material.dart' hide MetaData;
 
 class Expense {
-  int cost;
+  double cost;
   String name;
   MetaData meta;
   ReceiptImage? receiptURL;
