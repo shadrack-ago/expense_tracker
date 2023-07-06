@@ -112,8 +112,6 @@ class DataManager extends ChangeNotifier {
         Map<String, double> dValue = data[dKey]!;
 
         if (_cCurr.name == dKey && _cExp.meta.id != dValue.keys.first) {
-          print(
-              'Current: $dKey:${_cExp.cost} Res: $dKey:${dValue.values.first + _cExp.cost}');
           data[dKey]![dValue.keys.first] = dValue.values.first + _cExp.cost;
         } else if (_cCurr.name != dKey && _cExp.meta.id != dValue.keys.first) {
           data.addAll({
@@ -135,13 +133,51 @@ class DataManager extends ChangeNotifier {
 
   /// Saving chart data
   PieChartData get savingCData {
-    Map<String, double> data = {};
+    Map<String, Map<String, double>> data = {};
+
+    if (data.isEmpty && _expenses.isNotEmpty) {
+      double saving =
+          getCategory(_expenses[0].categoryId)!.budget - _expenses[0].cost;
+      if (saving > 0)
+        data.addAll({
+          getCategory(_expenses[0].categoryId)!.name: {
+            _expenses[0].meta.id: saving
+          }
+        });
+    }
+
+    for (var eIndex = 0; eIndex < _expenses.length; eIndex++) {
+      for (var dIndex = 0; dIndex < data.length; dIndex++) {
+        /// Current category in the loop
+        ExpenseCategory _cCurr = getCategory(_expenses[eIndex].categoryId)!;
+
+        /// Current expense
+        Expense _cExp = _expenses[eIndex];
+
+        /// Current key in data map
+        String dKey = data.keys.toList()[dIndex];
+        Map<String, double> dValue = data[dKey]!;
+
+        double saving = _cCurr.budget - _cExp.cost;
+
+        if (saving > 0) {
+          if (_cCurr.name == dKey && _cExp.meta.id != dValue.keys.first) {
+            data[dKey]![dValue.keys.first] = saving - _cExp.cost;
+          } else if (_cCurr.name != dKey &&
+              _cExp.meta.id != dValue.keys.first) {
+            data.addAll({
+              _cCurr.name: {_cExp.meta.id: saving}
+            });
+          }
+        }
+      }
+    }
 
     return PieChartData(
       sections: data.entries
           .map<PieChartSectionData>((e) => PieChartSectionData(
                 title: e.key,
-                value: e.value,
+                value: e.value.entries.first.value,
               ))
           .toList(),
     );
