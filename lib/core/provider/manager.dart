@@ -116,14 +116,32 @@ class DataManager extends ChangeNotifier {
     ]);
   }
 
+  DateTime _now = DateTime.timestamp();
+
   /// Weekly tracking heatmap data
   HeatmapData get weekly {
     const rows = ['Days'];
     const cols = ["Mon", "Tue", "Wed", "Thur", "Fri", "Sat", "Sun"];
+    List<double> data = List.filled(cols.length, 0);
+
+    for (var day = 0; day < data.length; day++) {
+      for (var expense in _expenses) {
+        if (expense.meta.timeRecorded
+                .difference(_now.thisWeekLastDay)
+                .inDays
+                .abs() <=
+            7) {
+          if (expense.meta.timeRecorded.weekday - 1 == day) {
+            data[day] = data[day] + 1;
+          }
+        }
+      }
+    }
+
     return _buildHeatmapData(
       columns: cols,
       rows: rows,
-      data: List.filled(cols.length, 0),
+      data: data,
     );
   }
 
