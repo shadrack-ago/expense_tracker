@@ -149,10 +149,26 @@ class DataManager extends ChangeNotifier {
   HeatmapData get monthly {
     const rows = ['Weeks'];
     const cols = ['1', '', '2', '', '3', '', '4'];
+
+    List<double> data = List.filled(cols.length, 0);
+
+    for (var week = 0; week < data.length; week++) {
+      if (cols[week].isNotEmpty) {
+        for (var expense in _expenses) {
+          if (expense.meta.timeRecorded.month == _now.month) {
+            if (expense.meta.timeRecorded.weekOfMonth ==
+                int.parse(cols[week])) {
+              data[week] = data[week] + 1;
+            }
+          }
+        }
+      }
+    }
+
     return _buildHeatmapData(
       columns: cols,
       rows: rows,
-      data: List.filled(cols.length, 0),
+      data: data,
     );
   }
 
