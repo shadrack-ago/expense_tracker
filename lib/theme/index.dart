@@ -16,7 +16,8 @@ class Theming {
           elevation: 0,
           systemOverlayStyle: SystemUiOverlayStyle.dark.copyWith(
             statusBarColor: Colors.transparent,
-            systemNavigationBarColor: Colors.transparent,
+            systemNavigationBarColor: Color(0xfffffbff),
+            systemNavigationBarDividerColor: Colors.transparent,
           ),
         ),
         listTileTheme: ListTileThemeData(
