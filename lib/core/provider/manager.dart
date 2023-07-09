@@ -7,59 +7,9 @@ import 'package:flutter/material.dart' hide MetaData;
 import '../models/expense.dart';
 
 class DataManager extends ChangeNotifier {
-  List<Expense> _expenses = [
-    Expense(
-        meta: MetaData(
-            id: '8wdjs', timeRecorded: DateTime.timestamp().thisWeekFirstDay),
-        name: 'Test',
-        categoryId: '89sjsu',
-        cost: 300),
-    Expense(
-        meta: MetaData(
-            id: 'js83ks', timeRecorded: DateTime.timestamp().thisMonthLastDay),
-        name: 'Test 1',
-        categoryId: '89sjsu',
-        cost: 300),
-    Expense(
-        meta: MetaData.fromId('rs83ks'),
-        name: 'Snacks',
-        categoryId: 'isudna',
-        cost: 200),
-    Expense(
-        meta: MetaData(
-            id: 'twdjs', timeRecorded: DateTime.timestamp().thisWeekLastDay),
-        name: 'Shopping',
-        categoryId: 'isudna',
-        cost: 2000),
-    Expense(
-        meta: MetaData(
-            id: 'gs83ks',
-            timeRecorded: DateTime.timestamp().subtract(Duration(days: 3))),
-        name: 'Restaurant',
-        categoryId: 'isudna',
-        cost: 1000),
-    Expense(
-        meta: MetaData(
-            id: 'ts83ks',
-            timeRecorded: DateTime.timestamp().subtract(Duration(days: 5))),
-        name: 'Checkup',
-        categoryId: 'ejsdhs',
-        cost: 400),
-    Expense(
-        meta: MetaData(
-            id: 'vwdjs', timeRecorded: DateTime.timestamp().thisMonthFirstDay),
-        name: 'Dental',
-        categoryId: 'ejsdhs',
-        cost: 1200),
-  ];
+  List<Expense> _expenses = [];
 
-  List<ExpenseCategory> _categories = [
-    ExpenseCategory(meta: MetaData.fromId('89sjsu'), name: 'Test', budget: 400),
-    ExpenseCategory(
-        meta: MetaData.fromId('isudna'), name: 'Food', budget: 3200),
-    ExpenseCategory(
-        meta: MetaData.fromId('ejsdhs'), name: 'Health', budget: 2000),
-  ];
+  List<ExpenseCategory> _categories = [];
 
   List<Expense> get expenses => _expenses;
   List<ExpenseCategory> get categories => _categories;
