@@ -199,9 +199,11 @@ class DataManager extends ChangeNotifier {
         if (_cCurr.name == dKey && _cExp.meta.id != dValue.keys.first) {
           data[dKey]![dValue.keys.first] = dValue.values.first + _cExp.cost;
         } else if (_cCurr.name != dKey && _cExp.meta.id != dValue.keys.first) {
-          data.addAll({
-            _cCurr.name: {_cExp.meta.id: _cExp.cost}
-          });
+          if (data[_cCurr.name] == null) {
+            data.addAll({
+              _cCurr.name: {_cExp.meta.id: _cExp.cost}
+            });
+          }
         }
       }
     }
