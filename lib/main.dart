@@ -26,6 +26,7 @@ class MyApp extends StatelessWidget {
                 )),
       ],
       child: MaterialApp.router(
+        title: 'Expense Tracker',
         theme: Theming.theme(context),
         routerConfig: Navigation().router,
       ),
