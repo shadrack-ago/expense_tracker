@@ -241,20 +241,25 @@ class DataManager extends ChangeNotifier {
 
         /// Current key in data map
         String dKey = data.keys.toList()[dIndex];
+
+        /// Current data value
         Map<String, double> dValue = data[dKey]!;
 
-        double saving = _cCurr.budget - _cExp.cost;
-
-        if (saving > 0) {
-          if (_cCurr.name == dKey && _cExp.meta.id != dValue.keys.first) {
-            data[dKey]![dValue.keys.first] = saving - _cExp.cost;
-          } else if (_cCurr.name != dKey &&
-              _cExp.meta.id != dValue.keys.first) {
+        if (_cCurr.name == dKey && dValue.keys.first != _cExp.meta.id) {
+          data[dKey] = {_cExp.meta.id: dValue.values.first - _cExp.cost};
+        } else if (_cCurr.name != dKey && dValue.keys.first != _cExp.meta.id) {
+          if (data[_cCurr.name] == null) {
             data.addAll({
-              _cCurr.name: {_cExp.meta.id: saving}
+              _cCurr.name: {_cExp.meta.id: _cCurr.budget - _cExp.cost}
             });
           }
         }
+      }
+    }
+
+    for (var section in data.entries.toList()) {
+      if (section.value.values.first.isNegative) {
+        data.remove(section.key);
       }
     }
 
