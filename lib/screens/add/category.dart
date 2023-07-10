@@ -48,7 +48,8 @@ class AddCategory extends StatelessWidget {
               ElevatedButton.icon(
                   onPressed: () {
                     if (_addCategory.currentState!.validate()) {
-                      if (dataCallback.getCategory(_nameController.text) !=
+                      if (dataCallback.getCategory(
+                              _nameController.text.toLowerCase()) !=
                           null) {
                         Navigation.alert(
                           context: context,
