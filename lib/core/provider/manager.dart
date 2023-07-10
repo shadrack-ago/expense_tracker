@@ -15,9 +15,12 @@ class DataManager extends ChangeNotifier {
   List<ExpenseCategory> get categories => _categories;
 
   ExpenseCategory? getCategory(String id) {
+    ExpenseCategory? res;
     if (categories.isNotEmpty)
-      return categories.firstWhere((element) => element.meta.id == id);
-    return null;
+      categories.forEach((element) {
+        if (element.meta.id == id) res = element;
+      });
+    return res;
   }
 
   Map<String, double> _savings = {};
