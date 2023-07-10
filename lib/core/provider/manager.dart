@@ -25,7 +25,7 @@ class DataManager extends ChangeNotifier {
     required double budget,
   }) {
     _categories.add(ExpenseCategory(
-      meta: MetaData.fromId('$name'),
+      meta: MetaData.fromId(name.toLowerCase()),
       name: name,
       budget: budget,
     ));
@@ -39,7 +39,7 @@ class DataManager extends ChangeNotifier {
     ReceiptImage? receiptImage,
   }) {
     _expenses.add(Expense(
-      meta: MetaData.fromId(name),
+      meta: MetaData.fromId(name.toLowerCase()),
       name: name,
       categoryId: categoryId,
       cost: cost,
