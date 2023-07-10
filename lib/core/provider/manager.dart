@@ -20,6 +20,56 @@ class DataManager extends ChangeNotifier {
     return null;
   }
 
+  Map<String, double> _savings = {};
+
+  Map<String, double> calculateSavings() {
+    Map<String, Map<String, double>> temp = {};
+    Map<String, double> res = {};
+
+    if (temp.isEmpty && _expenses.isNotEmpty) {
+      double saving =
+          getCategory(_expenses[0].categoryId)!.budget - _expenses[0].cost;
+      if (saving > 0)
+        temp.addAll({
+          getCategory(_expenses[0].categoryId)!.name: {
+            _expenses[0].meta.id: saving
+          }
+        });
+    }
+
+    for (var eIndex = 0; eIndex < _expenses.length; eIndex++) {
+      for (var dIndex = 0; dIndex < temp.length; dIndex++) {
+        /// Current category in the loop
+        ExpenseCategory _cCurr = getCategory(_expenses[eIndex].categoryId)!;
+
+        /// Current expense
+        Expense _cExp = _expenses[eIndex];
+
+        /// Current key in data map
+        String dKey = temp.keys.toList()[dIndex];
+
+        /// Current data value
+        Map<String, double> dValue = temp[dKey]!;
+
+        if (_cCurr.name == dKey && dValue.keys.first != _cExp.meta.id) {
+          temp[dKey] = {_cExp.meta.id: dValue.values.first - _cExp.cost};
+        } else if (_cCurr.name != dKey && dValue.keys.first != _cExp.meta.id) {
+          if (temp[_cCurr.name] == null) {
+            temp.addAll({
+              _cCurr.name: {_cExp.meta.id: _cCurr.budget - _cExp.cost}
+            });
+          }
+        }
+      }
+    }
+
+    for (var element in temp.entries) {
+      res.addAll({element.key: element.value.values.first});
+    }
+
+    return res;
+  }
+
   addCategory({
     required String name,
     required double budget,
