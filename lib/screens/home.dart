@@ -56,8 +56,12 @@ class Home extends StatelessWidget {
                                 aspectRatio: 16 / 5,
                                 child: TabBarView(
                                   children: [
-                                    Heatmap(heatmapData: _manager.weekly),
-                                    Heatmap(heatmapData: _manager.monthly),
+                                    Heatmap(
+                                        heatmapData:
+                                            _manager.weeklyHeatmapData),
+                                    Heatmap(
+                                        heatmapData:
+                                            _manager.monthlyHeatmapData),
                                   ],
                                 ),
                               ),
@@ -106,8 +110,12 @@ class Home extends StatelessWidget {
                                 aspectRatio: 16 / 4,
                                 child: TabBarView(
                                   children: [
-                                    Heatmap(heatmapData: _manager.weekly),
-                                    Heatmap(heatmapData: _manager.monthly),
+                                    Heatmap(
+                                        heatmapData:
+                                            _manager.weeklyHeatmapData),
+                                    Heatmap(
+                                        heatmapData:
+                                            _manager.monthlyHeatmapData),
                                   ],
                                 ),
                               ),

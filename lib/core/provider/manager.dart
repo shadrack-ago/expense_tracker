@@ -165,7 +165,7 @@ class DataManager extends ChangeNotifier {
   DateTime _now = DateTime.timestamp();
 
   /// Weekly tracking heatmap data
-  HeatmapData get weekly {
+  HeatmapData get weeklyHeatmapData {
     const rows = ['Days'];
     const cols = ["Mon", "Tue", "Wed", "Thur", "Fri", "Sat", "Sun"];
     List<double> data = List.filled(cols.length, 0);
@@ -192,7 +192,7 @@ class DataManager extends ChangeNotifier {
   }
 
   /// Monthly tracking heatmap data
-  HeatmapData get monthly {
+  HeatmapData get monthlyHeatmapData {
     const rows = ['Weeks'];
     const cols = ['1', '', '2', '', '3', '', '4'];
 
