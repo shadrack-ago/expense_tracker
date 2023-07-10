@@ -100,6 +100,8 @@ class AddExpense extends StatelessWidget {
   Widget build(BuildContext context) {
     List<ExpenseCategory> retrievedCategories =
         Provider.of<DataManager>(context).categories;
+
+    DataManager dataCallback = Provider.of<DataManager>(context, listen: false);
     return SingleChildScrollView(
       child: Form(
         key: _addExpense,
@@ -183,13 +185,45 @@ class AddExpense extends StatelessWidget {
               ElevatedButton.icon(
                 onPressed: () {
                   if (_addExpense.currentState!.validate()) {
-                    Provider.of<DataManager>(context, listen: false).addExpense(
-                      name: _nameController.text,
-                      categoryId: _categoryController.text,
-                      cost: double.parse(_costController.text),
-                      receiptImage: _state.receiptImage,
-                    );
-                    Navigator.pop(context);
+                    var _cCurr =
+                        dataCallback.getCategory(_categoryController.text)!;
+                    if (_cCurr.budget < double.parse(_costController.text)) {
+                      Navigation.alert(
+                        context: context,
+                        content: AlertDialog(
+                          title: Text('Confirm your expense'),
+                          content: Text(
+                              'Your expense exceeds your budget by ${double.parse(_costController.text) - _cCurr.budget}'),
+                          actions: [
+                            TextButton.icon(
+                                icon: Icon(Icons.check_rounded),
+                                onPressed: () => Navigator.pop(context),
+                                label: Text('Rectify')),
+                            TextButton.icon(
+                                icon: Icon(Icons.close_rounded),
+                                onPressed: () {
+                                  dataCallback.addExpense(
+                                    name: _nameController.text,
+                                    categoryId: _categoryController.text,
+                                    cost: double.parse(_costController.text),
+                                    receiptImage: _state.receiptImage,
+                                  );
+                                  Navigator.pop(context);
+                                },
+                                style: TextButton.styleFrom(
+                                    foregroundColor: Colors.redAccent),
+                                label: Text('Ignore')),
+                          ],
+                        ),
+                      );
+                    } else {
+                      dataCallback.addExpense(
+                        name: _nameController.text,
+                        categoryId: _categoryController.text,
+                        cost: double.parse(_costController.text),
+                        receiptImage: _state.receiptImage,
+                      );
+                    }
                   }
                 },
                 icon: Icon(Icons.add_rounded),
