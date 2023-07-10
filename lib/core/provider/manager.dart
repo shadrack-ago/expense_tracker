@@ -25,16 +25,19 @@ class DataManager extends ChangeNotifier {
     return res;
   }
 
-  
-  BuildContext? context;
+  BuildContext? _context;
+
+  addContext(BuildContext context) {
+    _context = _context;
+  }
 
   listeners() {
     /// Listen for overdrafts
     addListener(() {
       for (var saving in savings.entries) {
-        if (context != null) {
+        if (_context != null) {
           if (saving.value < 0) {
-            ScaffoldMessenger.of(context!).showSnackBar(
+            ScaffoldMessenger.of(_context!).showSnackBar(
               SnackBar(
                 showCloseIcon: true,
                 content: Text(
