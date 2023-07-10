@@ -14,6 +14,8 @@ class Home extends StatelessWidget {
   Widget build(BuildContext context) {
     final _manager = Provider.of<DataManager>(context);
 
+    Provider.of<DataManager>(context, listen: false).addContext(context);
+
     return SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
