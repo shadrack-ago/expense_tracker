@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../core/provider/manager.dart';
+import '../../router/index.dart';
 
 class AddCategory extends StatelessWidget {
   AddCategory({super.key});
@@ -15,6 +16,8 @@ class AddCategory extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    DataManager dataCallback = Provider.of<DataManager>(context, listen: false);
+
     return SingleChildScrollView(
       child: Form(
         key: _addCategory,
@@ -45,12 +48,36 @@ class AddCategory extends StatelessWidget {
               ElevatedButton.icon(
                   onPressed: () {
                     if (_addCategory.currentState!.validate()) {
-                      Provider.of<DataManager>(context, listen: false)
-                          .addCategory(
-                        name: _nameController.text,
-                        budget: double.parse(_budgetController.text),
-                      );
-                      Navigator.pop(context);
+                      if (dataCallback.getCategory(_nameController.text) !=
+                          null) {
+                        Navigation.alert(
+                          context: context,
+                          builder: (_context) => AlertDialog(
+                            title: Text('Category already exists'),
+                            content: Text(
+                                'The Category already exists please create a new one or edit the category'),
+                            actions: [
+                              TextButton.icon(
+                                  icon: Icon(Icons.arrow_back_ios_new_rounded),
+                                  onPressed: () => Navigator.pop(_context),
+                                  style: TextButton.styleFrom(
+                                      foregroundColor: Colors.blueAccent),
+                                  label: Text('Create')),
+                              TextButton.icon(
+                                  icon: Icon(Icons.edit_document),
+                                  onPressed: () {},
+                                  label: Text('Edit')),
+                            ],
+                          ),
+                        );
+                      } else {
+                        Provider.of<DataManager>(context, listen: false)
+                            .addCategory(
+                          name: _nameController.text,
+                          budget: double.parse(_budgetController.text),
+                        );
+                        Navigator.pop(context);
+                      }
                     }
                   },
                   icon: Icon(Icons.add_rounded),
