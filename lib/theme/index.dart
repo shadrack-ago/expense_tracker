@@ -5,6 +5,11 @@ class Theming {
   static ThemeData theme(BuildContext context) => ThemeData(
         useMaterial3: true,
         colorSchemeSeed: Colors.amber,
+        snackBarTheme: SnackBarThemeData(
+          showCloseIcon: true,
+          elevation: 10,
+          behavior: SnackBarBehavior.floating,
+        ),
         bottomNavigationBarTheme: BottomNavigationBarThemeData(
           showUnselectedLabels: false,
           elevation: 0,
