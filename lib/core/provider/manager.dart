@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import '../models/category.dart';
 import '../../utils/extensions/date.dart';
 import 'package:fl_chart/fl_chart.dart';
@@ -29,16 +31,18 @@ class DataManager extends ChangeNotifier {
       for (var saving in savings.entries) {
         if (context != null) {
           if (saving.value < 0) {
-            ScaffoldMessenger.of(context!).showSnackBar(
-              SnackBar(
-                showCloseIcon: true,
-                content: Text(
-                    'You have exceeded your budget for ${saving.key} by ${saving.value}'),
-                elevation: 10,
-                action:
-                    SnackBarAction(label: 'Update budget', onPressed: () {}),
-              ),
-            );
+            Timer(const Duration(seconds: 2), () {
+              ScaffoldMessenger.of(context!).showSnackBar(
+                SnackBar(
+                  showCloseIcon: true,
+                  content: Text(
+                      'You have exceeded your budget for ${saving.key} by ${saving.value}'),
+                  elevation: 10,
+                  action:
+                      SnackBarAction(label: 'Update budget', onPressed: () {}),
+                ),
+              );
+            });
           }
         }
       }
