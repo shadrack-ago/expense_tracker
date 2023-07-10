@@ -70,9 +70,9 @@ class DataManager extends ChangeNotifier {
         String dKey = temp.keys.toList()[dIndex];
         Map<String, double> dValue = temp[dKey]!;
 
-        if (_cCurr.name == dKey && _cExp.meta.id != dValue.keys.first) {
-          temp[dKey]![dValue.keys.first] = dValue.values.first + _cExp.cost;
-        } else if (_cCurr.name != dKey && _cExp.meta.id != dValue.keys.first) {
+        if (_cCurr.name == dKey && dValue.keys.first != _cExp.meta.id) {
+          temp[dKey] = {_cExp.meta.id: dValue.values.first + _cExp.cost};
+        } else if (_cCurr.name != dKey && dValue.keys.first != _cExp.meta.id) {
           if (temp[_cCurr.name] == null) {
             temp.addAll({
               _cCurr.name: {_cExp.meta.id: _cExp.cost}
