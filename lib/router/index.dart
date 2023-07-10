@@ -58,6 +58,13 @@ class Navigation {
 
   static Duration transitionDuration = Duration(milliseconds: 250);
 
+  static alert({required BuildContext context, required Widget content}) =>
+      showDialog(
+          context: context,
+          builder: (context) {
+            return content;
+          });
+
   static addCategory(BuildContext context) {
     if (Breakpoints.of(context).isMobile()) {
       Navigator.of(context).push(PageRouteBuilder(
