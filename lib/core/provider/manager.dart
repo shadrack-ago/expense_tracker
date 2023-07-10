@@ -220,47 +220,10 @@ class DataManager extends ChangeNotifier {
 
   /// Saving chart data
   PieChartData get savingCData {
-    Map<String, Map<String, double>> data = {};
-
-    if (data.isEmpty && _expenses.isNotEmpty) {
-      double saving =
-          getCategory(_expenses[0].categoryId)!.budget - _expenses[0].cost;
-      if (saving > 0)
-        data.addAll({
-          getCategory(_expenses[0].categoryId)!.name: {
-            _expenses[0].meta.id: saving
-          }
-        });
-    }
-
-    for (var eIndex = 0; eIndex < _expenses.length; eIndex++) {
-      for (var dIndex = 0; dIndex < data.length; dIndex++) {
-        /// Current category in the loop
-        ExpenseCategory _cCurr = getCategory(_expenses[eIndex].categoryId)!;
-
-        /// Current expense
-        Expense _cExp = _expenses[eIndex];
-
-        /// Current key in data map
-        String dKey = data.keys.toList()[dIndex];
-
-        /// Current data value
-        Map<String, double> dValue = data[dKey]!;
-
-        if (_cCurr.name == dKey && dValue.keys.first != _cExp.meta.id) {
-          data[dKey] = {_cExp.meta.id: dValue.values.first - _cExp.cost};
-        } else if (_cCurr.name != dKey && dValue.keys.first != _cExp.meta.id) {
-          if (data[_cCurr.name] == null) {
-            data.addAll({
-              _cCurr.name: {_cExp.meta.id: _cCurr.budget - _cExp.cost}
-            });
-          }
-        }
-      }
-    }
+    Map<String, double> data = _savings;
 
     for (var section in data.entries.toList()) {
-      if (section.value.values.first.isNegative) {
+      if (section.value.isNegative) {
         data.remove(section.key);
       }
     }
@@ -269,7 +232,7 @@ class DataManager extends ChangeNotifier {
       sections: data.entries
           .map<PieChartSectionData>((e) => PieChartSectionData(
                 title: e.key,
-                value: e.value.entries.first.value,
+                value: e.value,
               ))
           .toList(),
     );
