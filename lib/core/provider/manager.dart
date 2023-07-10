@@ -23,9 +23,6 @@ class DataManager extends ChangeNotifier {
     return res;
   }
 
-  Map<String, double> _savings = {};
-  Map<String, double> _expenditure = {};
-
   /// Expenditure calculator
   Map<String, double> get expenditure {
     Map<String, Map<String, double>> temp = {};
@@ -222,7 +219,7 @@ class DataManager extends ChangeNotifier {
 
   /// Expendicture chart data
   PieChartData get expenditureCData {
-    Map<String, double> data = _expenditure;
+    Map<String, double> data = expenditure;
 
     return PieChartData(
       sections: data.entries
@@ -236,7 +233,7 @@ class DataManager extends ChangeNotifier {
 
   /// Saving chart data
   PieChartData get savingCData {
-    Map<String, double> data = _savings;
+    Map<String, double> data = savings;
 
     for (var section in data.entries.toList()) {
       if (section.value.isNegative) {
