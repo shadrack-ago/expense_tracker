@@ -190,14 +190,14 @@ class AddExpense extends StatelessWidget {
                     if (_cCurr.budget < double.parse(_costController.text)) {
                       Navigation.alert(
                         context: context,
-                        content: AlertDialog(
+                        builder: (_context) => AlertDialog(
                           title: Text('Confirm your expense'),
                           content: Text(
                               'Your expense exceeds your budget by ${double.parse(_costController.text) - _cCurr.budget}'),
                           actions: [
                             TextButton.icon(
                                 icon: Icon(Icons.check_rounded),
-                                onPressed: () => Navigator.pop(context),
+                                onPressed: () => Navigator.pop(_context),
                                 label: Text('Rectify')),
                             TextButton.icon(
                                 icon: Icon(Icons.close_rounded),
@@ -208,7 +208,8 @@ class AddExpense extends StatelessWidget {
                                     cost: double.parse(_costController.text),
                                     receiptImage: _state.receiptImage,
                                   );
-                                  Navigator.pop(context);
+                                  Navigator.pop(_context);
+                                  Navigator.of(context).pop();
                                 },
                                 style: TextButton.styleFrom(
                                     foregroundColor: Colors.redAccent),
@@ -223,6 +224,7 @@ class AddExpense extends StatelessWidget {
                         cost: double.parse(_costController.text),
                         receiptImage: _state.receiptImage,
                       );
+                      Navigator.of(context).pop();
                     }
                   }
                 },
