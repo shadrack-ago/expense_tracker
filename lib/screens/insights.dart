@@ -1,11 +1,9 @@
-import 'package:easy_web_view/easy_web_view.dart';
 import 'package:expense_manager/core/provider/manager.dart';
 import 'package:expense_manager/layouts/index.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../core/provider/sync.dart';
 import '../router/index.dart';
 
 class Insights extends StatelessWidget {
@@ -160,7 +158,7 @@ class Insights extends StatelessWidget {
             ]),
           SizedBox(height: 12),
           Text(
-            'Spreadsheet',
+            'More Insights',
             style: Theme.of(context).textTheme.titleMedium,
             textAlign: TextAlign.center,
           ),
@@ -170,10 +168,73 @@ class Insights extends StatelessWidget {
               padding: const EdgeInsets.all(8.0),
               child: AspectRatio(
                 aspectRatio: 16 / 20,
-                child: Consumer<SyncManager>(
-                  builder: (_, manager, __) => EasyWebView(
-                    key: webViewKey,
-                    src: manager.sheet,
+                child: DefaultTabController(
+                  length: 2,
+                  child: Column(
+                    children: [
+                      TabBar(tabs: [
+                        Tooltip(
+                          preferBelow: false,
+                          message: 'Savings',
+                          child: Tab(
+                            text: 'Savings',
+                          ),
+                        ),
+                        Tooltip(
+                          preferBelow: false,
+                          message: 'Expenditure',
+                          child: Tab(
+                            text: 'Expenditure',
+                          ),
+                        ),
+                      ]),
+                      SizedBox(height: 12),
+                      AspectRatio(
+                        aspectRatio: 16 / 4,
+                        child: Consumer<DataManager>(
+                          builder: (context, instance, child) {
+                            Map<String, double> savings = instance.savings;
+                            Map<String, double> expenditure =
+                                instance.expenditure;
+                            return TabBarView(children: [
+                              ListView.separated(
+                                physics: BouncingScrollPhysics(),
+                                itemCount: savings.length,
+                                separatorBuilder: (context, index) => SizedBox(
+                                  height: 10,
+                                ),
+                                itemBuilder: (context, index) {
+                                  return Card(
+                                    child: ListTile(
+                                      title: Text(savings.keys.toList()[index]),
+                                      trailing: Text(
+                                          'Ksh ${savings.values.toList()[index]}'),
+                                    ),
+                                  );
+                                },
+                              ),
+                              ListView.separated(
+                                physics: BouncingScrollPhysics(),
+                                itemCount: expenditure.length,
+                                separatorBuilder: (context, index) => SizedBox(
+                                  height: 10,
+                                ),
+                                itemBuilder: (context, index) {
+                                  return Card(
+                                    child: ListTile(
+                                      title: Text(
+                                          expenditure.keys.toList()[index]),
+                                      trailing: Text(
+                                          'Ksh ${expenditure.values.toList()[index]}'),
+                                    ),
+                                  );
+                                },
+                              )
+                            ]);
+                          },
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ),
@@ -181,6 +242,24 @@ class Insights extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+
+  Column noExpenseDefault(BuildContext context) {
+    return Column(
+      children: [
+        SizedBox(
+          height: 30,
+        ),
+        Text(
+          "No expense entries found",
+          style: TextStyle(fontSize: 21),
+        ),
+        TextButton(
+          child: Text("Add new entries"),
+          onPressed: () => Navigation.addExpense(context),
+        )
+      ],
     );
   }
 }
