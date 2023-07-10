@@ -1,9 +1,14 @@
 import 'package:flutter/widgets.dart';
 
 class SyncManager extends ChangeNotifier {
-  SyncManager({required String docs, required String sheet})
-      : _docs = docs,
+  SyncManager({
+    required String docs,
+    required String sheet,
+    required this.context,
+  })  : _docs = docs,
         _sheet = sheet;
+
+  BuildContext context;
 
   /// Google forms data url
   String _docs = '';

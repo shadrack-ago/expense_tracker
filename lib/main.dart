@@ -21,6 +21,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => DataManager()),
         ChangeNotifierProvider(
             create: (_) => SyncManager(
+                  context: context,
                   docs: 'https://forms.gle/znhV2TDzTXY1zk9p6',
                   sheet: 'https://bit.ly/44gzd7c',
                 )),
