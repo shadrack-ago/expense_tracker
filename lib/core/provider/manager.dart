@@ -25,25 +25,21 @@ class DataManager extends ChangeNotifier {
     return res;
   }
 
-  listeners(context) {
+  listeners(BuildContext context) {
     /// Listen for overdrafts
     addListener(() {
       for (var saving in savings.entries) {
-        if (context != null) {
-          if (saving.value < 0) {
-            Timer(const Duration(seconds: 2), () {
-              ScaffoldMessenger.of(context!).showSnackBar(
-                SnackBar(
-                  showCloseIcon: true,
-                  content: Text(
-                      'You have exceeded your budget for ${saving.key} by ${saving.value}'),
-                  elevation: 10,
-                  action:
-                      SnackBarAction(label: 'Update budget', onPressed: () {}),
-                ),
-              );
-            });
-          }
+        if (saving.value < 0) {
+          Timer(const Duration(seconds: 2), () {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text(
+                    'You have exceeded your budget for ${saving.key} by ${saving.value}'),
+                action:
+                    SnackBarAction(label: 'Update budget', onPressed: () {}),
+              ),
+            );
+          });
         }
       }
     });
