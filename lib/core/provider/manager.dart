@@ -26,7 +26,8 @@ class DataManager extends ChangeNotifier {
   Map<String, double> _savings = {};
   Map<String, double> _expenditure = {};
 
-  Map<String, double> calculateExpenditure() {
+  /// Expenditure calculator
+  Map<String, double> get expenditure {
     Map<String, Map<String, double>> temp = {};
     Map<String, double> res = {};
 
@@ -68,7 +69,8 @@ class DataManager extends ChangeNotifier {
     return res;
   }
 
-  Map<String, double> calculateSavings() {
+  /// Savings calculator
+  Map<String, double> get savings {
     Map<String, Map<String, double>> temp = {};
     Map<String, double> res = {};
 
