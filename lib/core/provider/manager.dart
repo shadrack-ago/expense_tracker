@@ -24,6 +24,49 @@ class DataManager extends ChangeNotifier {
   }
 
   Map<String, double> _savings = {};
+  Map<String, double> _expenditure = {};
+
+  Map<String, double> calculateExpenditure() {
+    Map<String, Map<String, double>> temp = {};
+    Map<String, double> res = {};
+
+    if (temp.isEmpty && _expenses.isNotEmpty) {
+      temp.addAll({
+        getCategory(_expenses[0].categoryId)!.name: {
+          _expenses[0].meta.id: _expenses[0].cost
+        }
+      });
+    }
+
+    for (var eIndex = 0; eIndex < _expenses.length; eIndex++) {
+      for (var dIndex = 0; dIndex < temp.length; dIndex++) {
+        /// Current category in the loop
+        ExpenseCategory _cCurr = getCategory(_expenses[eIndex].categoryId)!;
+
+        /// Current expense
+        Expense _cExp = _expenses[eIndex];
+
+        /// Current key in data map
+        String dKey = temp.keys.toList()[dIndex];
+        Map<String, double> dValue = temp[dKey]!;
+
+        if (_cCurr.name == dKey && _cExp.meta.id != dValue.keys.first) {
+          temp[dKey]![dValue.keys.first] = dValue.values.first + _cExp.cost;
+        } else if (_cCurr.name != dKey && _cExp.meta.id != dValue.keys.first) {
+          if (temp[_cCurr.name] == null) {
+            temp.addAll({
+              _cCurr.name: {_cExp.meta.id: _cExp.cost}
+            });
+          }
+        }
+      }
+    }
+    for (var element in temp.entries) {
+      res.addAll({element.key: element.value.values.first});
+    }
+
+    return res;
+  }
 
   Map<String, double> calculateSavings() {
     Map<String, Map<String, double>> temp = {};
@@ -177,45 +220,13 @@ class DataManager extends ChangeNotifier {
 
   /// Expendicture chart data
   PieChartData get expenditureCData {
-    Map<String, Map<String, double>> data = {};
-
-    if (data.isEmpty && _expenses.isNotEmpty) {
-      data.addAll({
-        getCategory(_expenses[0].categoryId)!.name: {
-          _expenses[0].meta.id: _expenses[0].cost
-        }
-      });
-    }
-
-    for (var eIndex = 0; eIndex < _expenses.length; eIndex++) {
-      for (var dIndex = 0; dIndex < data.length; dIndex++) {
-        /// Current category in the loop
-        ExpenseCategory _cCurr = getCategory(_expenses[eIndex].categoryId)!;
-
-        /// Current expense
-        Expense _cExp = _expenses[eIndex];
-
-        /// Current key in data map
-        String dKey = data.keys.toList()[dIndex];
-        Map<String, double> dValue = data[dKey]!;
-
-        if (_cCurr.name == dKey && _cExp.meta.id != dValue.keys.first) {
-          data[dKey]![dValue.keys.first] = dValue.values.first + _cExp.cost;
-        } else if (_cCurr.name != dKey && _cExp.meta.id != dValue.keys.first) {
-          if (data[_cCurr.name] == null) {
-            data.addAll({
-              _cCurr.name: {_cExp.meta.id: _cExp.cost}
-            });
-          }
-        }
-      }
-    }
+    Map<String, double> data = _expenditure;
 
     return PieChartData(
       sections: data.entries
           .map<PieChartSectionData>((e) => PieChartSectionData(
                 title: e.key,
-                value: e.value.entries.first.value,
+                value: e.value,
               ))
           .toList(),
     );
