@@ -9,7 +9,10 @@ class _FormState extends ChangeNotifier {
   _FormState();
 
   ReceiptImage? _image;
-  final TextEditingController _receiptController = TextEditingController();
+  final TextEditingController nameController = TextEditingController();
+  final TextEditingController categoryController = TextEditingController();
+  final TextEditingController costController = TextEditingController();
+  final TextEditingController receiptController = TextEditingController();
 
   ReceiptImage? get receiptImage => _image;
   TextEditingController get receiptController => _receiptController;
@@ -25,11 +28,6 @@ class AddExpense extends StatelessWidget {
   AddExpense({super.key});
 
   static const String id = 'add_expense';
-
-  final GlobalKey<FormState> _addExpense = GlobalKey();
-  final TextEditingController _nameController = TextEditingController();
-  final TextEditingController _categoryController = TextEditingController();
-  final TextEditingController _costController = TextEditingController();
 
   final _FormState _state = _FormState();
 
@@ -99,14 +97,14 @@ class AddExpense extends StatelessWidget {
     DataManager dataCallback = Provider.of<DataManager>(context, listen: false);
     return SingleChildScrollView(
       child: Form(
-        key: _addExpense,
+        key: _state.key,
         child: Padding(
           padding: const EdgeInsets.all(15),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               TextFormField(
-                controller: _nameController,
+                controller: _state.nameController,
                 validator: ExpenseValidator.validateName,
                 decoration: InputDecoration(
                   filled: true,
@@ -125,12 +123,12 @@ class AddExpense extends StatelessWidget {
                   label: Text('Expense category *'),
                 ),
                 onChanged: (value) {
-                  _categoryController.text = value!;
+                  _state.categoryController.text = value!;
                 },
               ),
               const SizedBox(height: 25),
               TextFormField(
-                controller: _costController,
+                controller: _state.costController,
                 validator: ExpenseValidator.validateCost,
                 decoration: InputDecoration(
                   filled: true,
