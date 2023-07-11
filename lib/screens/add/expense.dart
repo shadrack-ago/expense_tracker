@@ -57,43 +57,38 @@ class AddExpense extends StatelessWidget {
   selectGallery() {}
 
   buildPreview() {
-    return AnimatedBuilder(
-      animation: _state,
-      builder: (context, child) {
-        return ListenableBuilder(
-            listenable: _state,
-            builder: (context, child) {
-              switch (_state._image?.type) {
-                case RImageType.network:
-                  return Column(
-                    children: [
-                      Text('Receipt preview'),
-                      const SizedBox(height: 10),
-                      Image.network(_state.receiptImage!.data.url),
-                    ],
-                  );
-                case RImageType.file:
-                  return Column(
-                    children: [
-                      const SizedBox(height: 10),
-                      Text('Receipt preview'),
-                      Image.file(_state.receiptImage!.data.file),
-                    ],
-                  );
-                case RImageType.memory:
-                  return Column(
-                    children: [
-                      Text('Receipt preview'),
-                      const SizedBox(height: 10),
-                      Image.memory(_state.receiptImage!.data.bytes),
-                    ],
-                  );
-                default:
-                  return Container();
-              }
-            });
-      },
-    );
+    return ListenableBuilder(
+        listenable: _state,
+        builder: (context, child) {
+          switch (_state._image?.type) {
+            case RImageType.network:
+              return Column(
+                children: [
+                  Text('Receipt preview'),
+                  const SizedBox(height: 10),
+                  Image.network(_state.receiptImage!.data.url),
+                ],
+              );
+            case RImageType.file:
+              return Column(
+                children: [
+                  const SizedBox(height: 10),
+                  Text('Receipt preview'),
+                  Image.file(_state.receiptImage!.data.file),
+                ],
+              );
+            case RImageType.memory:
+              return Column(
+                children: [
+                  Text('Receipt preview'),
+                  const SizedBox(height: 10),
+                  Image.memory(_state.receiptImage!.data.bytes),
+                ],
+              );
+            default:
+              return Container();
+          }
+        });
   }
 
   @override
