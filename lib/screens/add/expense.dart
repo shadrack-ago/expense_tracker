@@ -178,51 +178,7 @@ class AddExpense extends StatelessWidget {
               ),
               const SizedBox(height: 20),
               ElevatedButton.icon(
-                onPressed: () {
-                  if (_addExpense.currentState!.validate()) {
-                    var _cCurr =
-                        dataCallback.getCategory(_categoryController.text)!;
-                    if (_cCurr.budget < double.parse(_costController.text)) {
-                      Navigation.alert(
-                        context: context,
-                        builder: (_context) => AlertDialog(
-                          title: Text('Confirm your expense'),
-                          content: Text(
-                              'Your expense exceeds your budget by ${double.parse(_costController.text) - _cCurr.budget}'),
-                          actions: [
-                            TextButton.icon(
-                                icon: Icon(Icons.check_rounded),
-                                onPressed: () => Navigator.pop(_context),
-                                label: Text('Rectify')),
-                            TextButton.icon(
-                                icon: Icon(Icons.close_rounded),
-                                onPressed: () {
-                                  dataCallback.addExpense(
-                                    name: _nameController.text,
-                                    categoryId: _categoryController.text,
-                                    cost: double.parse(_costController.text),
-                                    receiptImage: _state.receiptImage,
-                                  );
-                                  Navigator.pop(_context);
-                                  Navigator.of(context).pop();
-                                },
-                                style: TextButton.styleFrom(
-                                    foregroundColor: Colors.redAccent),
-                                label: Text('Ignore')),
-                          ],
-                        ),
-                      );
-                    } else {
-                      dataCallback.addExpense(
-                        name: _nameController.text,
-                        categoryId: _categoryController.text,
-                        cost: double.parse(_costController.text),
-                        receiptImage: _state.receiptImage,
-                      );
-                      Navigator.of(context).pop();
-                    }
-                  }
-                },
+                onPressed: _state.submit,
                 icon: Icon(Icons.add_rounded),
                 label: Text('Add expense'),
               ),
