@@ -1,4 +1,6 @@
-import 'package:expense_manager/core/models/category.dart';
+import '../models/category.dart' show ExpenseCategory;
+import 'deserializer.dart';
+import 'models.dart';
 
 extension CategorySerializer on ExpenseCategory {
   Map<String, dynamic> get serialized {
