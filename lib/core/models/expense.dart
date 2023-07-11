@@ -29,21 +29,25 @@ class ExpenseForm {
   String categoryId;
   double cost;
   ReceiptImage? receiptImage;
+  String? id;
+  
   ExpenseForm({
     required this.name,
     required this.categoryId,
     required this.cost,
+    this.id,
     this.receiptImage,
   });
 
   /// Enables easy editing of given expense
-  static ExpenseForm? fromExpense(Expense? data) {
+  static ExpenseForm? fromExpense(Expense? data, {String? id}) {
     if (data != null) {
       return ExpenseForm(
         name: data.name,
         categoryId: data.categoryId,
         cost: data.cost,
         receiptImage: data.receiptData,
+        id: id,
       );
     }
     return null;
