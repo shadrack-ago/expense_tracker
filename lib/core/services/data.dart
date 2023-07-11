@@ -1,18 +1,36 @@
 import 'package:expense_manager/core/models/category.dart';
 import 'package:expense_manager/core/models/expense.dart';
-import 'package:localstore/localstore.dart';
+// import 'package:localstore/localstore.dart';
 
+// TODO: Implement localstore persistance
 class DataService {
-  Localstore _db = Localstore.instance;
+  // Localstore _db = Localstore.instance;
+  List<Expense> _expenses = [];
+  List<ExpenseCategory> _categories = [];
 
-  addCategory() {}
-  addExpense() {}
+  addCategory(CategoryForm form) {
+    _categories.add(ExpenseCategory(
+      meta: MetaData.fromId(form.name.toLowerCase()),
+      name: form.name,
+      budget: form.budget,
+    ));
+  }
+
+  addExpense(ExpenseForm form) {
+    _expenses.add(Expense(
+      meta: MetaData.fromId(form.name.toLowerCase()),
+      name: form.name,
+      categoryId: form.categoryId,
+      cost: form.cost,
+      receiptData: form.receiptImage,
+    ));
+  }
 
   List<Expense> get expenses {
-    return [];
+    return _expenses;
   }
 
   List<ExpenseCategory> get categories {
-    return [];
+    return _categories;
   }
 }
