@@ -51,12 +51,12 @@ class _FormState {
 }
 
 class AddCategory extends StatelessWidget {
-  CategoryForm? edit;
-  AddCategory({super.key, this.edit});
+  AddCategory({super.key, this.category});
 
   static const String id = 'add_category';
 
-  _FormState get _state => _FormState(edit);
+  final ExpenseCategory? category;
+  _FormState get _state => _FormState(CategoryForm.fromCategory(category));
 
   @override
   Widget build(BuildContext context) {

@@ -1,3 +1,5 @@
+import 'dart:js_interop';
+
 import 'expense.dart';
 
 class ExpenseCategory {
@@ -21,8 +23,11 @@ class CategoryForm {
     required this.name,
     required this.budget,
   });
-  factory CategoryForm.fromExpense(ExpenseCategory data) {
-    return CategoryForm(name: data.name, budget: data.budget);
+  static CategoryForm? fromCategory(ExpenseCategory? data) {
+    if (data != null) {
+      return CategoryForm(name: data.name, budget: data.budget);
+    }
+    return null;
   }
 }
 
