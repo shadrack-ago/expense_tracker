@@ -24,11 +24,22 @@ class _FormState extends ChangeNotifier {
   ReceiptImage? get receiptImage => _image;
 
   void setReceiptImage(String name) {
-    if (_image == null) {
-      _image = ReceiptImage.fromUrl(name);
-    } else if (_image!.type == RImageType.network) {
-      _image!.data = NetworkImage(name);
+    switch (_image?.type) {
+      case null:
+        _image = ReceiptImage.fromUrl(name);
+        break;
+      case RImageType.network:
+        _image!.data = NetworkImage(name);
+        break;
+      case RImageType.file:
+        _image!.name = name;
+        break;
+      case RImageType.memory:
+        _image!.name = name;
+        break;
+      default:
     }
+
     notifyListeners();
   }
 
