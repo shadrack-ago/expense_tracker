@@ -88,41 +88,8 @@ class AddCategory extends StatelessWidget {
               ),
               const SizedBox(height: 25),
               ElevatedButton.icon(
-                  onPressed: () {
-                    if (_addCategory.currentState!.validate()) {
-                      if (dataCallback.getCategory(
-                              _nameController.text.toLowerCase()) !=
-                          null) {
-                        Navigation.alert(
-                          context: context,
-                          builder: (_context) => AlertDialog(
-                            title: Text('Category already exists'),
-                            content: Text(
-                                'The Category already exists please create a new one or edit the category'),
-                            actions: [
-                              TextButton.icon(
-                                  icon: Icon(Icons.arrow_back_ios_new_rounded),
-                                  onPressed: () => Navigator.pop(_context),
-                                  style: TextButton.styleFrom(
-                                      foregroundColor: Colors.blueAccent),
-                                  label: Text('Create')),
-                              TextButton.icon(
-                                  icon: Icon(Icons.edit_document),
-                                  onPressed: () {},
-                                  label: Text('Edit')),
-                            ],
-                          ),
-                        );
-                      } else {
-                        Provider.of<DataManager>(context, listen: false)
-                            .addCategory(
-                          name: _nameController.text,
-                          budget: double.parse(_budgetController.text),
-                        );
-                        Navigator.pop(context);
-                      }
-                    }
-                  },
+                  onPressed: () =>
+                      _state.submit(callback: callback, context: context),
                   icon: Icon(Icons.add_rounded),
                   label: Text('Add Category')),
               const SizedBox(width: 20),
