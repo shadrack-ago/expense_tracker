@@ -2,6 +2,7 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:expense_manager/core/models/category.dart';
+import 'package:expense_manager/utils/extensions/index.dart';
 import 'package:flutter/material.dart' hide MetaData;
 
 class Expense {
@@ -36,13 +37,16 @@ class ExpenseForm {
   });
 
   /// Enables easy editing of given expense
-  factory ExpenseForm.fromExpense(Expense data) {
-    return ExpenseForm(
-      name: data.name,
-      categoryId: data.categoryId,
-      cost: data.cost,
-      receiptImage: data.receiptData,
-    );
+  static ExpenseForm? fromExpense(Expense? data) {
+    if (data != null) {
+      return ExpenseForm(
+        name: data.name,
+        categoryId: data.categoryId,
+        cost: data.cost,
+        receiptImage: data.receiptData,
+      );
+    }
+    return null;
   }
 }
 
