@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'package:expense_manager/core/services/data.dart';
+
 import '../models/category.dart';
 import '../../utils/extensions/date.dart';
 import 'package:fl_chart/fl_chart.dart';
@@ -9,12 +11,10 @@ import 'package:flutter/material.dart' hide MetaData;
 import '../models/expense.dart';
 
 class DataManager extends ChangeNotifier {
-  List<Expense> _expenses = [];
+  DataService _service = DataService();
 
-  List<ExpenseCategory> _categories = [];
-
-  List<Expense> get expenses => _expenses;
-  List<ExpenseCategory> get categories => _categories;
+  List<Expense> get expenses => _service.expenses;
+  List<ExpenseCategory> get categories => _service.categories;
 
   ExpenseCategory? getCategory(String id) {
     ExpenseCategory? res;
@@ -50,21 +50,21 @@ class DataManager extends ChangeNotifier {
     Map<String, Map<String, double>> temp = {};
     Map<String, double> res = {};
 
-    if (temp.isEmpty && _expenses.isNotEmpty) {
+    if (temp.isEmpty && expenses.isNotEmpty) {
       temp.addAll({
-        getCategory(_expenses[0].categoryId)!.name: {
-          _expenses[0].meta.id: _expenses[0].cost
+        getCategory(expenses[0].categoryId)!.name: {
+          expenses[0].meta.id: expenses[0].cost
         }
       });
     }
 
-    for (var eIndex = 0; eIndex < _expenses.length; eIndex++) {
+    for (var eIndex = 0; eIndex < expenses.length; eIndex++) {
       for (var dIndex = 0; dIndex < temp.length; dIndex++) {
         /// Current category in the loop
-        ExpenseCategory _cCurr = getCategory(_expenses[eIndex].categoryId)!;
+        ExpenseCategory _cCurr = getCategory(expenses[eIndex].categoryId)!;
 
         /// Current expense
-        Expense _cExp = _expenses[eIndex];
+        Expense _cExp = expenses[eIndex];
 
         /// Current key in data map
         String dKey = temp.keys.toList()[dIndex];
@@ -93,24 +93,24 @@ class DataManager extends ChangeNotifier {
     Map<String, Map<String, double>> temp = {};
     Map<String, double> res = {};
 
-    if (temp.isEmpty && _expenses.isNotEmpty) {
+    if (temp.isEmpty && expenses.isNotEmpty) {
       double saving =
-          getCategory(_expenses[0].categoryId)!.budget - _expenses[0].cost;
+          getCategory(expenses[0].categoryId)!.budget - expenses[0].cost;
       if (saving > 0)
         temp.addAll({
-          getCategory(_expenses[0].categoryId)!.name: {
-            _expenses[0].meta.id: saving
+          getCategory(expenses[0].categoryId)!.name: {
+            expenses[0].meta.id: saving
           }
         });
     }
 
-    for (var eIndex = 0; eIndex < _expenses.length; eIndex++) {
+    for (var eIndex = 0; eIndex < expenses.length; eIndex++) {
       for (var dIndex = 0; dIndex < temp.length; dIndex++) {
         /// Current category in the loop
-        ExpenseCategory _cCurr = getCategory(_expenses[eIndex].categoryId)!;
+        ExpenseCategory _cCurr = getCategory(expenses[eIndex].categoryId)!;
 
         /// Current expense
-        Expense _cExp = _expenses[eIndex];
+        Expense _cExp = expenses[eIndex];
 
         /// Current key in data map
         String dKey = temp.keys.toList()[dIndex];
@@ -141,7 +141,7 @@ class DataManager extends ChangeNotifier {
     required String name,
     required double budget,
   }) {
-    _categories.add(ExpenseCategory(
+    categories.add(ExpenseCategory(
       meta: MetaData.fromId(name.toLowerCase()),
       name: name,
       budget: budget,
@@ -155,7 +155,7 @@ class DataManager extends ChangeNotifier {
     required double cost,
     ReceiptImage? receiptImage,
   }) {
-    _expenses.add(Expense(
+    expenses.add(Expense(
       meta: MetaData.fromId(name.toLowerCase()),
       name: name,
       categoryId: categoryId,
@@ -192,7 +192,7 @@ class DataManager extends ChangeNotifier {
     List<double> data = List.filled(cols.length, 0);
 
     for (var day = 0; day < data.length; day++) {
-      for (var expense in _expenses) {
+      for (var expense in expenses) {
         if (expense.meta.timeRecorded
                 .difference(_now.thisWeekLastDay)
                 .inDays
@@ -221,7 +221,7 @@ class DataManager extends ChangeNotifier {
 
     for (var week = 0; week < data.length; week++) {
       if (cols[week].isNotEmpty) {
-        for (var expense in _expenses) {
+        for (var expense in expenses) {
           if (expense.meta.timeRecorded.month == _now.month) {
             if (expense.meta.timeRecorded.weekOfMonth ==
                 int.parse(cols[week])) {
