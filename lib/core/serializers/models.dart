@@ -1,5 +1,5 @@
 import '../models/expense.dart' show MetaData, RImageType, ReceiptImage;
-import 'deserializer.dart';
+import 'utils.dart';
 import 'package:flutter/material.dart' hide MetaData;
 
 extension RImageSerializer on ReceiptImage {

@@ -1,5 +1,5 @@
 import '../models/category.dart' show ExpenseCategory;
-import 'deserializer.dart';
+import 'utils.dart';
 import 'models.dart';
 
 extension CategorySerializer on ExpenseCategory {

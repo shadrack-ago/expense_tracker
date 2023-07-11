@@ -1,5 +1,5 @@
 import 'models.dart';
-import 'deserializer.dart';
+import 'utils.dart';
 import '../models/expense.dart' show Expense;
 
 extension ExpenseSerializer on Expense {
