@@ -1,3 +1,5 @@
+import 'dart:js_interop';
+
 import 'package:expense_manager/core/models/category.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -18,33 +20,44 @@ class _FormState {
 
   void submit({required DataManager callback, required BuildContext context}) {
     if (key.currentState!.validate()) {
-      if (callback.getCategory(nameController.text.toLowerCase()) != null) {
-        Navigation.alert(
-          context: context,
-          builder: (_context) => AlertDialog(
-            title: Text('Category already exists'),
-            content: Text(
-                'The Category already exists please create a new one or edit the category'),
-            actions: [
-              TextButton.icon(
-                  icon: Icon(Icons.arrow_back_ios_new_rounded),
-                  onPressed: () => Navigator.pop(_context),
-                  style:
-                      TextButton.styleFrom(foregroundColor: Colors.blueAccent),
-                  label: Text('Create')),
-              TextButton.icon(
-                  icon: Icon(Icons.edit_document),
-                  onPressed: () {},
-                  label: Text('Edit')),
-            ],
-          ),
-        );
-      } else {
-        Provider.of<DataManager>(context, listen: false).addCategory(
-          CategoryForm(
+      if (initial.isNull) {
+        if (callback.getCategory(nameController.text.toLowerCase()) != null) {
+          Navigation.alert(
+            context: context,
+            builder: (_context) => AlertDialog(
+              title: Text('Category already exists'),
+              content: Text(
+                  'The Category already exists please create a new one or edit the category'),
+              actions: [
+                TextButton.icon(
+                    icon: Icon(Icons.arrow_back_ios_new_rounded),
+                    onPressed: () => Navigator.pop(_context),
+                    style: TextButton.styleFrom(
+                        foregroundColor: Colors.blueAccent),
+                    label: Text('Create')),
+                TextButton.icon(
+                    icon: Icon(Icons.edit_document),
+                    onPressed: () {},
+                    label: Text('Edit')),
+              ],
+            ),
+          );
+        } else {
+          Provider.of<DataManager>(context, listen: false).addCategory(
+            CategoryForm(
+              name: nameController.text,
+              budget: double.parse(budgetController.text),
+            ),
+          );
+          Navigator.pop(context);
+        }
+      } else if (initial!.id.isDefinedAndNotNull) {
+        Provider.of<DataManager>(context, listen: false).editCategory(
+          form: CategoryForm(
             name: nameController.text,
             budget: double.parse(budgetController.text),
           ),
+          id: initial!.id!,
         );
         Navigator.pop(context);
       }
