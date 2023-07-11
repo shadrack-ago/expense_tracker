@@ -52,24 +52,22 @@ class AddCategory extends StatelessWidget {
 
   static const String id = 'add_category';
 
-  final GlobalKey<FormState> _addCategory = GlobalKey();
-  final TextEditingController _nameController = TextEditingController();
-  final TextEditingController _budgetController = TextEditingController();
+  final _FormState _state = _FormState();
 
   @override
   Widget build(BuildContext context) {
-    DataManager dataCallback = Provider.of<DataManager>(context, listen: false);
+    DataManager callback = Provider.of<DataManager>(context, listen: false);
 
     return SingleChildScrollView(
       child: Form(
-        key: _addCategory,
+        key: _state.key,
         child: Padding(
           padding: const EdgeInsets.all(15),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               TextFormField(
-                controller: _nameController,
+                controller: _state.nameController,
                 validator: CategoryValidator.validateName,
                 decoration: InputDecoration(
                   filled: true,
@@ -78,7 +76,7 @@ class AddCategory extends StatelessWidget {
               ),
               const SizedBox(height: 25),
               TextFormField(
-                controller: _budgetController,
+                controller: _state.budgetController,
                 validator: CategoryValidator.validateBudget,
                 decoration: InputDecoration(
                   filled: true,
