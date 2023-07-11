@@ -12,6 +12,19 @@ class ExpenseCategory {
   });
 }
 
+/// Holds category form data
+class CategoryForm {
+  String name;
+  double budget;
+
+  CategoryForm({
+    required this.name,
+    required this.budget,
+  });
+  factory CategoryForm.fromExpense(ExpenseCategory data) {
+    return CategoryForm(name: data.name, budget: data.budget);
+  }
+}
 
 class CategoryValidator {
   static String? validateName(String? name) {
