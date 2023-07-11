@@ -69,6 +69,14 @@ class ExpenseValidator {
       return 'Invalid category, please select or create one';
     return null;
   }
+
+  static validateReceipt(String? value, RImageType? type) {
+    if (type == RImageType.network &&
+        !RegExp(r'^(https?:\/\/)').hasMatch(value ?? '')) {
+      return 'Renaming url image is not supported, select image from camera or gallery to get the ability to rename it';
+    }
+    return null;
+  }
 }
 
 class MetaData {
