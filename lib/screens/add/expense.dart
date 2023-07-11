@@ -17,9 +17,12 @@ class _FormState extends ChangeNotifier {
 
   ReceiptImage? get receiptImage => _image;
 
-  void setReceiptImage(ReceiptImage image, {required String name}) {
-    _image = image;
-    receiptController.text = name;
+  void setReceiptImage(String name) {
+    if (_image == null) {
+      _image = ReceiptImage.fromUrl(name);
+    } else if (_image!.type == RImageType.network) {
+      _image!.data = NetworkImage(name);
+    }
     notifyListeners();
   }
 
@@ -184,8 +187,9 @@ class AddExpense extends StatelessWidget {
               const SizedBox(height: 25),
               TextFormField(
                 controller: _state.receiptController,
-                onChanged: (url) => _state
-                    .setReceiptImage(ReceiptImage.fromUrl(url), name: url),
+                onChanged: (value) => _state.setReceiptImage(value),
+                validator: (value) => ExpenseValidator.validateReceipt(
+                    value, _state._image?.type),
                 decoration: InputDecoration(
                   filled: true,
                   suffixIcon: DropdownButton(
