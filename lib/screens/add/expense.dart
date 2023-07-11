@@ -69,7 +69,7 @@ class AddExpense extends StatelessWidget {
                     children: [
                       Text('Receipt preview'),
                       const SizedBox(height: 10),
-                      Image.network(_state.receiptImage!.src.url),
+                      Image.network(_state.receiptImage!.data.url),
                     ],
                   );
                 case RImageType.file:
@@ -77,7 +77,7 @@ class AddExpense extends StatelessWidget {
                     children: [
                       const SizedBox(height: 10),
                       Text('Receipt preview'),
-                      Image.file(_state.receiptImage!.src.file),
+                      Image.file(_state.receiptImage!.data.file),
                     ],
                   );
                 case RImageType.memory:
@@ -85,7 +85,7 @@ class AddExpense extends StatelessWidget {
                     children: [
                       Text('Receipt preview'),
                       const SizedBox(height: 10),
-                      Image.memory(_state.receiptImage!.src.bytes),
+                      Image.memory(_state.receiptImage!.data.bytes),
                     ],
                   );
                 default:
