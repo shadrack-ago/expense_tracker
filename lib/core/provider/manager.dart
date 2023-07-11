@@ -160,7 +160,7 @@ class DataManager extends ChangeNotifier {
       name: name,
       categoryId: categoryId,
       cost: cost,
-      receiptURL: receiptImage,
+      receiptData: receiptImage,
     ));
 
     notifyListeners();

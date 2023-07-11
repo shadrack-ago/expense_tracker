@@ -8,7 +8,7 @@ class Expense {
   double cost;
   String name;
   MetaData meta;
-  ReceiptImage? receiptURL;
+  ReceiptImage? receiptData;
 
   /// This correlates to the category id.
   String categoryId;
@@ -18,7 +18,7 @@ class Expense {
     required this.name,
     required this.categoryId,
     required this.cost,
-    this.receiptURL,
+    this.receiptData,
   });
 }
 

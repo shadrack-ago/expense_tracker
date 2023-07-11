@@ -6,7 +6,7 @@ extension ExpenseSerializer on Expense {
       'name': this.name,
       'categoryID': this.categoryId,
       'cost': this.cost,
-      'receiptData': this.receiptURL?.serialized,
+      'receiptData': this.receiptData?.serialized,
       'meta': this.meta.serialized,
     };
   }
@@ -17,7 +17,7 @@ extension ExpenseSerializer on Expense {
       name: expenseObj['name'],
       categoryId: expenseObj['categoryId'],
       cost: expenseObj['cost'],
-      receiptURL: expenseObj['receiptData'].toReceipt,
+      receiptData: expenseObj['receiptData'].toReceipt,
     );
   }
 }
