@@ -1,5 +1,3 @@
-import 'dart:js_interop';
-
 import 'expense.dart';
 
 class ExpenseCategory {
@@ -18,14 +16,13 @@ class ExpenseCategory {
 class CategoryForm {
   String name;
   double budget;
+  String? id;
 
-  CategoryForm({
-    required this.name,
-    required this.budget,
-  });
+  CategoryForm({required this.name, required this.budget, this.id});
   static CategoryForm? fromCategory(ExpenseCategory? data) {
     if (data != null) {
-      return CategoryForm(name: data.name, budget: data.budget);
+      return CategoryForm(
+          name: data.name, budget: data.budget, id: data.meta.id);
     }
     return null;
   }
