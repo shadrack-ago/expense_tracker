@@ -33,4 +33,8 @@ class DataService {
   List<ExpenseCategory> get categories {
     return _categories;
   }
+
+  void editCategory(CategoryForm form, String id) {}
+
+  void editExpense(ExpenseForm form, String id) {}
 }

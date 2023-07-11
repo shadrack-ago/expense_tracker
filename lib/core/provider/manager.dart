@@ -16,6 +16,26 @@ class DataManager extends ChangeNotifier {
   List<Expense> get expenses => _service.expenses;
   List<ExpenseCategory> get categories => _service.categories;
 
+  void addCategory(CategoryForm form) {
+    _service.addCategory(form);
+    notifyListeners();
+  }
+
+  void addExpense(ExpenseForm form) {
+    _service.addExpense(form);
+    notifyListeners();
+  }
+
+  void editCategory({required CategoryForm form, required String id}) {
+    _service.editCategory(form, id);
+    notifyListeners();
+  }
+
+  void editExpense({required ExpenseForm form, required String id}) {
+    _service.editExpense(form, id);
+    notifyListeners();
+  }
+
   ExpenseCategory? getCategory(String id) {
     ExpenseCategory? res;
     if (categories.isNotEmpty)
@@ -135,16 +155,6 @@ class DataManager extends ChangeNotifier {
     }
 
     return res;
-  }
-
-  addCategory(CategoryForm form) {
-    _service.addCategory(form);
-    notifyListeners();
-  }
-
-  addExpense(ExpenseForm form) {
-    _service.addExpense(form);
-    notifyListeners();
   }
 
   HeatmapData _buildHeatmapData({
