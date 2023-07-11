@@ -22,6 +22,51 @@ class _FormState extends ChangeNotifier {
     receiptController.text = name;
     notifyListeners();
   }
+
+  void submit({required DataManager callback, required BuildContext context}) {
+    if (key.currentState!.validate()) {
+      var _cCurr = callback.getCategory(categoryController.text)!;
+      if (_cCurr.budget < double.parse(costController.text)) {
+        Navigation.alert(
+          context: context,
+          builder: (_context) => AlertDialog(
+            title: Text('Confirm your expense'),
+            content: Text(
+                'Your expense exceeds your budget by ${double.parse(costController.text) - _cCurr.budget}'),
+            actions: [
+              TextButton.icon(
+                  icon: Icon(Icons.check_rounded),
+                  onPressed: () => Navigator.pop(_context),
+                  label: Text('Rectify')),
+              TextButton.icon(
+                  icon: Icon(Icons.close_rounded),
+                  onPressed: () {
+                    callback.addExpense(ExpenseForm(
+                      name: nameController.text,
+                      categoryId: categoryController.text,
+                      cost: double.parse(costController.text),
+                      receiptImage: receiptImage,
+                    ));
+                    Navigator.pop(_context);
+                    Navigator.of(context).pop();
+                  },
+                  style:
+                      TextButton.styleFrom(foregroundColor: Colors.redAccent),
+                  label: Text('Ignore')),
+            ],
+          ),
+        );
+      } else {
+        callback.addExpense(ExpenseForm(
+          name: nameController.text,
+          categoryId: categoryController.text,
+          cost: double.parse(costController.text),
+          receiptImage: receiptImage,
+        ));
+        Navigator.of(context).pop();
+      }
+    }
+  }
 }
 
 class AddExpense extends StatelessWidget {
@@ -94,7 +139,7 @@ class AddExpense extends StatelessWidget {
     List<ExpenseCategory> retrievedCategories =
         Provider.of<DataManager>(context).categories;
 
-    DataManager dataCallback = Provider.of<DataManager>(context, listen: false);
+    DataManager callback = Provider.of<DataManager>(context, listen: false);
     return SingleChildScrollView(
       child: Form(
         key: _state.key,
@@ -176,7 +221,8 @@ class AddExpense extends StatelessWidget {
               ),
               const SizedBox(height: 20),
               ElevatedButton.icon(
-                onPressed: _state.submit,
+                onPressed: () =>
+                    _state.submit(callback: callback, context: context),
                 icon: Icon(Icons.add_rounded),
                 label: Text('Add expense'),
               ),
