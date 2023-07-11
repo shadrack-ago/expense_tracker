@@ -22,6 +22,30 @@ class Expense {
   });
 }
 
+/// Holds Expense form data
+class ExpenseForm {
+  String name;
+  String categoryId;
+  double cost;
+  ReceiptImage? receiptImage;
+  ExpenseForm({
+    required this.name,
+    required this.categoryId,
+    required this.cost,
+    this.receiptImage,
+  });
+
+  /// Enables easy editing of given expense
+  factory ExpenseForm.fromExpense(Expense data) {
+    return ExpenseForm(
+      name: data.name,
+      categoryId: data.categoryId,
+      cost: data.cost,
+      receiptImage: data.receiptData,
+    );
+  }
+}
+
 class ExpenseValidator {
   static String? validateName(String? name) {
     if (name == null || name.isEmpty) return 'An Expense should have a name';
