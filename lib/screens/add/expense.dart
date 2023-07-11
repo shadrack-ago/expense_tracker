@@ -6,14 +6,20 @@ import 'package:flutter/material.dart' hide MetaData;
 import 'package:provider/provider.dart';
 
 class _FormState extends ChangeNotifier {
-  _FormState();
+  _FormState(this.initial);
+
   final GlobalKey<FormState> key = GlobalKey();
+  final ExpenseForm? initial;
 
   ReceiptImage? _image;
-  final TextEditingController nameController = TextEditingController();
-  final TextEditingController categoryController = TextEditingController();
-  final TextEditingController costController = TextEditingController();
-  final TextEditingController receiptController = TextEditingController();
+  TextEditingController get nameController =>
+      TextEditingController(text: initial?.name);
+  TextEditingController get categoryController =>
+      TextEditingController(text: initial?.categoryId);
+  TextEditingController get costController =>
+      TextEditingController(text: initial?.cost.toString());
+  TextEditingController get receiptController => TextEditingController(
+      text: initial?.receiptImage?.name ?? initial?.receiptImage?.data);
 
   ReceiptImage? get receiptImage => _image;
 
@@ -73,11 +79,12 @@ class _FormState extends ChangeNotifier {
 }
 
 class AddExpense extends StatelessWidget {
-  AddExpense({super.key});
+  AddExpense({super.key, this.expense});
 
   static const String id = 'add_expense';
+  final Expense? expense;
 
-  final _FormState _state = _FormState();
+  _FormState get _state => _FormState(ExpenseForm.fromExpense(expense));
 
   /// Creates dropdowns with values of category ID
   List<DropdownMenuItem<String>> dropdownItems(BuildContext context) {

@@ -6,9 +6,11 @@ import '../../core/provider/manager.dart';
 import '../../router/index.dart';
 
 class _FormState {
-  CategoryForm? initial;
   _FormState(this.initial);
+
+  CategoryForm? initial;
   final GlobalKey<FormState> key = GlobalKey();
+
   TextEditingController get nameController =>
       TextEditingController(text: initial?.name);
   TextEditingController get budgetController =>
