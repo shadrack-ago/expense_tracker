@@ -137,32 +137,13 @@ class DataManager extends ChangeNotifier {
     return res;
   }
 
-  addCategory({
-    required String name,
-    required double budget,
-  }) {
-    categories.add(ExpenseCategory(
-      meta: MetaData.fromId(name.toLowerCase()),
-      name: name,
-      budget: budget,
-    ));
+  addCategory(CategoryForm form) {
+    _service.addCategory(form);
     notifyListeners();
   }
 
-  addExpense({
-    required String name,
-    required String categoryId,
-    required double cost,
-    ReceiptImage? receiptImage,
-  }) {
-    expenses.add(Expense(
-      meta: MetaData.fromId(name.toLowerCase()),
-      name: name,
-      categoryId: categoryId,
-      cost: cost,
-      receiptData: receiptImage,
-    ));
-
+  addExpense(ExpenseForm form) {
+    _service.addExpense(form);
     notifyListeners();
   }
 
