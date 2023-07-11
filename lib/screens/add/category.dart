@@ -6,10 +6,13 @@ import '../../core/provider/manager.dart';
 import '../../router/index.dart';
 
 class _FormState {
-  _FormState();
+  CategoryForm? initial;
+  _FormState(this.initial);
   final GlobalKey<FormState> key = GlobalKey();
-  final TextEditingController nameController = TextEditingController();
-  final TextEditingController budgetController = TextEditingController();
+  TextEditingController get nameController =>
+      TextEditingController(text: initial?.name);
+  TextEditingController get budgetController =>
+      TextEditingController(text: initial?.budget.toString());
 
   void submit({required DataManager callback, required BuildContext context}) {
     if (key.currentState!.validate()) {
@@ -48,11 +51,12 @@ class _FormState {
 }
 
 class AddCategory extends StatelessWidget {
-  AddCategory({super.key});
+  CategoryForm? edit;
+  AddCategory({super.key, this.edit});
 
   static const String id = 'add_category';
 
-  final _FormState _state = _FormState();
+  _FormState get _state => _FormState(edit);
 
   @override
   Widget build(BuildContext context) {
