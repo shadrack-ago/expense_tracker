@@ -7,6 +7,7 @@ import 'package:provider/provider.dart';
 
 class _FormState extends ChangeNotifier {
   _FormState();
+  final GlobalKey<FormState> key = GlobalKey();
 
   ReceiptImage? _image;
   final TextEditingController nameController = TextEditingController();
@@ -15,11 +16,10 @@ class _FormState extends ChangeNotifier {
   final TextEditingController receiptController = TextEditingController();
 
   ReceiptImage? get receiptImage => _image;
-  TextEditingController get receiptController => _receiptController;
 
   void setReceiptImage(ReceiptImage image, {required String name}) {
     _image = image;
-    _receiptController.text = name;
+    receiptController.text = name;
     notifyListeners();
   }
 }
