@@ -45,58 +45,56 @@ class _FormState extends ChangeNotifier {
   }
 
   void submit({required DataManager callback, required BuildContext context}) {
-    if (key.currentState!.validate()) {
-      if (initial.isNull) {
-        var _cCurr = callback.getCategory(categoryController.text)!;
-        if (_cCurr.budget < double.parse(costController.text)) {
-          Navigation.alert(
-            context: context,
-            builder: (_context) => AlertDialog(
-              title: Text('Confirm your expense'),
-              content: Text(
-                  'Your expense exceeds your budget by ${double.parse(costController.text) - _cCurr.budget}'),
-              actions: [
-                TextButton.icon(
-                    icon: Icon(Icons.check_rounded),
-                    onPressed: () => Navigator.pop(_context),
-                    label: Text('Rectify')),
-                TextButton.icon(
-                    icon: Icon(Icons.close_rounded),
-                    onPressed: () {
-                      callback.addExpense(ExpenseForm(
-                        name: nameController.text,
-                        categoryId: categoryController.text,
-                        cost: double.parse(costController.text),
-                        receiptImage: receiptImage,
-                      ));
-                      Navigator.pop(_context);
-                      Navigator.of(context).pop();
-                    },
-                    style:
-                        TextButton.styleFrom(foregroundColor: Colors.redAccent),
-                    label: Text('Ignore')),
-              ],
-            ),
-          );
-        } else {
-          callback.addExpense(ExpenseForm(
+    if (initial.isNull) {
+      var _cCurr = callback.getCategory(categoryController.text)!;
+      if (_cCurr.budget < double.parse(costController.text)) {
+        Navigation.alert(
+          context: context,
+          builder: (_context) => AlertDialog(
+            title: Text('Confirm your expense'),
+            content: Text(
+                'Your expense exceeds your budget by ${double.parse(costController.text) - _cCurr.budget}'),
+            actions: [
+              TextButton.icon(
+                  icon: Icon(Icons.check_rounded),
+                  onPressed: () => Navigator.pop(_context),
+                  label: Text('Rectify')),
+              TextButton.icon(
+                  icon: Icon(Icons.close_rounded),
+                  onPressed: () {
+                    callback.addExpense(ExpenseForm(
+                      name: nameController.text,
+                      categoryId: categoryController.text,
+                      cost: double.parse(costController.text),
+                      receiptImage: receiptImage,
+                    ));
+                    Navigator.pop(_context);
+                    Navigator.of(context).pop();
+                  },
+                  style:
+                      TextButton.styleFrom(foregroundColor: Colors.redAccent),
+                  label: Text('Ignore')),
+            ],
+          ),
+        );
+      } else {
+        callback.addExpense(ExpenseForm(
+          name: nameController.text,
+          categoryId: categoryController.text,
+          cost: double.parse(costController.text),
+          receiptImage: receiptImage,
+        ));
+        Navigator.of(context).pop();
+      }
+    } else if (initial!.id.isDefinedAndNotNull) {
+      callback.editExpense(
+          form: ExpenseForm(
             name: nameController.text,
             categoryId: categoryController.text,
             cost: double.parse(costController.text),
             receiptImage: receiptImage,
-          ));
-          Navigator.of(context).pop();
-        }
-      } else if (initial!.id.isDefinedAndNotNull) {
-        callback.editExpense(
-            form: ExpenseForm(
-              name: nameController.text,
-              categoryId: categoryController.text,
-              cost: double.parse(costController.text),
-              receiptImage: receiptImage,
-            ),
-            id: initial!.id!);
-      }
+          ),
+          id: initial!.id!);
     }
   }
 }
