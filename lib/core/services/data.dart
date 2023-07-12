@@ -16,16 +16,16 @@ class DataService {
     return _categories;
   }
 
-  Future<bool> addCategory(CategoryForm form) {
+  Future<dynamic> addCategory(CategoryForm form) {
     _categories.add(ExpenseCategory(
       meta: MetaData.fromId(form.name.toLowerCase()),
       name: form.name,
       budget: form.budget,
     ));
-    return Future.value(true);
+    return Future.value();
   }
 
-  Future<bool> addExpense(ExpenseForm form) {
+  Future<dynamic> addExpense(ExpenseForm form) {
     _expenses.add(Expense(
       meta: MetaData.fromId(form.name.toLowerCase()),
       name: form.name,
@@ -33,22 +33,22 @@ class DataService {
       cost: form.cost,
       receiptData: form.receiptImage,
     ));
-    return Future.value(true);
+    return Future.value();
   }
 
-  Future<bool> editCategory(CategoryForm form, String id) {
-    return Future.value(true);
+  Future<dynamic> editCategory(CategoryForm form, String id) {
+    return Future.value();
   }
 
-  Future<bool> editExpense(ExpenseForm form, String id) {
-    return Future.value(true);
+  Future<dynamic> editExpense(ExpenseForm form, String id) {
+    return Future.value();
   }
 
-  Future<bool> deleteCategory(String id) {
-    return Future.value(true);
+  Future<String> deleteCategory(String id) {
+    return Future.error('Deleting categories is unsupported');
   }
 
-  Future<bool> deleteExpense(String id) {
-    return Future.value(true);
+  Future<String> deleteExpense(String id) {
+    return Future.value('🎉 Successfully deleted expense');
   }
 }
