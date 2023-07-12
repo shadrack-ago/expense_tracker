@@ -12,14 +12,13 @@ class _FormState {
 
   CategoryForm? initial;
 
-  TextEditingController get nameController =>
-      TextEditingController(text: initial?.name);
-  TextEditingController get budgetController =>
-      TextEditingController(text: initial?.budget.toString());
-
-  void submit({required DataManager callback, required BuildContext context}) {
+  void submit({
+    required DataManager callback,
+    required BuildContext context,
+    required CategoryForm form,
+  }) {
     if (initial.isNull) {
-      if (callback.getCategory(nameController.text.toLowerCase()) != null) {
+      if (callback.getCategory(form.name.toLowerCase()) != null) {
         Navigation.alert(
           context: context,
           builder: (_context) => AlertDialog(
@@ -41,20 +40,12 @@ class _FormState {
           ),
         );
       } else {
-        Provider.of<DataManager>(context, listen: false).addCategory(
-          CategoryForm(
-            name: nameController.text,
-            budget: double.parse(budgetController.text),
-          ),
-        );
+        Provider.of<DataManager>(context, listen: false).addCategory(form);
         Navigator.pop(context);
       }
     } else if (initial!.id.isDefinedAndNotNull) {
       Provider.of<DataManager>(context, listen: false).editCategory(
-        form: CategoryForm(
-          name: nameController.text,
-          budget: double.parse(budgetController.text),
-        ),
+        form: form,
         id: initial!.id!,
       );
       Navigator.pop(context);
@@ -70,6 +61,9 @@ class AddCategory extends StatelessWidget {
   final ExpenseCategory? category;
 
   final GlobalKey<FormState> formKey = GlobalKey();
+  final TextEditingController nameController = TextEditingController();
+  final TextEditingController budgetController = TextEditingController();
+
   _FormState get _state => _FormState(CategoryForm.fromCategory(category));
 
   @override
@@ -85,7 +79,7 @@ class AddCategory extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               TextFormField(
-                controller: _state.nameController,
+                controller: nameController,
                 validator: CategoryValidator.validateName,
                 decoration: InputDecoration(
                   filled: true,
@@ -94,7 +88,7 @@ class AddCategory extends StatelessWidget {
               ),
               const SizedBox(height: 25),
               TextFormField(
-                controller: _state.budgetController,
+                controller: budgetController,
                 validator: CategoryValidator.validateBudget,
                 decoration: InputDecoration(
                   filled: true,
@@ -106,7 +100,13 @@ class AddCategory extends StatelessWidget {
               ElevatedButton.icon(
                   onPressed: () {
                     if (formKey.currentState!.validate()) {
-                      _state.submit(callback: callback, context: context);
+                      _state.submit(
+                        callback: callback,
+                        context: context,
+                        form: CategoryForm(
+                            name: nameController.text,
+                            budget: double.parse(budgetController.text)),
+                      );
                     }
                   },
                   icon: Icon(Icons.add_rounded),
