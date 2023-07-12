@@ -12,15 +12,6 @@ class _FormState extends ChangeNotifier {
 
   final ExpenseForm? initial;
 
-  ReceiptImage? _image;
-  TextEditingController get nameController =>
-      TextEditingController(text: initial?.name);
-  TextEditingController get categoryController =>
-      TextEditingController(text: initial?.categoryId);
-  TextEditingController get costController =>
-      TextEditingController(text: initial?.cost.toString());
-  TextEditingController get receiptController => TextEditingController(
-      text: initial?.receiptImage?.name ?? initial?.receiptImage?.data);
 
   ReceiptImage? get receiptImage => _image;
 
@@ -44,16 +35,19 @@ class _FormState extends ChangeNotifier {
     notifyListeners();
   }
 
-  void submit({required DataManager callback, required BuildContext context}) {
+  void submit(
+      {required DataManager callback,
+      required BuildContext context,
+      required ExpenseForm form}) {
     if (initial.isNull) {
-      var _cCurr = callback.getCategory(categoryController.text)!;
-      if (_cCurr.budget < double.parse(costController.text)) {
+      var _cCurr = callback.getCategory(form.categoryId)!;
+      if (_cCurr.budget < form.cost) {
         Navigation.alert(
           context: context,
           builder: (_context) => AlertDialog(
             title: Text('Confirm your expense'),
             content: Text(
-                'Your expense exceeds your budget by ${double.parse(costController.text) - _cCurr.budget}'),
+                'Your expense exceeds your budget by ${form.cost - _cCurr.budget}'),
             actions: [
               TextButton.icon(
                   icon: Icon(Icons.check_rounded),
@@ -62,12 +56,7 @@ class _FormState extends ChangeNotifier {
               TextButton.icon(
                   icon: Icon(Icons.close_rounded),
                   onPressed: () {
-                    callback.addExpense(ExpenseForm(
-                      name: nameController.text,
-                      categoryId: categoryController.text,
-                      cost: double.parse(costController.text),
-                      receiptImage: receiptImage,
-                    ));
+                    callback.addExpense(form);
                     Navigator.pop(_context);
                     Navigator.of(context).pop();
                   },
@@ -78,23 +67,11 @@ class _FormState extends ChangeNotifier {
           ),
         );
       } else {
-        callback.addExpense(ExpenseForm(
-          name: nameController.text,
-          categoryId: categoryController.text,
-          cost: double.parse(costController.text),
-          receiptImage: receiptImage,
-        ));
+        callback.addExpense(form);
         Navigator.of(context).pop();
       }
     } else if (initial!.id.isDefinedAndNotNull) {
-      callback.editExpense(
-          form: ExpenseForm(
-            name: nameController.text,
-            categoryId: categoryController.text,
-            cost: double.parse(costController.text),
-            receiptImage: receiptImage,
-          ),
-          id: initial!.id!);
+      callback.editExpense(form: form, id: initial!.id!);
     }
   }
 }
@@ -104,6 +81,11 @@ class AddExpense extends StatelessWidget {
 
   static const String id = 'add_expense';
   final Expense? expense;
+
+  final TextEditingController nameController = TextEditingController();
+  final TextEditingController categoryController = TextEditingController();
+  final TextEditingController costController = TextEditingController();
+  final TextEditingController receiptController = TextEditingController();
 
   final GlobalKey<FormState> formKey = GlobalKey();
   _FormState get _state =>
@@ -136,7 +118,7 @@ class AddExpense extends StatelessWidget {
     return ListenableBuilder(
         listenable: _state,
         builder: (context, child) {
-          switch (_state._image?.type) {
+          switch (_state.receiptImage?.type) {
             case RImageType.network:
               return Column(
                 children: [
@@ -182,7 +164,7 @@ class AddExpense extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               TextFormField(
-                controller: _state.nameController,
+                controller: nameController,
                 validator: ExpenseValidator.validateName,
                 decoration: InputDecoration(
                   filled: true,
@@ -201,12 +183,12 @@ class AddExpense extends StatelessWidget {
                   label: Text('Expense category *'),
                 ),
                 onChanged: (value) {
-                  _state.categoryController.text = value!;
+                  categoryController.text = value!;
                 },
               ),
               const SizedBox(height: 25),
               TextFormField(
-                controller: _state.costController,
+                controller: costController,
                 validator: ExpenseValidator.validateCost,
                 decoration: InputDecoration(
                   filled: true,
@@ -216,10 +198,10 @@ class AddExpense extends StatelessWidget {
               ),
               const SizedBox(height: 25),
               TextFormField(
-                controller: _state.receiptController,
+                controller: receiptController,
                 onChanged: (value) => _state.setReceiptImage(value),
                 validator: (value) => ExpenseValidator.validateReceipt(
-                    value, _state._image?.type),
+                    value, _state.receiptImage?.type),
                 decoration: InputDecoration(
                   filled: true,
                   suffixIcon: DropdownButton(
@@ -257,7 +239,15 @@ class AddExpense extends StatelessWidget {
               ElevatedButton.icon(
                 onPressed: () {
                   if (formKey.currentState!.validate()) {
-                    _state.submit(callback: callback, context: context);
+                    _state.submit(
+                      callback: callback,
+                      context: context,
+                      form: ExpenseForm(
+                          name: nameController.text,
+                          categoryId: categoryController.text,
+                          cost: double.parse(costController.text),
+                          receiptImage: _state.receiptImage),
+                    );
                   }
                 },
                 icon: Icon(Icons.add_rounded),
