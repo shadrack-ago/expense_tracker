@@ -1,3 +1,5 @@
+import 'package:expense_manager/core/models/category.dart';
+import 'package:expense_manager/core/models/expense.dart';
 import 'package:expense_manager/screens/add/category.dart';
 import 'package:expense_manager/screens/add/expense.dart';
 import 'package:expense_manager/utils/extensions/index.dart';
@@ -149,6 +151,102 @@ class Navigation {
                         ],
                       ),
                       Expanded(child: AddExpense()),
+                    ],
+                  ),
+                ),
+              ),
+            );
+          });
+    }
+  }
+
+  static editCategory(BuildContext context, {ExpenseCategory? category}) {
+    if (Breakpoints.of(context).isMobile()) {
+      Navigator.of(context).push(PageRouteBuilder(
+        pageBuilder: (_, __, ___) {
+          return Scaffold(
+            appBar: AppBar(title: Text('Edit Category')),
+            body: AddCategory(category: category),
+          );
+        },
+        transitionsBuilder: transition,
+        transitionDuration: transitionDuration,
+      ));
+    } else {
+      showDialog(
+          context: context,
+          builder: (context) {
+            return Center(
+              child: Dialog(
+                child: Padding(
+                  padding: const EdgeInsets.all(8),
+                  child: Column(
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text(
+                              'Edit Category',
+                              style: Theme.of(context).textTheme.headlineMedium,
+                            ),
+                          ),
+                          IconButton(
+                            onPressed: () => Navigator.of(context).pop(),
+                            icon: const Icon(Icons.close),
+                          )
+                        ],
+                      ),
+                      Expanded(child: AddCategory(category: category)),
+                    ],
+                  ),
+                ),
+              ),
+            );
+          });
+    }
+  }
+
+  static editExpense(BuildContext context, {Expense? expense}) {
+    if (Breakpoints.of(context).isMobile()) {
+      Navigator.of(context).push(PageRouteBuilder(
+        pageBuilder: (_, __, ___) {
+          return Scaffold(
+            appBar: AppBar(title: Text('Edit Expense')),
+            body: AddExpense(expense: expense),
+          );
+        },
+        transitionsBuilder: transition,
+        transitionDuration: transitionDuration,
+      ));
+    } else {
+      showDialog(
+          context: context,
+          builder: (context) {
+            return Center(
+              child: Dialog(
+                child: Padding(
+                  padding: const EdgeInsets.all(8),
+                  child: Column(
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text(
+                              'Edit Expense',
+                              style: Theme.of(context).textTheme.headlineMedium,
+                            ),
+                          ),
+                          IconButton(
+                            onPressed: () => Navigator.of(context).pop(),
+                            icon: const Icon(Icons.close),
+                          )
+                        ],
+                      ),
+                      Expanded(child: AddExpense(expense: expense)),
                     ],
                   ),
                 ),
