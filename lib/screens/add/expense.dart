@@ -8,7 +8,7 @@ import 'package:flutter/material.dart' hide MetaData;
 import 'package:provider/provider.dart';
 
 class _FormState extends ChangeNotifier {
-  _FormState(this.initial);
+  _FormState({this.initial});
 
   final ExpenseForm? initial;
 
@@ -88,8 +88,7 @@ class AddExpense extends StatelessWidget {
   final TextEditingController receiptController = TextEditingController();
 
   final GlobalKey<FormState> formKey = GlobalKey();
-  _FormState get _state =>
-      _FormState(ExpenseForm.fromExpense(expense, id: expense?.meta.id));
+  final _FormState _state = _FormState();
 
   /// Creates dropdowns with values of category ID
   List<DropdownMenuItem<String>> dropdownItems(BuildContext context) {
