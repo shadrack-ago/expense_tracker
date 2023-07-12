@@ -162,7 +162,7 @@ class Navigation {
 
   static editCategory(BuildContext context, {ExpenseCategory? category}) {
     if (Breakpoints.of(context).isMobile()) {
-      Navigator.of(context).push(PageRouteBuilder(
+      Navigator.of(context, rootNavigator: true).push(PageRouteBuilder(
         pageBuilder: (_, __, ___) {
           return Scaffold(
             appBar: AppBar(title: Text('Edit Category')),
@@ -210,7 +210,7 @@ class Navigation {
 
   static editExpense(BuildContext context, {Expense? expense}) {
     if (Breakpoints.of(context).isMobile()) {
-      Navigator.of(context).push(PageRouteBuilder(
+      Navigator.of(context, rootNavigator: true).push(PageRouteBuilder(
         pageBuilder: (_, __, ___) {
           return Scaffold(
             appBar: AppBar(title: Text('Edit Expense')),
