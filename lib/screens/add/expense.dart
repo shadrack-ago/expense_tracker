@@ -10,7 +10,6 @@ import 'package:provider/provider.dart';
 class _FormState extends ChangeNotifier {
   _FormState(this.initial);
 
-  final GlobalKey<FormState> key = GlobalKey();
   final ExpenseForm? initial;
 
   ReceiptImage? _image;
@@ -108,6 +107,7 @@ class AddExpense extends StatelessWidget {
   static const String id = 'add_expense';
   final Expense? expense;
 
+  final GlobalKey<FormState> formKey = GlobalKey();
   _FormState get _state =>
       _FormState(ExpenseForm.fromExpense(expense, id: expense?.meta.id));
 
@@ -177,7 +177,7 @@ class AddExpense extends StatelessWidget {
     DataManager callback = Provider.of<DataManager>(context, listen: false);
     return SingleChildScrollView(
       child: Form(
-        key: _state.key,
+        key: formKey,
         child: Padding(
           padding: const EdgeInsets.all(15),
           child: Column(
@@ -257,8 +257,11 @@ class AddExpense extends StatelessWidget {
               ),
               const SizedBox(height: 20),
               ElevatedButton.icon(
-                onPressed: () =>
-                    _state.submit(callback: callback, context: context),
+                onPressed: () {
+                  if (formKey.currentState!.validate()) {
+                    _state.submit(callback: callback, context: context);
+                  }
+                },
                 icon: Icon(Icons.add_rounded),
                 label: Text('Add expense'),
               ),
