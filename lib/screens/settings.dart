@@ -92,6 +92,11 @@ class Settings extends StatelessWidget {
                                         hint: ElevatedButton(
                                           onPressed: () {},
                                           child: Icon(Icons.more_horiz),
+                                          style: ElevatedButton.styleFrom(
+                                            shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(4)),
+                                          ),
                                         ),
                                         onChanged: (value) {},
                                       ),
@@ -144,6 +149,11 @@ class Settings extends StatelessWidget {
                                         hint: ElevatedButton(
                                           onPressed: () {},
                                           child: Icon(Icons.more_horiz),
+                                          style: ElevatedButton.styleFrom(
+                                            shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(4)),
+                                          ),
                                         ),
                                         onChanged: (value) {},
                                       ),

@@ -228,7 +228,7 @@ class AddExpense extends StatelessWidget {
                     items: [
                       DropdownMenuItem(
                           value: 1,
-                          onTap: selectCamera(),
+                          onTap: () => selectCamera(),
                           child: Row(
                             children: [
                               Icon(Icons.camera_rounded),
