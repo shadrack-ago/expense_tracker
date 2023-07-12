@@ -60,11 +60,13 @@ class _FormState {
 }
 
 class AddCategory extends StatelessWidget {
-  AddCategory({super.key, this.category});
+  AddCategory({super.key, ExpenseCategory? category}) {
+    nameController.text = category?.name ?? '';
+    budgetController.text = category?.budget.toString() ?? '';
+    _state.initial = CategoryForm.fromCategory(category);
+  }
 
   static const String id = 'add_category';
-
-  final ExpenseCategory? category;
 
   final GlobalKey<FormState> formKey = GlobalKey();
   final TextEditingController nameController = TextEditingController();
