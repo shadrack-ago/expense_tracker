@@ -110,7 +110,43 @@ class Settings extends StatelessWidget {
                                     child: ListTile(
                                       title:
                                           Text(instance.categories[index].name),
-                                      trailing: Text(''),
+                                      trailing: DropdownButton(
+                                        items: [
+                                          DropdownMenuItem(
+                                            value: 1,
+                                            onTap: () =>
+                                                Navigation.editCategory(context,
+                                                    category: instance
+                                                        .categories[index]),
+                                            child: TextButton.icon(
+                                                onPressed: () {},
+                                                icon: Icon(Icons.edit_rounded),
+                                                label: Text('Edit category')),
+                                          ),
+                                          DropdownMenuItem(
+                                            value: 1,
+                                            onTap: () =>
+                                                instance.deleteCategory(
+                                                    id: instance
+                                                        .categories[index]
+                                                        .meta
+                                                        .id),
+                                            child: TextButton.icon(
+                                                style: TextButton.styleFrom(
+                                                    foregroundColor:
+                                                        Colors.redAccent),
+                                                onPressed: () {},
+                                                icon:
+                                                    Icon(Icons.delete_rounded),
+                                                label: Text('Delete category')),
+                                          ),
+                                        ],
+                                        hint: ElevatedButton(
+                                          onPressed: () {},
+                                          child: Icon(Icons.more_horiz),
+                                        ),
+                                        onChanged: (value) {},
+                                      ),
                                     ),
                                   );
                                 },
