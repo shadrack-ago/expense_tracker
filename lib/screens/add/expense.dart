@@ -12,22 +12,22 @@ class _FormState extends ChangeNotifier {
 
   final ExpenseForm? initial;
 
-
-  ReceiptImage? get receiptImage => _image;
+  ReceiptImage? receiptImage;
 
   void setReceiptImage(String name) {
-    switch (_image?.type) {
+    switch (receiptImage?.type) {
       case null:
-        _image = ReceiptImage.fromUrl(name);
+        receiptImage = ReceiptImage.fromUrl(name);
         break;
       case RImageType.network:
-        _image!.data = NetworkImage(name);
+        receiptImage!.data = NetworkImage(name);
+        receiptImage!.name = name;
         break;
       case RImageType.file:
-        _image!.name = name;
+        receiptImage!.name = name;
         break;
       case RImageType.memory:
-        _image!.name = name;
+        receiptImage!.name = name;
         break;
       default:
     }
