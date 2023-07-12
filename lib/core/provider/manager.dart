@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:expense_manager/core/services/data.dart';
+import 'package:expense_manager/router/index.dart';
 
 import '../models/category.dart';
 import '../../utils/extensions/date.dart';
@@ -65,8 +66,10 @@ class DataManager extends ChangeNotifier {
               SnackBar(
                 content: Text(
                     'You have exceeded your budget for ${saving.key} by ${saving.value}'),
-                action:
-                    SnackBarAction(label: 'Update budget', onPressed: () {}),
+                action: SnackBarAction(
+                    label: 'Update budget',
+                    onPressed: () => Navigation.editCategory(context,
+                        category: getCategory(saving.key))),
               ),
             );
           });
