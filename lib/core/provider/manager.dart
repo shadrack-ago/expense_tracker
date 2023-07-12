@@ -36,6 +36,16 @@ class DataManager extends ChangeNotifier {
     notifyListeners();
   }
 
+  void deleteExpense({required String id}) {
+    _service.deleteExpense(id);
+    notifyListeners();
+  }
+
+  void deleteCategory({required String id}) {
+    _service.deleteCategory(id);
+    notifyListeners();
+  }
+
   ExpenseCategory? getCategory(String id) {
     ExpenseCategory? res;
     if (categories.isNotEmpty)

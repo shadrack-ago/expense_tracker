@@ -37,4 +37,8 @@ class DataService {
   void editCategory(CategoryForm form, String id) {}
 
   void editExpense(ExpenseForm form, String id) {}
+
+  void deleteCategory(String id) {}
+
+  void deleteExpense(String id) {}
 }
