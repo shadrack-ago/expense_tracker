@@ -14,9 +14,10 @@ class DataService {
       name: form.name,
       budget: form.budget,
     ));
+    return Future.value(true);
   }
 
-  addExpense(ExpenseForm form) {
+  Future<bool> addExpense(ExpenseForm form) {
     _expenses.add(Expense(
       meta: MetaData.fromId(form.name.toLowerCase()),
       name: form.name,
@@ -24,6 +25,7 @@ class DataService {
       cost: form.cost,
       receiptData: form.receiptImage,
     ));
+    return Future.value(true);
   }
 
   List<Expense> get expenses {
@@ -34,11 +36,19 @@ class DataService {
     return _categories;
   }
 
-  void editCategory(CategoryForm form, String id) {}
+  Future<bool> editCategory(CategoryForm form, String id) {
+    return Future.value(true);
+  }
 
-  void editExpense(ExpenseForm form, String id) {}
+  Future<bool> editExpense(ExpenseForm form, String id) {
+    return Future.value(true);
+  }
 
-  void deleteCategory(String id) {}
+  Future<bool> deleteCategory(String id) {
+    return Future.value(true);
+  }
 
-  void deleteExpense(String id) {}
+  Future<bool> deleteExpense(String id) {
+    return Future.value(true);
+  }
 }
