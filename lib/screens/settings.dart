@@ -78,9 +78,18 @@ class Settings extends StatelessWidget {
                                           ),
                                           DropdownMenuItem(
                                             value: 1,
-                                            onTap: () => instance.deleteExpense(
-                                                id: instance
-                                                    .expenses[index].meta.id),
+                                            onTap: () => instance
+                                                .deleteExpense(
+                                                    id: instance.expenses[index]
+                                                        .meta.id)
+                                                .then(
+                                                  (message) => context
+                                                      .showSnackbar(message),
+                                                )
+                                                .onError((String message,
+                                                        stackTrace) =>
+                                                    context
+                                                        .showSnackbar(message)),
                                             child: Row(children: [
                                               Icon(
                                                 Icons.delete_rounded,
