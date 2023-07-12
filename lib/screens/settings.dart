@@ -69,35 +69,36 @@ class Settings extends StatelessWidget {
                                                 context,
                                                 expense:
                                                     instance.expenses[index]),
-                                            child: TextButton.icon(
-                                                onPressed: () {},
-                                                icon: Icon(Icons.edit_rounded),
-                                                label: Text('Edit expense')),
+                                            child: Row(children: [
+                                              Icon(Icons.edit_rounded),
+                                              SizedBox(width: 5),
+                                              Text('Edit expense')
+                                            ]),
                                           ),
                                           DropdownMenuItem(
                                             value: 1,
                                             onTap: () => instance.deleteExpense(
                                                 id: instance
                                                     .expenses[index].meta.id),
-                                            child: TextButton.icon(
-                                                style: TextButton.styleFrom(
-                                                    foregroundColor:
-                                                        Colors.redAccent),
-                                                onPressed: () {},
-                                                icon:
-                                                    Icon(Icons.delete_rounded),
-                                                label: Text('Delete expense')),
+                                            child: Row(children: [
+                                              Icon(
+                                                Icons.delete_rounded,
+                                                color: Colors.redAccent,
+                                              ),
+                                              SizedBox(width: 5),
+                                              Text(
+                                                'Delete expense',
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .bodyLarge
+                                                    ?.copyWith(
+                                                        color:
+                                                            Colors.redAccent),
+                                              )
+                                            ]),
                                           ),
                                         ],
-                                        hint: ElevatedButton(
-                                          onPressed: () {},
-                                          child: Icon(Icons.more_horiz),
-                                          style: ElevatedButton.styleFrom(
-                                            shape: RoundedRectangleBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(4)),
-                                          ),
-                                        ),
+                                        hint: Icon(Icons.more_horiz),
                                         onChanged: (value) {},
                                       ),
                                     ),
@@ -123,10 +124,11 @@ class Settings extends StatelessWidget {
                                                 Navigation.editCategory(context,
                                                     category: instance
                                                         .categories[index]),
-                                            child: TextButton.icon(
-                                                onPressed: () {},
-                                                icon: Icon(Icons.edit_rounded),
-                                                label: Text('Edit category')),
+                                            child: Row(children: [
+                                              Icon(Icons.edit_rounded),
+                                              SizedBox(width: 5),
+                                              Text('Edit category')
+                                            ]),
                                           ),
                                           DropdownMenuItem(
                                             value: 1,
@@ -136,24 +138,29 @@ class Settings extends StatelessWidget {
                                                         .categories[index]
                                                         .meta
                                                         .id),
-                                            child: TextButton.icon(
-                                                style: TextButton.styleFrom(
-                                                    foregroundColor:
-                                                        Colors.redAccent),
-                                                onPressed: () {},
-                                                icon:
-                                                    Icon(Icons.delete_rounded),
-                                                label: Text('Delete category')),
+                                            child: Row(children: [
+                                              Icon(
+                                                Icons.delete_rounded,
+                                                color: Colors.redAccent,
+                                              ),
+                                              SizedBox(width: 5),
+                                              Text(
+                                                'Delete category',
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .bodyLarge
+                                                    ?.copyWith(
+                                                        color:
+                                                            Colors.redAccent),
+                                              )
+                                            ]),
                                           ),
                                         ],
-                                        hint: ElevatedButton(
-                                          onPressed: () {},
-                                          child: Icon(Icons.more_horiz),
-                                          style: ElevatedButton.styleFrom(
-                                            shape: RoundedRectangleBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(4)),
-                                          ),
+                                        hint: Row(
+                                          children: [
+                                            Icon(Icons.more_horiz),
+                                            SizedBox(width: 5),
+                                          ],
                                         ),
                                         onChanged: (value) {},
                                       ),
