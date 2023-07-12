@@ -63,7 +63,7 @@ class DataManager extends ChangeNotifier {
                 action: SnackBarAction(
                     label: 'Update budget',
                     onPressed: () => Navigation.editCategory(context,
-                        category: getCategory(saving.key))),
+                        category: getCategory(saving.key.toLowerCase()))),
               ),
             );
           });
