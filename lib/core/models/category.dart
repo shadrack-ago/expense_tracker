@@ -37,7 +37,7 @@ class CategoryValidator {
   static String? validateBudget(String? budget) {
     if (budget == null || budget.isEmpty)
       return 'Category should have a budget';
-    else if (int.tryParse(budget) == null)
+    else if (double.tryParse(budget) == null)
       return 'Category budget should be a number';
     return null;
   }
