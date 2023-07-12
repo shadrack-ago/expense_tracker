@@ -90,7 +90,6 @@ class AddExpense extends StatelessWidget {
   }
 
   static const String id = 'add_expense';
-  final Expense? expense;
 
   final TextEditingController nameController = TextEditingController();
   final TextEditingController categoryController = TextEditingController();
@@ -183,6 +182,9 @@ class AddExpense extends StatelessWidget {
               const SizedBox(height: 25),
               DropdownButtonFormField(
                 items: dropdownItems(context),
+                value: categoryController.text.isNotEmpty
+                    ? categoryController.text
+                    : null,
                 validator: (value) => ExpenseValidator.validateCategory(
                   value,
                   categories: retrievedCategories,
