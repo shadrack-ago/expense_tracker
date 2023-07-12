@@ -11,7 +11,6 @@ class _FormState {
   _FormState(this.initial);
 
   CategoryForm? initial;
-  final GlobalKey<FormState> key = GlobalKey();
 
   TextEditingController get nameController =>
       TextEditingController(text: initial?.name);
@@ -19,48 +18,46 @@ class _FormState {
       TextEditingController(text: initial?.budget.toString());
 
   void submit({required DataManager callback, required BuildContext context}) {
-    if (key.currentState!.validate()) {
-      if (initial.isNull) {
-        if (callback.getCategory(nameController.text.toLowerCase()) != null) {
-          Navigation.alert(
-            context: context,
-            builder: (_context) => AlertDialog(
-              title: Text('Category already exists'),
-              content: Text(
-                  'The Category already exists please create a new one or edit the category'),
-              actions: [
-                TextButton.icon(
-                    icon: Icon(Icons.arrow_back_ios_new_rounded),
-                    onPressed: () => Navigator.pop(_context),
-                    style: TextButton.styleFrom(
-                        foregroundColor: Colors.blueAccent),
-                    label: Text('Create')),
-                TextButton.icon(
-                    icon: Icon(Icons.edit_document),
-                    onPressed: () {},
-                    label: Text('Edit')),
-              ],
-            ),
-          );
-        } else {
-          Provider.of<DataManager>(context, listen: false).addCategory(
-            CategoryForm(
-              name: nameController.text,
-              budget: double.parse(budgetController.text),
-            ),
-          );
-          Navigator.pop(context);
-        }
-      } else if (initial!.id.isDefinedAndNotNull) {
-        Provider.of<DataManager>(context, listen: false).editCategory(
-          form: CategoryForm(
+    if (initial.isNull) {
+      if (callback.getCategory(nameController.text.toLowerCase()) != null) {
+        Navigation.alert(
+          context: context,
+          builder: (_context) => AlertDialog(
+            title: Text('Category already exists'),
+            content: Text(
+                'The Category already exists please create a new one or edit the category'),
+            actions: [
+              TextButton.icon(
+                  icon: Icon(Icons.arrow_back_ios_new_rounded),
+                  onPressed: () => Navigator.pop(_context),
+                  style:
+                      TextButton.styleFrom(foregroundColor: Colors.blueAccent),
+                  label: Text('Create')),
+              TextButton.icon(
+                  icon: Icon(Icons.edit_document),
+                  onPressed: () {},
+                  label: Text('Edit')),
+            ],
+          ),
+        );
+      } else {
+        Provider.of<DataManager>(context, listen: false).addCategory(
+          CategoryForm(
             name: nameController.text,
             budget: double.parse(budgetController.text),
           ),
-          id: initial!.id!,
         );
         Navigator.pop(context);
       }
+    } else if (initial!.id.isDefinedAndNotNull) {
+      Provider.of<DataManager>(context, listen: false).editCategory(
+        form: CategoryForm(
+          name: nameController.text,
+          budget: double.parse(budgetController.text),
+        ),
+        id: initial!.id!,
+      );
+      Navigator.pop(context);
     }
   }
 }
@@ -71,6 +68,8 @@ class AddCategory extends StatelessWidget {
   static const String id = 'add_category';
 
   final ExpenseCategory? category;
+
+  final GlobalKey<FormState> formKey = GlobalKey();
   _FormState get _state => _FormState(CategoryForm.fromCategory(category));
 
   @override
@@ -79,7 +78,7 @@ class AddCategory extends StatelessWidget {
 
     return SingleChildScrollView(
       child: Form(
-        key: _state.key,
+        key: formKey,
         child: Padding(
           padding: const EdgeInsets.all(15),
           child: Column(
@@ -105,8 +104,11 @@ class AddCategory extends StatelessWidget {
               ),
               const SizedBox(height: 25),
               ElevatedButton.icon(
-                  onPressed: () =>
-                      _state.submit(callback: callback, context: context),
+                  onPressed: () {
+                    if (formKey.currentState!.validate()) {
+                      _state.submit(callback: callback, context: context);
+                    }
+                  },
                   icon: Icon(Icons.add_rounded),
                   label: Text('Add Category')),
               const SizedBox(width: 20),
