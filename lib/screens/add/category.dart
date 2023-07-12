@@ -34,7 +34,13 @@ class _FormState {
                   label: Text('Create')),
               TextButton.icon(
                   icon: Icon(Icons.edit_document),
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.pop(_context);
+                    Navigator.of(context).pop();
+                    Navigation.editCategory(context,
+                        category:
+                            callback.getCategory(form.name.toLowerCase()));
+                  },
                   label: Text('Edit')),
             ],
           ),
