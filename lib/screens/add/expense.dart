@@ -72,12 +72,22 @@ class _FormState extends ChangeNotifier {
       }
     } else if (initial!.id.isDefinedAndNotNull) {
       callback.editExpense(form: form, id: initial!.id!);
+      Navigator.of(context).pop();
     }
   }
 }
 
 class AddExpense extends StatelessWidget {
-  AddExpense({super.key, this.expense});
+  AddExpense({super.key, Expense? expense}) {
+    nameController.text = expense?.name ?? '';
+    categoryController.text = expense?.categoryId ?? '';
+    costController.text = expense?.cost.toString() ?? '';
+    _state.receiptImage = expense?.receiptData;
+
+    receiptController.text = expense?.receiptData?.type == RImageType.network
+        ? expense?.receiptData?.data.url ?? ''
+        : expense?.receiptData?.name ?? '';
+  }
 
   static const String id = 'add_expense';
   final Expense? expense;
