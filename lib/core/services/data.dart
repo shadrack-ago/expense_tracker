@@ -8,7 +8,15 @@ class DataService {
   List<Expense> _expenses = [];
   List<ExpenseCategory> _categories = [];
 
-  addCategory(CategoryForm form) {
+  List<Expense> get expenses {
+    return _expenses;
+  }
+
+  List<ExpenseCategory> get categories {
+    return _categories;
+  }
+
+  Future<bool> addCategory(CategoryForm form) {
     _categories.add(ExpenseCategory(
       meta: MetaData.fromId(form.name.toLowerCase()),
       name: form.name,
@@ -26,14 +34,6 @@ class DataService {
       receiptData: form.receiptImage,
     ));
     return Future.value(true);
-  }
-
-  List<Expense> get expenses {
-    return _expenses;
-  }
-
-  List<ExpenseCategory> get categories {
-    return _categories;
   }
 
   Future<bool> editCategory(CategoryForm form, String id) {
