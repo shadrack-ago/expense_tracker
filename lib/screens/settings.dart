@@ -1,4 +1,5 @@
 import 'package:expense_manager/router/index.dart';
+import 'package:expense_manager/utils/extensions/context.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -145,12 +146,20 @@ class Settings extends StatelessWidget {
                                           ),
                                           DropdownMenuItem(
                                             value: 1,
-                                            onTap: () =>
-                                                instance.deleteCategory(
+                                            onTap: () => instance
+                                                .deleteCategory(
                                                     id: instance
                                                         .categories[index]
                                                         .meta
-                                                        .id),
+                                                        .id)
+                                                .then(
+                                                  (message) => context
+                                                      .showSnackbar(message),
+                                                )
+                                                .onError((String message,
+                                                        stackTrace) =>
+                                                    context
+                                                        .showSnackbar(message)),
                                             child: Row(children: [
                                               Icon(
                                                 Icons.delete_rounded,
