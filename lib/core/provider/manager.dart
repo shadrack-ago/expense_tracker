@@ -18,27 +18,45 @@ class DataManager extends ChangeNotifier {
   List<ExpenseCategory> get categories => _service.categories;
 
   Future addCategory(CategoryForm form) {
-    return _service.addCategory(form).then((_) => notifyListeners());
+    return _service.addCategory(form).then((message) {
+      notifyListeners();
+      return message;
+    });
   }
 
   Future addExpense(ExpenseForm form) {
-    return _service.addExpense(form).then((_) => notifyListeners());
+    return _service.addExpense(form).then((message) {
+      notifyListeners();
+      return message;
+    });
   }
 
   Future editCategory({required CategoryForm form, required String id}) {
-    return _service.editCategory(form, id).then((_) => notifyListeners());
+    return _service.editCategory(form, id).then((message) {
+      notifyListeners();
+      return message;
+    });
   }
 
   Future editExpense({required ExpenseForm form, required String id}) {
-    return _service.editExpense(form, id).then((_) => notifyListeners());
+    return _service.editExpense(form, id).then((message) {
+      notifyListeners();
+      return message;
+    });
   }
 
   Future deleteExpense({required String id}) {
-    return _service.deleteExpense(id).then((_) => notifyListeners());
+    return _service.deleteExpense(id).then((message) {
+      notifyListeners();
+      return message;
+    });
   }
 
   Future deleteCategory({required String id}) {
-    return _service.deleteCategory(id).then((_) => notifyListeners());
+    return _service.deleteCategory(id).then((message) {
+      notifyListeners();
+      return message;
+    });
   }
 
   ExpenseCategory? getCategory(String id) {
