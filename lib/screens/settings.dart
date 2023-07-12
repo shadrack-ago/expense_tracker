@@ -1,3 +1,4 @@
+import 'package:expense_manager/router/index.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -64,7 +65,10 @@ class Settings extends StatelessWidget {
                                         items: [
                                           DropdownMenuItem(
                                             value: 1,
-                                            // onTap: ,
+                                            onTap: () => Navigation.editExpense(
+                                                context,
+                                                expense:
+                                                    instance.expenses[index]),
                                             child: TextButton.icon(
                                                 onPressed: () {},
                                                 icon: Icon(Icons.edit_rounded),
@@ -72,7 +76,9 @@ class Settings extends StatelessWidget {
                                           ),
                                           DropdownMenuItem(
                                             value: 1,
-                                            // onTap: ,
+                                            onTap: () => instance.deleteExpense(
+                                                id: instance
+                                                    .expenses[index].meta.id),
                                             child: TextButton.icon(
                                                 style: TextButton.styleFrom(
                                                     foregroundColor:
