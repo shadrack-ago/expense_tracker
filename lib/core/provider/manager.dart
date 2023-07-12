@@ -17,34 +17,28 @@ class DataManager extends ChangeNotifier {
   List<Expense> get expenses => _service.expenses;
   List<ExpenseCategory> get categories => _service.categories;
 
-  void addCategory(CategoryForm form) {
-    _service.addCategory(form);
-    notifyListeners();
+  Future addCategory(CategoryForm form) {
+    return _service.addCategory(form).then((_) => notifyListeners());
   }
 
-  void addExpense(ExpenseForm form) {
-    _service.addExpense(form);
-    notifyListeners();
+  Future addExpense(ExpenseForm form) {
+    return _service.addExpense(form).then((_) => notifyListeners());
   }
 
-  void editCategory({required CategoryForm form, required String id}) {
-    _service.editCategory(form, id);
-    notifyListeners();
+  Future editCategory({required CategoryForm form, required String id}) {
+    return _service.editCategory(form, id).then((_) => notifyListeners());
   }
 
-  void editExpense({required ExpenseForm form, required String id}) {
-    _service.editExpense(form, id);
-    notifyListeners();
+  Future editExpense({required ExpenseForm form, required String id}) {
+    return _service.editExpense(form, id).then((_) => notifyListeners());
   }
 
-  void deleteExpense({required String id}) {
-    _service.deleteExpense(id);
-    notifyListeners();
+  Future deleteExpense({required String id}) {
+    return _service.deleteExpense(id).then((_) => notifyListeners());
   }
 
-  void deleteCategory({required String id}) {
-    _service.deleteCategory(id);
-    notifyListeners();
+  Future deleteCategory({required String id}) {
+    return _service.deleteCategory(id).then((_) => notifyListeners());
   }
 
   ExpenseCategory? getCategory(String id) {
