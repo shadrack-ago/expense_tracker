@@ -98,7 +98,20 @@ class Settings extends StatelessWidget {
                                             ]),
                                           ),
                                         ],
-                                        hint: Icon(Icons.more_horiz),
+                                        hint: Row(
+                                          children: [
+                                            Icon(Icons.more_horiz),
+                                            SizedBox(width: 5),
+                                            Text(
+                                              'Options',
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .bodyLarge
+                                                  ?.copyWith(
+                                                      color: Color(0xff4d4639)),
+                                            )
+                                          ],
+                                        ),
                                         onChanged: (value) {},
                                       ),
                                     ),
@@ -160,6 +173,14 @@ class Settings extends StatelessWidget {
                                           children: [
                                             Icon(Icons.more_horiz),
                                             SizedBox(width: 5),
+                                            Text(
+                                              'Options',
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .bodyLarge
+                                                  ?.copyWith(
+                                                      color: Color(0xff4d4639)),
+                                            )
                                           ],
                                         ),
                                         onChanged: (value) {},
