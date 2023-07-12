@@ -8,7 +8,7 @@ import '../../core/provider/manager.dart';
 import '../../router/index.dart';
 
 class _FormState {
-  _FormState(this.initial);
+  _FormState();
 
   CategoryForm? initial;
 
@@ -64,7 +64,7 @@ class AddCategory extends StatelessWidget {
   final TextEditingController nameController = TextEditingController();
   final TextEditingController budgetController = TextEditingController();
 
-  _FormState get _state => _FormState(CategoryForm.fromCategory(category));
+  final _FormState _state = _FormState();
 
   @override
   Widget build(BuildContext context) {

@@ -8,9 +8,9 @@ import 'package:flutter/material.dart' hide MetaData;
 import 'package:provider/provider.dart';
 
 class _FormState extends ChangeNotifier {
-  _FormState({this.initial});
+  _FormState();
 
-  final ExpenseForm? initial;
+  ExpenseForm? initial;
 
   ReceiptImage? receiptImage;
 
