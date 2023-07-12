@@ -60,7 +60,35 @@ class Settings extends StatelessWidget {
                                     child: ListTile(
                                       title:
                                           Text(instance.expenses[index].name),
-                                      trailing: Text(''),
+                                      trailing: DropdownButton(
+                                        items: [
+                                          DropdownMenuItem(
+                                            value: 1,
+                                            // onTap: ,
+                                            child: TextButton.icon(
+                                                onPressed: () {},
+                                                icon: Icon(Icons.edit_rounded),
+                                                label: Text('Edit expense')),
+                                          ),
+                                          DropdownMenuItem(
+                                            value: 1,
+                                            // onTap: ,
+                                            child: TextButton.icon(
+                                                style: TextButton.styleFrom(
+                                                    foregroundColor:
+                                                        Colors.redAccent),
+                                                onPressed: () {},
+                                                icon:
+                                                    Icon(Icons.delete_rounded),
+                                                label: Text('Delete expense')),
+                                          ),
+                                        ],
+                                        hint: ElevatedButton(
+                                          onPressed: () {},
+                                          child: Icon(Icons.more_horiz),
+                                        ),
+                                        onChanged: (value) {},
+                                      ),
                                     ),
                                   );
                                 },
