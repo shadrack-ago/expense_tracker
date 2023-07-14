@@ -50,13 +50,13 @@ extension RImageSerializer on ReceiptImage {
 
 extension MetadataSerializer on MetaData {
   Map<String, dynamic> get serialized {
-    return {'id': this.id, 'timeRecorded': this.timeRecorded};
+    return {'id': this.id, 'timeRecorded': this.timeRecorded.toIso8601String()};
   }
 
   static MetaData deserialized(Map<String, dynamic> metaObj) {
     return MetaData(
       id: metaObj['id'],
-      timeRecorded: metaObj['timeRecorded'],
+      timeRecorded: DateTime(metaObj['timeRecorded']),
     );
   }
 }
