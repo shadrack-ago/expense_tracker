@@ -1,47 +1,63 @@
-import 'package:expense_manager/core/models/category.dart';
-import 'package:expense_manager/core/models/expense.dart';
-// import 'package:localstore/localstore.dart';
+import '../models/category.dart' show CategoryForm, ExpenseCategory;
+import '../models/expense.dart' show Expense, ExpenseForm, MetaData;
+import '../serializers/category.dart';
+import '../serializers/expense.dart';
+import '../serializers/utils.dart';
+import 'package:localstore/localstore.dart';
 
 // TODO: Implement localstore persistance
 class DataService {
-  // Localstore _db = Localstore.instance;
-  List<Expense> _expenses = [];
-  List<ExpenseCategory> _categories = [];
+  Localstore _db = Localstore.instance;
 
-  List<Expense> get expenses {
-    return _expenses;
-  }
+  final String expensesPath = 'expenses';
+  final String categoriesPath = 'categories';
 
-  List<ExpenseCategory> get categories {
-    return _categories;
-  }
+  List<Expense> get expenses => [];
+
+  List<ExpenseCategory> get categories => [];
 
   Future<dynamic> addCategory(CategoryForm form) {
-    _categories.add(ExpenseCategory(
-      meta: MetaData.fromId(form.name.toLowerCase()),
-      name: form.name,
-      budget: form.budget,
-    ));
-    return Future.value();
+    return _db.collection(categoriesPath).doc(form.name.toLowerCase()).set(
+          ExpenseCategory(
+                  meta: MetaData.fromId(form.name.toLowerCase()),
+                  name: form.name,
+                  budget: form.budget)
+              .serialized,
+        );
   }
 
   Future<dynamic> addExpense(ExpenseForm form) {
-    _expenses.add(Expense(
-      meta: MetaData.fromId(form.name.toLowerCase()),
-      name: form.name,
-      categoryId: form.categoryId,
-      cost: form.cost,
-      receiptData: form.receiptImage,
-    ));
-    return Future.value();
+    return _db.collection(expensesPath).doc(form.name.toLowerCase()).set(
+          Expense(
+            meta: MetaData.fromId(form.name.toLowerCase()),
+            name: form.name,
+            cost: form.cost,
+            categoryId: form.categoryId,
+            receiptData: form.receiptImage,
+          ).serialized,
+        );
   }
 
   Future<dynamic> editCategory(CategoryForm form, String id) {
-    return Future.value();
+    return _db.collection(categoriesPath).doc(id).set(
+          ExpenseCategory(
+                  meta: MetaData.fromId(form.name.toLowerCase()),
+                  name: form.name,
+                  budget: form.budget)
+              .serialized,
+        );
   }
 
   Future<dynamic> editExpense(ExpenseForm form, String id) {
-    return Future.value();
+    return _db.collection(expensesPath).doc(id).set(
+          Expense(
+            meta: MetaData.fromId(form.name.toLowerCase()),
+            name: form.name,
+            cost: form.cost,
+            categoryId: form.categoryId,
+            receiptData: form.receiptImage,
+          ).serialized,
+        );
   }
 
   Future<String> deleteCategory(String id) {
@@ -49,6 +65,12 @@ class DataService {
   }
 
   Future<String> deleteExpense(String id) {
-    return Future.value('🎉 Successfully deleted expense');
+    return _db
+        .collection(expensesPath)
+        .doc(id)
+        .delete()
+        .then((value) => '🎉 Successfully deleted expense')
+        .onError(
+            (error, stackTrace) => '⚠️ Error occured when deleting expense');
   }
 }
