@@ -56,7 +56,7 @@ extension MetadataSerializer on MetaData {
   static MetaData deserialized(Map<String, dynamic> metaObj) {
     return MetaData(
       id: metaObj['id'],
-      timeRecorded: DateTime(metaObj['timeRecorded']),
+      timeRecorded: DateTime.parse(metaObj['timeRecorded']),
     );
   }
 }
