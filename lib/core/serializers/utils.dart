@@ -6,12 +6,12 @@ import '../models/expense.dart';
 import 'models.dart';
 
 extension Deserialization on Map<String, dynamic> {
-  MetaData get toMeta {
-    return MetadataSerializer.deserialized(this);
+  static MetaData toMeta(Map<String, dynamic> data) {
+    return MetadataSerializer.deserialized(data);
   }
 
-  static ExpenseCategory toCategory(Map<String, dynamic> data) {
-    return CategorySerializer.deserialized(data);
+  ExpenseCategory get toCategory {
+    return CategorySerializer.deserialized(this);
   }
 
   Expense get toExpense {
