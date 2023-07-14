@@ -15,7 +15,7 @@ extension ExpenseSerializer on Expense {
 
   static Expense deserialized(Map<String, dynamic> expenseObj) {
     return Expense(
-      meta: expenseObj['meta'].toMeta,
+      meta: Deserialization.toMeta(expenseObj['meta']),
       name: expenseObj['name'],
       categoryId: expenseObj['categoryId'],
       cost: expenseObj['cost'],
