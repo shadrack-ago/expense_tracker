@@ -66,7 +66,7 @@ class Navigation {
 
   static addCategory(BuildContext context) {
     if (Breakpoints.of(context).isMobile()) {
-      Navigator.of(context).push(PageRouteBuilder(
+      Navigator.of(context, rootNavigator: true).push(PageRouteBuilder(
         pageBuilder: (_, __, ___) {
           return Scaffold(
             appBar: AppBar(title: Text(AddCategory.id.nomalized())),
@@ -114,7 +114,7 @@ class Navigation {
 
   static addExpense(BuildContext context) {
     if (Breakpoints.of(context).isMobile()) {
-      Navigator.of(context).push(PageRouteBuilder(
+      Navigator.of(context, rootNavigator: true).push(PageRouteBuilder(
         pageBuilder: (_, __, ___) {
           return Scaffold(
             appBar: AppBar(title: Text(AddExpense.id.nomalized())),
