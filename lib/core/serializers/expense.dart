@@ -17,9 +17,9 @@ extension ExpenseSerializer on Expense {
     return Expense(
       meta: Deserialization.toMeta(expenseObj['meta']),
       name: expenseObj['name'],
-      categoryId: expenseObj['categoryId'],
+      categoryId: expenseObj['categoryID'],
       cost: expenseObj['cost'],
-      receiptData: expenseObj['receiptData'].toReceipt,
+      receiptData: Deserialization.toImage(expenseObj['receiptData']),
     );
   }
 }
