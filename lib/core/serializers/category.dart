@@ -11,7 +11,7 @@ extension CategorySerializer on ExpenseCategory {
     };
   }
 
-  static ExpenseCategory deserialized(Map<String, dynamic> categoryObj) {
+  static ExpenseCategory deserialized(Map categoryObj) {
     return ExpenseCategory(
       meta: Deserialization.toMeta(categoryObj['meta']),
       name: categoryObj['name'],

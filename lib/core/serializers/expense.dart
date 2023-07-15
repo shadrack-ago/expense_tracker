@@ -13,7 +13,7 @@ extension ExpenseSerializer on Expense {
     };
   }
 
-  static Expense deserialized(Map<String, dynamic> expenseObj) {
+  static Expense deserialized(Map expenseObj) {
     return Expense(
       meta: Deserialization.toMeta(expenseObj['meta']),
       name: expenseObj['name'],

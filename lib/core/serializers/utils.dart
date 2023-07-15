@@ -5,7 +5,7 @@ import 'package:expense_manager/core/serializers/expense.dart';
 import '../models/expense.dart';
 import 'models.dart';
 
-extension Deserialization on Map<String, dynamic> {
+extension Deserialization on Map {
   static MetaData toMeta(Map<String, dynamic> data) {
     return MetadataSerializer.deserialized(data);
   }

@@ -25,7 +25,7 @@ extension RImageSerializer on ReceiptImage {
     }
   }
 
-  static ReceiptImage? deserialized(Map<String, dynamic> receiptObj) {
+  static ReceiptImage? deserialized(Map receiptObj) {
     switch (receiptObj['type']) {
       case RImageType.file:
         return ReceiptImage<FileImage>(
