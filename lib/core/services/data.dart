@@ -2,7 +2,6 @@ import '../models/category.dart' show CategoryForm, ExpenseCategory;
 import '../models/expense.dart' show Expense, ExpenseForm, MetaData;
 import '../serializers/category.dart';
 import '../serializers/expense.dart';
-import '../serializers/utils.dart';
 import 'package:localstore/localstore.dart';
 
 // TODO: Implement localstore persistance
