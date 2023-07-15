@@ -10,15 +10,11 @@ class Home extends StatelessWidget {
 
   static const String id = 'home';
 
-  initialization(context) {
-    Provider.of<DataManager>(context, listen: false).listeners(context);
-  }
 
   @override
   Widget build(BuildContext context) {
     final _manager = Provider.of<DataManager>(context);
 
-    initialization(context);
     return SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

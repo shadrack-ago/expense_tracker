@@ -3,7 +3,9 @@ import 'package:expense_manager/core/models/expense.dart';
 import 'package:expense_manager/screens/add/category.dart';
 import 'package:expense_manager/screens/add/expense.dart';
 import 'package:expense_manager/utils/extensions/index.dart';
+import 'package:provider/provider.dart';
 
+import '../core/provider/manager.dart';
 import '../layouts/index.dart';
 import '../screens/home.dart';
 import '../screens/insights.dart';
@@ -13,12 +15,16 @@ import 'package:go_router/go_router.dart';
 
 class Navigation {
   static GlobalKey<NavigatorState> key = GlobalKey();
+
   final GoRouter router = GoRouter(
     navigatorKey: key,
     initialLocation: Routes.home.path,
     routes: [
       ShellRoute(
-        builder: (context, state, child) => Layout(child: child),
+        builder: (context, state, child) {
+          Provider.of<DataManager>(context, listen: false).listeners(context);
+          return Layout(child: child);
+        },
         parentNavigatorKey: key,
         routes: routes
             .map(
