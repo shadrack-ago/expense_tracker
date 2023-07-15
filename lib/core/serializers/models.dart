@@ -52,6 +52,18 @@ extension RImageSerializer on ReceiptImage {
   }
 }
 
+extension EnumSerialization on RImageType {
+  String get serialized {
+    return this.toString();
+  }
+
+  static RImageType deserialized(String value) {
+    return RImageType.values.firstWhere((e) {
+      return e.toString() == value;
+    });
+  }
+}
+
 extension ImageSerialization on dynamic {
   /// From JSON to file Image
   static FileImage toFile(Map<String, dynamic> data) {
