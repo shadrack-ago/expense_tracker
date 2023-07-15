@@ -12,9 +12,13 @@ class DataService {
   final String expensesPath = 'expenses';
   final String categoriesPath = 'categories';
 
-  List<Expense> get expenses => [];
+  Future<Map<String, dynamic>?> get expenses {
+    return _db.collection(expensesPath).get();
+  }
 
-  List<ExpenseCategory> get categories => [];
+  Future<Map<String, dynamic>?> get categories {
+    return _db.collection(categoriesPath).get();
+  }
 
   Future<dynamic> addCategory(CategoryForm form) {
     return _db.collection(categoriesPath).doc(form.name.toLowerCase()).set(
