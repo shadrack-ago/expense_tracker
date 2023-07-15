@@ -8,17 +8,17 @@ extension RImageSerializer on ReceiptImage {
     switch (this.type) {
       case RImageType.file:
         return {
-          'type': this.type,
+          'type': this.type.serialized,
           'data': ImageSerialization.fromFile(this.data),
         };
       case RImageType.network:
         return {
-          'type': this.type,
+          'type': this.type.serialized,
           'data': ImageSerialization.fromNetwork(this.data),
         };
       case RImageType.memory:
         return {
-          'type': this.type,
+          'type': this.type.serialized,
           'data': ImageSerialization.fromMemory(this.data),
         };
       default:
@@ -28,20 +28,22 @@ extension RImageSerializer on ReceiptImage {
 
   static ReceiptImage? deserialized(Map<String, dynamic>? receiptObj) {
     if (receiptObj != null) {
-      switch (receiptObj['type']) {
+      var type = EnumSerialization.deserialized(receiptObj['type']);
+
+      switch (type) {
         case RImageType.file:
           return ReceiptImage<FileImage>(
-            type: receiptObj['type'],
+            type: EnumSerialization.deserialized(receiptObj['type']),
             data: ImageSerialization.toFile(receiptObj['data']),
           );
         case RImageType.network:
           return ReceiptImage<NetworkImage>(
-            type: receiptObj['type'],
+            type: EnumSerialization.deserialized(receiptObj['type']),
             data: ImageSerialization.toNetwork(receiptObj['data']),
           );
         case RImageType.memory:
           return ReceiptImage<MemoryImage>(
-            type: receiptObj['type'],
+            type: EnumSerialization.deserialized(receiptObj['type']),
             data: ImageSerialization.toMemory(receiptObj['data']),
           );
         default:
