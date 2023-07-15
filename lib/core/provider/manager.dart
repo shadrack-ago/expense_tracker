@@ -79,7 +79,57 @@ class DataManager extends ChangeNotifier {
     return res;
   }
 
-  listeners(BuildContext context) {
+  Future get getExpenses {
+    return _service.expenses.then((value) {
+      _expenses = value?.entries.map((e) {
+            return Map.castFrom(e.value).toExpense;
+          }).toList() ??
+          [];
+    });
+  }
+
+  Future get getCategories {
+    return _service.categories.then((value) {
+      _categories = value?.entries.map<ExpenseCategory>((e) {
+            return Map.castFrom(e.value).toCategory;
+          }).toList() ??
+          [];
+    });
+  }
+
+  /// NOTICE: DO NOT DELETE, or else you want to fry your cpu
+  /// This prevents a unending loop when data is fetched for the first time
+  int _count = 1;
+
+  void syncData() {
+    getCategories.then((_) => getExpenses).then((_) {
+      if (_count <= 1) {
+        _count = _count + 1;
+        notifyListeners();
+      }
+    });
+  }
+
+  void listeners(BuildContext context) {
+    syncData();
+    addListener(() {
+      if (reload) {
+        getCategories.then((_) {
+          reload = false;
+          notifyListeners();
+        });
+      }
+    });
+
+    addListener(() {
+      if (reload) {
+        getExpenses.then((_) {
+          reload = false;
+          notifyListeners();
+        });
+      }
+    });
+
     /// Listen for overdrafts
     addListener(() {
       for (var saving in savings.entries) {
