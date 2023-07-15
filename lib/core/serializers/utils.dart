@@ -10,15 +10,15 @@ extension Deserialization on Map {
     return MetadataSerializer.deserialized(data);
   }
 
+  static ReceiptImage? toImage(Map<String, dynamic>? data) {
+    return RImageSerializer.deserialized(data);
+  }
+
   ExpenseCategory get toCategory {
     return CategorySerializer.deserialized(this);
   }
 
   Expense get toExpense {
     return ExpenseSerializer.deserialized(this);
-  }
-
-  ReceiptImage? get toImage {
-    return RImageSerializer.deserialized(this);
   }
 }
