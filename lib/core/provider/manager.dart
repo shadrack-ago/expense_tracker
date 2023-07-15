@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:expense_manager/core/serializers/utils.dart';
 import 'package:expense_manager/core/services/data.dart';
 import 'package:expense_manager/router/index.dart';
 
@@ -14,11 +15,16 @@ import '../models/expense.dart';
 class DataManager extends ChangeNotifier {
   DataService _service = DataService();
 
-  List<Expense> get expenses => _service.expenses;
-  List<ExpenseCategory> get categories => _service.categories;
+  List<Expense> _expenses = [];
+  List<ExpenseCategory> _categories = [];
+  bool reload = false;
+
+  List<Expense> get expenses => _expenses;
+  List<ExpenseCategory> get categories => _categories;
 
   Future addCategory(CategoryForm form) {
     return _service.addCategory(form).then((message) {
+      reload = true;
       notifyListeners();
       return message;
     });
@@ -26,6 +32,7 @@ class DataManager extends ChangeNotifier {
 
   Future addExpense(ExpenseForm form) {
     return _service.addExpense(form).then((message) {
+      reload = true;
       notifyListeners();
       return message;
     });
@@ -33,6 +40,7 @@ class DataManager extends ChangeNotifier {
 
   Future editCategory({required CategoryForm form, required String id}) {
     return _service.editCategory(form, id).then((message) {
+      reload = true;
       notifyListeners();
       return message;
     });
@@ -40,6 +48,7 @@ class DataManager extends ChangeNotifier {
 
   Future editExpense({required ExpenseForm form, required String id}) {
     return _service.editExpense(form, id).then((message) {
+      reload = true;
       notifyListeners();
       return message;
     });
@@ -47,6 +56,7 @@ class DataManager extends ChangeNotifier {
 
   Future deleteExpense({required String id}) {
     return _service.deleteExpense(id).then((message) {
+      reload = true;
       notifyListeners();
       return message;
     });
@@ -54,6 +64,7 @@ class DataManager extends ChangeNotifier {
 
   Future deleteCategory({required String id}) {
     return _service.deleteCategory(id).then((message) {
+      reload = true;
       notifyListeners();
       return message;
     });
