@@ -266,7 +266,11 @@ class AddExpense extends StatelessWidget {
                     items: [
                       DropdownMenuItem(
                           value: 1,
-                          onTap: () => selectCamera(context),
+                          onTap: () => selectCamera(context).then((value) {
+                                if (value != null) {
+                                  receiptController.text = value;
+                                }
+                              }),
                           child: Row(
                             children: [
                               Icon(Icons.camera_rounded),
@@ -275,7 +279,11 @@ class AddExpense extends StatelessWidget {
                           )),
                       DropdownMenuItem(
                           value: 2,
-                          onTap: () => selectGallery(),
+                          onTap: () => selectGallery().then((value) {
+                                if (value != null) {
+                                  receiptController.text = value;
+                                }
+                              }),
                           child: Row(
                             children: [
                               Icon(Icons.dashboard_customize_rounded),
