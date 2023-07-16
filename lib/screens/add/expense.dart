@@ -124,15 +124,23 @@ class AddExpense extends StatelessWidget {
 
   final ImagePicker picker = ImagePicker();
 
-  selectCamera(BuildContext context) async {
+  Future<String?> selectCamera(BuildContext context) async {
     if (kIsWeb) {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content:
               Text('😢 Selecting from camera is not supported in the web')));
     } else {
       XFile? image = await picker.pickImage(source: ImageSource.camera);
-      if (image != null) {}
+      if (image != null) {
+        _state.receiptImage = ReceiptImage<MemoryImage>(
+            type: RImageType.memory,
+            data: MemoryImage(await image.readAsBytes()));
+
+        _state.setReceiptImage(image.name);
+        return image.name;
+      }
     }
+    return null;
   }
 
   Future<String?> selectGallery() async {
