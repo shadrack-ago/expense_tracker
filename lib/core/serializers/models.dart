@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:typed_data';
 
 import '../models/expense.dart' show MetaData, RImageType, ReceiptImage;
 import 'package:flutter/material.dart' hide MetaData;
@@ -9,16 +10,19 @@ extension RImageSerializer on ReceiptImage {
       case RImageType.file:
         return {
           'type': this.type.serialized,
+          'name': this.name,
           'data': ImageSerialization.fromFile(this.data),
         };
       case RImageType.network:
         return {
           'type': this.type.serialized,
+          'name': this.name,
           'data': ImageSerialization.fromNetwork(this.data),
         };
       case RImageType.memory:
         return {
           'type': this.type.serialized,
+          'name': this.name,
           'data': ImageSerialization.fromMemory(this.data),
         };
       default:
@@ -34,16 +38,19 @@ extension RImageSerializer on ReceiptImage {
         case RImageType.file:
           return ReceiptImage<FileImage>(
             type: EnumSerialization.deserialized(receiptObj['type']),
+            name: receiptObj['name'],
             data: ImageSerialization.toFile(receiptObj['data']),
           );
         case RImageType.network:
           return ReceiptImage<NetworkImage>(
             type: EnumSerialization.deserialized(receiptObj['type']),
+            name: receiptObj['name'],
             data: ImageSerialization.toNetwork(receiptObj['data']),
           );
         case RImageType.memory:
           return ReceiptImage<MemoryImage>(
             type: EnumSerialization.deserialized(receiptObj['type']),
+            name: receiptObj['name'],
             data: ImageSerialization.toMemory(receiptObj['data']),
           );
         default:
