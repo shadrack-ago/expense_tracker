@@ -1,10 +1,14 @@
+import 'dart:io';
 import 'dart:js_interop';
 
 import 'package:expense_manager/core/models/category.dart';
 import 'package:expense_manager/core/models/expense.dart';
 import 'package:expense_manager/core/provider/manager.dart';
 import 'package:expense_manager/router/index.dart';
+import 'package:file_picker/file_picker.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart' hide MetaData;
+import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 
 class _FormState extends ChangeNotifier {
@@ -119,8 +123,30 @@ class AddExpense extends StatelessWidget {
         ];
   }
 
-  selectCamera() {}
-  selectGallery() {}
+  final ImagePicker picker = ImagePicker();
+
+  selectCamera(BuildContext context) async {
+    if (kIsWeb) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content:
+              Text('😢 Selecting from camera is not supported in the web')));
+    } else {
+      XFile? image = await picker.pickImage(source: ImageSource.camera);
+      if (image != null) {}
+    }
+  }
+
+  selectGallery() async {
+    if (kIsWeb) {
+      FilePickerResult? image =
+          await FilePicker.platform.pickFiles(type: FileType.image);
+
+      if (image != null) {}
+    } else {
+      XFile? image = await picker.pickImage(source: ImageSource.gallery);
+      if (image != null) {}
+    }
+  }
 
   buildPreview() {
     return ListenableBuilder(
@@ -219,7 +245,7 @@ class AddExpense extends StatelessWidget {
                     items: [
                       DropdownMenuItem(
                           value: 1,
-                          onTap: () => selectCamera(),
+                          onTap: () => selectCamera(context),
                           child: Row(
                             children: [
                               Icon(Icons.camera_rounded),
