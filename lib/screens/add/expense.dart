@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'dart:js_interop';
 
 import 'package:expense_manager/core/models/category.dart';
@@ -136,16 +135,30 @@ class AddExpense extends StatelessWidget {
     }
   }
 
-  selectGallery() async {
+  Future<String?> selectGallery() async {
     if (kIsWeb) {
-      FilePickerResult? image =
-          await FilePicker.platform.pickFiles(type: FileType.image);
+      FilePickerResult? image = await FilePicker.platform.pickFiles(
+          type: FileType.image, allowMultiple: false, withData: true);
 
-      if (image != null) {}
+      if (image != null) {
+        _state.receiptImage = ReceiptImage<MemoryImage>(
+            type: RImageType.memory,
+            data: MemoryImage(image.files.single.bytes!));
+        _state.setReceiptImage(image.names.single!);
+        return image.names.single!;
+      }
     } else {
       XFile? image = await picker.pickImage(source: ImageSource.gallery);
-      if (image != null) {}
+      if (image != null) {
+        _state.receiptImage = ReceiptImage<MemoryImage>(
+            type: RImageType.memory,
+            data: MemoryImage(await image.readAsBytes()));
+
+        _state.setReceiptImage(image.name);
+        return image.name;
+      }
     }
+    return null;
   }
 
   buildPreview() {
