@@ -86,7 +86,7 @@ extension ImageSerialization on dynamic {
 
   /// From JSON to memory Image
   static MemoryImage toMemory(Map<String, dynamic> data) {
-    return MemoryImage(data['raw']);
+    return MemoryImage(Uint8List.fromList(List<int>.from(data['raw'])));
   }
 
   /// From fileImage to JSON
