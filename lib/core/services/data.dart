@@ -4,7 +4,6 @@ import '../serializers/category.dart';
 import '../serializers/expense.dart';
 import 'package:localstore/localstore.dart';
 
-// TODO: Implement localstore persistance
 class DataService {
   Localstore _db = Localstore.instance;
 
