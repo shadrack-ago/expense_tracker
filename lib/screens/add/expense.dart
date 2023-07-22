@@ -1,5 +1,3 @@
-import 'dart:js_interop';
-
 import 'package:expense_manager/core/models/category.dart';
 import 'package:expense_manager/core/models/expense.dart';
 import 'package:expense_manager/core/provider/manager.dart';
@@ -42,7 +40,7 @@ class _FormState extends ChangeNotifier {
       {required DataManager callback,
       required BuildContext context,
       required ExpenseForm form}) {
-    if (initial.isNull) {
+    if (initial == null) {
       var _cCurr = callback.getCategory(form.categoryId)!;
       if (_cCurr.budget < form.cost) {
         Navigation.alert(
@@ -73,7 +71,7 @@ class _FormState extends ChangeNotifier {
         callback.addExpense(form);
         Navigator.of(context).pop();
       }
-    } else if (initial!.id.isDefinedAndNotNull) {
+    } else if (initial!.id != null) {
       callback.editExpense(form: form, id: initial!.id!);
       Navigator.of(context).pop();
     }

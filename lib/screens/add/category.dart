@@ -1,5 +1,3 @@
-import 'dart:js_interop';
-
 import 'package:expense_manager/core/models/category.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -17,7 +15,7 @@ class _FormState {
     required BuildContext context,
     required CategoryForm form,
   }) {
-    if (initial.isNull) {
+    if (initial == null) {
       if (callback.getCategory(form.name.toLowerCase()) != null) {
         Navigation.alert(
           context: context,
@@ -49,7 +47,7 @@ class _FormState {
         Provider.of<DataManager>(context, listen: false).addCategory(form);
         Navigator.pop(context);
       }
-    } else if (initial!.id.isDefinedAndNotNull) {
+    } else if (initial!.id != null) {
       Provider.of<DataManager>(context, listen: false).editCategory(
         form: form,
         id: initial!.id!,
