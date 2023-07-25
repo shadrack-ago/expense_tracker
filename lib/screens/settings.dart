@@ -62,68 +62,37 @@ class Settings extends StatelessWidget {
                                     child: ListTile(
                                       title:
                                           Text(instance.expenses[index].name),
-                                      // trailing: DropdownButton(
-                                      //   items: [
-                                      //     DropdownMenuItem(
-                                      //       value: 1,
-                                      //       onTap: () => Navigation.editExpense(
-                                      //           context,
-                                      //           expense:
-                                      //               instance.expenses[index]),
-                                      //       child: Row(children: [
-                                      //         Icon(Icons.edit_rounded),
-                                      //         SizedBox(width: 5),
-                                      //         Text('Edit expense')
-                                      //       ]),
-                                      //     ),
-                                      //     DropdownMenuItem(
-                                      //       value: 1,
-                                      //       onTap: () => instance
-                                      //           .deleteExpense(
-                                      //               id: instance.expenses[index]
-                                      //                   .meta.id)
-                                      //           .then(
-                                      //             (message) => context
-                                      //                 .showSnackbar(message),
-                                      //           )
-                                      //           .onError((String message,
-                                      //                   stackTrace) =>
-                                      //               context
-                                      //                   .showSnackbar(message)),
-                                      //       child: Row(children: [
-                                      //         Icon(
-                                      //           Icons.delete_rounded,
-                                      //           color: Colors.redAccent,
-                                      //         ),
-                                      //         SizedBox(width: 5),
-                                      //         Text(
-                                      //           'Delete expense',
-                                      //           style: Theme.of(context)
-                                      //               .textTheme
-                                      //               .bodyLarge
-                                      //               ?.copyWith(
-                                      //                   color:
-                                      //                       Colors.redAccent),
-                                      //         )
-                                      //       ]),
-                                      //     ),
-                                      //   ],
-                                      //   hint: Row(
-                                      //     children: [
-                                      //       Icon(Icons.more_horiz),
-                                      //       SizedBox(width: 5),
-                                      //       Text(
-                                      //         'Options',
-                                      //         style: Theme.of(context)
-                                      //             .textTheme
-                                      //             .bodyLarge
-                                      //             ?.copyWith(
-                                      //                 color: Color(0xff4d4639)),
-                                      //       )
-                                      //     ],
-                                      //   ),
-                                      //   onChanged: (value) {},
-                                      // ),
+                                      trailing: DropdownButton(
+                                        items: [
+                                          DropdownMenuItem(
+                                            value: 1,
+                                            onTap: () => Navigation.viewExpense(
+                                                context,
+                                                expense:
+                                                    instance.expenses[index]),
+                                            child: Row(children: [
+                                              Icon(Icons.edit_rounded),
+                                              SizedBox(width: 5),
+                                              Text('View expense')
+                                            ]),
+                                          ),
+                                        ],
+                                        hint: Row(
+                                          children: [
+                                            Icon(Icons.more_horiz),
+                                            SizedBox(width: 5),
+                                            Text(
+                                              'Options',
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .bodyLarge
+                                                  ?.copyWith(
+                                                      color: Color(0xff4d4639)),
+                                            )
+                                          ],
+                                        ),
+                                        onChanged: (value) {},
+                                      ),
                                     ),
                                   );
                                 },
@@ -151,39 +120,6 @@ class Settings extends StatelessWidget {
                                               Icon(Icons.edit_rounded),
                                               SizedBox(width: 5),
                                               Text('Edit category')
-                                            ]),
-                                          ),
-                                          DropdownMenuItem(
-                                            value: 1,
-                                            onTap: () => instance
-                                                .deleteCategory(
-                                                    id: instance
-                                                        .categories[index]
-                                                        .meta
-                                                        .id)
-                                                .then(
-                                                  (message) => context
-                                                      .showSnackbar(message),
-                                                )
-                                                .onError((String message,
-                                                        stackTrace) =>
-                                                    context
-                                                        .showSnackbar(message)),
-                                            child: Row(children: [
-                                              Icon(
-                                                Icons.delete_rounded,
-                                                color: Colors.redAccent,
-                                              ),
-                                              SizedBox(width: 5),
-                                              Text(
-                                                'Delete category',
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .bodyLarge
-                                                    ?.copyWith(
-                                                        color:
-                                                            Colors.redAccent),
-                                              )
                                             ]),
                                           ),
                                         ],

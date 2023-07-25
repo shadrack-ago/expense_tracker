@@ -214,6 +214,55 @@ class Navigation {
     }
   }
 
+
+  static viewExpense(BuildContext context, {Expense? expense}) {
+    if (Breakpoints.of(context).isMobile()) {
+      Navigator.of(context, rootNavigator: true).push(PageRouteBuilder(
+        pageBuilder: (_, __, ___) {
+          return Scaffold(
+            appBar: AppBar(title: Text('Edit Expense')),
+            body: AddExpense(expense: expense),
+          );
+        },
+        transitionsBuilder: transition,
+        transitionDuration: transitionDuration,
+      ));
+    } else {
+      showDialog(
+          context: context,
+          builder: (context) {
+            return Center(
+              child: Dialog(
+                child: Padding(
+                  padding: const EdgeInsets.all(8),
+                  child: Column(
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text(
+                              'Edit Expense',
+                              style: Theme.of(context).textTheme.headlineMedium,
+                            ),
+                          ),
+                          IconButton(
+                            onPressed: () => Navigator.of(context).pop(),
+                            icon: const Icon(Icons.close),
+                          )
+                        ],
+                      ),
+                      Expanded(child: AddExpense(expense: expense)),
+                    ],
+                  ),
+                ),
+              ),
+            );
+          });
+    }
+  }
+
   static editExpense(BuildContext context, {Expense? expense}) {
     if (Breakpoints.of(context).isMobile()) {
       Navigator.of(context, rootNavigator: true).push(PageRouteBuilder(
