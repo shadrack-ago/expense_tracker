@@ -1,5 +1,4 @@
 import 'package:expense_manager/router/index.dart';
-import 'package:expense_manager/utils/extensions/context.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -68,6 +67,7 @@ class Settings extends StatelessWidget {
                                             value: 1,
                                             onTap: () => Navigation.viewExpense(
                                                 context,
+                                                enabled: false,
                                                 expense:
                                                     instance.expenses[index]),
                                             child: Row(children: [

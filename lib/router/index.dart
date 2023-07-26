@@ -214,14 +214,14 @@ class Navigation {
     }
   }
 
-
-  static viewExpense(BuildContext context, {Expense? expense}) {
+  static viewExpense(BuildContext context,
+      {Expense? expense, bool enabled = true}) {
     if (Breakpoints.of(context).isMobile()) {
       Navigator.of(context, rootNavigator: true).push(PageRouteBuilder(
         pageBuilder: (_, __, ___) {
           return Scaffold(
-            appBar: AppBar(title: Text('Edit Expense')),
-            body: AddExpense(expense: expense),
+            appBar: AppBar(title: Text('View Expense')),
+            body: AddExpense(expense: expense, enabled: enabled),
           );
         },
         transitionsBuilder: transition,
@@ -243,7 +243,7 @@ class Navigation {
                           Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Text(
-                              'Edit Expense',
+                              'View Expense',
                               style: Theme.of(context).textTheme.headlineMedium,
                             ),
                           ),
@@ -253,7 +253,9 @@ class Navigation {
                           )
                         ],
                       ),
-                      Expanded(child: AddExpense(expense: expense)),
+                      Expanded(
+                          child:
+                              AddExpense(expense: expense, enabled: enabled)),
                     ],
                   ),
                 ),
