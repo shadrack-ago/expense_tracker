@@ -79,7 +79,7 @@ class _FormState extends ChangeNotifier {
 }
 
 class AddExpense extends StatelessWidget {
-  AddExpense({super.key, Expense? expense}) {
+  AddExpense({super.key, Expense? expense, this.enabled = true}) {
     nameController.text = expense?.name ?? '';
     categoryController.text = expense?.categoryId ?? '';
     costController.text = expense?.cost.toString() ?? '';
@@ -91,6 +91,7 @@ class AddExpense extends StatelessWidget {
   }
 
   static const String id = 'add_expense';
+  final bool enabled;
 
   final TextEditingController nameController = TextEditingController();
   final TextEditingController categoryController = TextEditingController();
@@ -219,6 +220,7 @@ class AddExpense extends StatelessWidget {
               TextFormField(
                 controller: nameController,
                 validator: ExpenseValidator.validateName,
+                enabled: enabled,
                 decoration: InputDecoration(
                   filled: true,
                   label: Text('Expense name *'),
@@ -236,15 +238,19 @@ class AddExpense extends StatelessWidget {
                 ),
                 decoration: InputDecoration(
                   filled: true,
+                  enabled: enabled,
                   label: Text('Expense category *'),
                 ),
-                onChanged: (value) {
-                  categoryController.text = value!;
-                },
+                onChanged: enabled
+                    ? (value) {
+                        categoryController.text = value! as String;
+                      }
+                    : null,
               ),
               const SizedBox(height: 25),
               TextFormField(
                 controller: costController,
+                enabled: enabled,
                 validator: ExpenseValidator.validateCost,
                 decoration: InputDecoration(
                   filled: true,
@@ -255,6 +261,7 @@ class AddExpense extends StatelessWidget {
               const SizedBox(height: 25),
               TextFormField(
                 controller: receiptController,
+                enabled: enabled,
                 onChanged: (value) => _state.setReceiptImage(value),
                 validator: (value) => ExpenseValidator.validateReceipt(
                     value, _state.receiptImage?.type),
@@ -301,19 +308,21 @@ class AddExpense extends StatelessWidget {
               ),
               const SizedBox(height: 20),
               ElevatedButton.icon(
-                onPressed: () {
-                  if (formKey.currentState!.validate()) {
-                    _state.submit(
-                      callback: callback,
-                      context: context,
-                      form: ExpenseForm(
-                          name: nameController.text,
-                          categoryId: categoryController.text,
-                          cost: double.parse(costController.text),
-                          receiptImage: _state.receiptImage),
-                    );
-                  }
-                },
+                onPressed: enabled
+                    ? () {
+                        if (formKey.currentState!.validate()) {
+                          _state.submit(
+                            callback: callback,
+                            context: context,
+                            form: ExpenseForm(
+                                name: nameController.text,
+                                categoryId: categoryController.text,
+                                cost: double.parse(costController.text),
+                                receiptImage: _state.receiptImage),
+                          );
+                        }
+                      }
+                    : null,
                 icon: Icon(Icons.add_rounded),
                 label: Text('Add expense'),
               ),
