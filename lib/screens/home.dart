@@ -5,11 +5,20 @@ import 'package:fl_heatmap/fl_heatmap.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../core/models/expense.dart';
+
 class Home extends StatelessWidget {
   Home({super.key});
 
   static const String id = 'home';
 
+  double expense(List<Expense> data) {
+    double res = 0;
+    data.forEach((element) {
+      res = res + element.cost;
+    });
+    return res;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -24,9 +33,17 @@ class Home extends StatelessWidget {
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    Text(
-                      'Daily Expenses Tracker',
-                      style: Theme.of(context).textTheme.headlineMedium,
+                    Column(
+                      children: [
+                        Text(
+                          'Daily Expenses Tracker',
+                          style: Theme.of(context).textTheme.headlineMedium,
+                        ),
+                        Text(
+                          'Total expense: ${expense(_manager.expenses)}',
+                          style: Theme.of(context).textTheme.headlineSmall,
+                        ),
+                      ],
                     ),
                     SizedBox(height: 10),
                     DefaultTabController(
@@ -78,9 +95,19 @@ class Home extends StatelessWidget {
                   children: [
                     Expanded(
                         flex: 1,
-                        child: Text(
-                          'Daily Expenses Tracker',
-                          style: Theme.of(context).textTheme.headlineMedium,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Daily Expenses Tracker',
+                              style: Theme.of(context).textTheme.headlineMedium,
+                            ),
+                            SizedBox(height: 20),
+                            Text(
+                              'Total expense: ${expense(_manager.expenses)}',
+                              style: Theme.of(context).textTheme.headlineSmall,
+                            ),
+                          ],
                         )),
                     Expanded(
                         child: DefaultTabController(
